@@ -1,8 +1,7 @@
-package DrawTeste;
+package Drawing;
 import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.geom.*;
-
 public class Draw extends JPanel{
 	
 	public void paintComponent(Graphics g) {
@@ -53,5 +52,7 @@ public class Draw extends JPanel{
 		//System.out.println(topY);
 	}
 }
+	//Fazer desenha Tabuleiro
+	//Fazer desenha Peças
 
 }

@@ -1,4 +1,4 @@
-package DrawTeste;
+package Drawing;
 import javax.swing.*;
 public class Principal  {
 

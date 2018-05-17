@@ -1,4 +1,4 @@
-package DrawTeste;
+package Drawing;
 
 public class Tabuleiro {
 
