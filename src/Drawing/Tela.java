@@ -8,13 +8,13 @@ public class Tela extends JFrame {
 	public final int ALT_DEFAULT=800;
 	
 	public Tela() {
-	setSize(LARG_DEFAULT,ALT_DEFAULT);
-	setLocationRelativeTo(null);
-	setDefaultCloseOperation(EXIT_ON_CLOSE);
-	setResizable(false);
-	setTitle("Chess Game");
-	//Teste de desenhar alguma coisa na tela
-	JLabel teste;
+		setSize(LARG_DEFAULT,ALT_DEFAULT);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
+		setTitle("Chess Game");
+		//Teste de desenhar alguma coisa na tela
+		JLabel teste;
 	
 	}
 }
