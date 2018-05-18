@@ -48,6 +48,7 @@ public class ListaImagens {
 	
 	void addPeaoC() {
 		PeaoC[tampC]=pC;
+		//PeaoC.length;
 		tampC++;
 	}
 	void addPeaoP() {

@@ -3,13 +3,18 @@ package Drawing;
 import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.geom.*;
+import javax.imageio.*;
 
 public class Draw extends JPanel{	
 	private ListaImagens li;
 	
 	public Draw() {  } 
 
-	public Draw(ListaImagens l) { li=l; } 
+	public Draw(ListaImagens l) 
+	{
+		li=new ListaImagens();
+		li=l;
+	} 
 	
 	public void paintComponent(Graphics g) 
 	{
@@ -17,18 +22,18 @@ public class Draw extends JPanel{
 		Graphics2D g2d=(Graphics2D) g;
 		
 		//Pega as imagens
-	/*	Image []PeaoC = li.getPeaoC();
-		Image []PeaoP = li.getPeaoP();
-		Image []CavaloC = li.getCavaloC();
-		Image []CavaloP = li.getCavaloP();
-		Image []BispoC = li.getBispoC();
-		Image []BispoP = li.getBispoP();
-		Image []TorreC = li.getTorreC();
-		Image []TorreP = li.getTorreP();
-		Image []RainhaC = li.getRainhaC();
-		Image []RainhaP = li.getRainhaP();
-		Image []ReiC = li.getReiC();
-		Image []ReiP = li.getReiP();*/
+		//Image []PeaoC = li.getPeaoC();
+//		Image []PeaoP = li.getPeaoP();
+//		Image []CavaloC = li.getCavaloC();
+//		Image []CavaloP = li.getCavaloP();
+//		Image []BispoC = li.getBispoC();
+//		Image []BispoP = li.getBispoP();
+//		Image []TorreC = li.getTorreC();
+//		Image []TorreP = li.getTorreP();
+//		Image []RainhaC = li.getRainhaC();
+//		Image []RainhaP = li.getRainhaP();
+//		Image []ReiC = li.getReiC();
+//		Image []ReiP = li.getReiP();
 		
 				
 		// Desenha retângulo
