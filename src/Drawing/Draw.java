@@ -1,21 +1,24 @@
 package Drawing;
 
 import javax.swing.JPanel;
+
+import Tabuleiro.Peao;
+
 import java.awt.*;
 import java.awt.geom.*;
 import javax.imageio.*;
 
 public class Draw extends JPanel{	
-	private ListaImagens li;
-	
-	public Draw() {  } 
-
-	public Draw(ListaImagens l) 
-	{
-		li=new ListaImagens();
-		li=l;
-	} 
-	
+//	private ListaImagens li;
+//	
+//	public Draw() {  } 
+//
+//	public Draw(ListaImagens l) 
+//	{
+//		li=new ListaImagens();
+//		li=l;
+//	} 
+//	
 	public void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
@@ -60,6 +63,7 @@ public class Draw extends JPanel{
 					g2d.setPaint(Color1);
 					g2d.fill(rt);
 					branco=false;
+					Peao.Draw(g2d, leftX,topY);
 				}
 				else
 				{
