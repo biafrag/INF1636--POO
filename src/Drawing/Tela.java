@@ -1,5 +1,5 @@
 package Drawing;
-import javax.swing.*;
+//import javax.swing.*;
 import javax.swing.JFrame;
 
 public class Tela extends JFrame {
@@ -14,7 +14,7 @@ public class Tela extends JFrame {
 		setResizable(false);
 		setTitle("Chess Game");
 		//Teste de desenhar alguma coisa na tela
-		JLabel teste;
+		//JLabel teste;
 	
 	}
 }

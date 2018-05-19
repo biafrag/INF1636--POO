@@ -1,36 +1,24 @@
 package Drawing;
 
 import javax.swing.JPanel;
+
+import Tabuleiro.Peao;
+import Tabuleiro.Bispo;
+import Tabuleiro.Cavalo;
+import Tabuleiro.Rainha;
+import Tabuleiro.Rei;
+import Tabuleiro.Torre;
+
 import java.awt.*;
 import java.awt.geom.*;
 
 public class Draw extends JPanel{	
-	private ListaImagens li;
-	
-	public Draw() {  } 
-
-	public Draw(ListaImagens l) { li=l; } 
 	
 	public void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
 		
-		//Pega as imagens
-	/*	Image []PeaoC = li.getPeaoC();
-		Image []PeaoP = li.getPeaoP();
-		Image []CavaloC = li.getCavaloC();
-		Image []CavaloP = li.getCavaloP();
-		Image []BispoC = li.getBispoC();
-		Image []BispoP = li.getBispoP();
-		Image []TorreC = li.getTorreC();
-		Image []TorreP = li.getTorreP();
-		Image []RainhaC = li.getRainhaC();
-		Image []RainhaP = li.getRainhaP();
-		Image []ReiC = li.getReiC();
-		Image []ReiP = li.getReiP();*/
-		
-				
 		// Desenha retângulo
 		double leftX=0.0;
 		double topY=00.0;
@@ -76,8 +64,30 @@ public class Draw extends JPanel{
 			//System.out.println(topY);
 		}
 		
-		//g.drawImage(TorreC[0],0,0,null);
+		//TESTANDO O DESENHO DAS PEÇAS - POSIÇÃO INICIAL
+		int teste =10;
+		Torre.Draw(g2d,30,10,1);
+		Cavalo.Draw(g2d,30,110,1);
+		Bispo.Draw(g2d,30,210,1);
+		Rainha.Draw(g2d,30,300,1);
+		Rei.Draw(g2d,30,395,1);
+		Bispo.Draw(g2d,30,490,1);
+		Cavalo.Draw(g2d,30,580,1);
+		Torre.Draw(g2d,30,670,1);
+		for(int i=0; i<8; i++) {
+			Peao.Draw(g2d,155,teste,1);
+			Peao.Draw(g2d,780,teste,2);
+			teste+=(100 - (i*2));
+		}
+		Torre.Draw(g2d,900,10,2);
+		Cavalo.Draw(g2d,900,110,2);
+		Bispo.Draw(g2d,900,210,2);
+		Rainha.Draw(g2d,900,300,2);
+		Rei.Draw(g2d,900,395,2);
+		Bispo.Draw(g2d,900,490,2);
+		Cavalo.Draw(g2d,900,580,2);
+		Torre.Draw(g2d,900,670,2);
 	}
+		
 	//Fazer desenha Tabuleiro
-	//Fazer desenha Peças
 }
