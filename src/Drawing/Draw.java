@@ -13,7 +13,6 @@ import java.awt.*;
 import java.awt.geom.*;
 
 public class Draw extends JPanel{	
-	
 	public void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
@@ -42,7 +41,7 @@ public class Draw extends JPanel{
 				{
 					g2d.setPaint(Color1);
 					g2d.fill(rt);
-					branco=false;
+					branco=false;				
 				}
 				else
 				{
