@@ -6,36 +6,36 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Peao extends Pecas {
-				
-	public static Image CarregaImagem(int Jogador)
+import Drawing.Cor;
+
+public class Peao extends Peca {
+	public Peao(Cor cor)
 	{
-		if (Jogador == 1) 
+		CarregaImagem(cor);
+	}
+	private void CarregaImagem(Cor cor)
+	{
+		if (cor == Cor.Escuro) 
 		{
 			try {
-				a=ImageIO.read(new File(url + "PurpleP.png"));
+				image=ImageIO.read(new File(url + "PurpleP.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());
 				System.exit(1);
 			}
 		}
-		else if (Jogador == 2)
+		else if (cor == Cor.Claro)
 		{
 			try {
-				a=ImageIO.read(new File(url + "CyanP.png"));
+				image=ImageIO.read(new File(url + "CyanP.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());
 				System.exit(1);
 			}
 		}
-		
-		return a;
+
 	}
 	
-	public static void Draw(Graphics2D a,double posX,double posY, int Jogador)
-	{
-		a.drawImage(CarregaImagem(Jogador),(int)posX,(int)posY,null); //POR ENQUANTO IREI DEIXAR O TYPECAST		
-	}
 }

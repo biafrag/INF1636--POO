@@ -9,9 +9,6 @@ public class Principal  {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Draw panel = new Draw();
         f.add(panel);
-        //f.repaint();
-        //f.pack();
-        //f.setVisible(true);
 		}
 
 }

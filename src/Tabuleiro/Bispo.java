@@ -6,35 +6,36 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class Bispo extends Pecas {
-	public static Image CarregaImagem(int Jogador)
+import Drawing.Cor;
+
+public class Bispo extends Peca {
+	public Bispo(Cor cor)
 	{
-		if (Jogador == 1) 
+		CarregaImagem(cor);
+	}
+	private void CarregaImagem(Cor cor)
+	{
+		if (cor == Cor.Escuro) 
 		{
 			try {
-				a=ImageIO.read(new File(url + "PurpleB.png"));
+				image=ImageIO.read(new File(url + "PurpleB.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());
 				System.exit(1);
 			}
 		}
-		else if (Jogador == 2)
+		else if (cor == Cor.Claro)
 		{
 			try {
-				a=ImageIO.read(new File(url + "CyanB.png"));
+				image=ImageIO.read(new File(url + "CyanB.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());
 				System.exit(1);
 			}
 		}
-		
-		return a;
+
 	}
 	
-	public static void Draw(Graphics2D a,double posX,double posY, int Jogador)
-	{
-		a.drawImage(CarregaImagem(Jogador),(int)posX,(int)posY,null); //POR ENQUANTO IREI DEIXAR O TYPECAST		
-	}
 }

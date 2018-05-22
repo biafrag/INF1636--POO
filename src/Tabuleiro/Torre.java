@@ -7,37 +7,37 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Torre extends Pecas {
+import Drawing.Cor;
+
+public class Torre extends Peca {
 	
-	public static Image CarregaImagem(int Jogador)
+	public Torre(Cor cor)
 	{
-		if (Jogador == 1) 
+		CarregaImagem(cor);
+	}
+	private void CarregaImagem(Cor cor)
+	{
+		if (cor == Cor.Escuro) 
 		{
 			try {
-				a=ImageIO.read(new File(url + "PurpleR.png"));
+				image=ImageIO.read(new File(url + "PurpleR.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());
 				System.exit(1);
 			}
 		}
-		else if (Jogador == 2)
+		else if (cor == Cor.Claro)
 		{
 			try {
-				a=ImageIO.read(new File(url + "CyanR.png"));
+				image=ImageIO.read(new File(url + "CyanR.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());
 				System.exit(1);
 			}
 		}
-		
-		return a;
+
 	}
-	
-	public static void Draw(Graphics2D a,double posX,double posY, int Jogador)
-	{
-		a.drawImage(CarregaImagem(Jogador),(int)posX,(int)posY,null); //POR ENQUANTO IREI DEIXAR O TYPECAST		
-	}
-	
 }
+	

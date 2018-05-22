@@ -7,35 +7,35 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Rainha extends Pecas {
-	public static Image CarregaImagem(int Jogador)
+import Drawing.Cor;
+
+public class Rainha extends Peca {
+	public Rainha(Cor cor)
 	{
-		if (Jogador == 1) 
-		{
-			try {
-				a=ImageIO.read(new File(url + "PurpleQ.png"));
-			}
-			catch(IOException e) {
-				System.out.println(e.getMessage());
-				System.exit(1);
-			}
-		}
-		else if (Jogador == 2)
-		{
-			try {
-				a=ImageIO.read(new File(url + "CyanQ.png"));
-			}
-			catch(IOException e) {
-				System.out.println(e.getMessage());
-				System.exit(1);
-			}
-		}
-		
-		return a;
+		CarregaImagem(cor);
 	}
-	
-	public static void Draw(Graphics2D a,double posX,double posY, int Jogador)
+	private void CarregaImagem(Cor cor)
 	{
-		a.drawImage(CarregaImagem(Jogador),(int)posX,(int)posY,null); //POR ENQUANTO IREI DEIXAR O TYPECAST		
+		if (cor == Cor.Escuro) 
+		{
+			try {
+				image=ImageIO.read(new File(url + "PurpleQ.png"));
+			}
+			catch(IOException e) {
+				System.out.println(e.getMessage());
+				System.exit(1);
+			}
+		}
+		else if (cor == Cor.Claro)
+		{
+			try {
+				image=ImageIO.read(new File(url + "CyanQ.png"));
+			}
+			catch(IOException e) {
+				System.out.println(e.getMessage());
+				System.exit(1);
+			}
+		}
+
 	}
 }
