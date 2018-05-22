@@ -20,7 +20,7 @@ public class Cavalo extends Peca {
 		if (cor == Cor.Escuro) 
 		{
 			try {
-				image=ImageIO.read(new File(url + "PurpleN.png"));
+				image=ImageIO.read(new File(path+ "PurpleN.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());
@@ -30,7 +30,7 @@ public class Cavalo extends Peca {
 		else if (cor == Cor.Claro)
 		{
 			try {
-				image=ImageIO.read(new File(url + "CyanN.png"));
+				image=ImageIO.read(new File(path + "CyanN.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());

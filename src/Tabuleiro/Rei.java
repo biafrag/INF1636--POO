@@ -20,7 +20,7 @@ public class Rei extends Peca {
 		if (cor == Cor.Escuro) 
 		{
 			try {
-				image=ImageIO.read(new File(url + "PurpleK.png"));
+				image=ImageIO.read(new File(path + "PurpleK.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());
@@ -30,7 +30,7 @@ public class Rei extends Peca {
 		else if (cor == Cor.Claro)
 		{
 			try {
-				image=ImageIO.read(new File(url + "CyanK.png"));
+				image=ImageIO.read(new File(path + "CyanK.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());

@@ -18,7 +18,7 @@ public class Peao extends Peca {
 		if (cor == Cor.Escuro) 
 		{
 			try {
-				image=ImageIO.read(new File(url + "PurpleP.png"));
+				image=ImageIO.read(new File(path + "PurpleP.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());
@@ -28,7 +28,7 @@ public class Peao extends Peca {
 		else if (cor == Cor.Claro)
 		{
 			try {
-				image=ImageIO.read(new File(url + "CyanP.png"));
+				image=ImageIO.read(new File(path + "CyanP.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());

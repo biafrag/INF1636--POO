@@ -20,7 +20,7 @@ public class Torre extends Peca {
 		if (cor == Cor.Escuro) 
 		{
 			try {
-				image=ImageIO.read(new File(url + "PurpleR.png"));
+				image=ImageIO.read(new File(path + "PurpleR.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());
@@ -30,7 +30,7 @@ public class Torre extends Peca {
 		else if (cor == Cor.Claro)
 		{
 			try {
-				image=ImageIO.read(new File(url + "CyanR.png"));
+				image=ImageIO.read(new File(path + "CyanR.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());

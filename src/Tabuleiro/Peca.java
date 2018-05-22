@@ -5,7 +5,7 @@ import java.awt.Image;
 import Drawing.Cor;
 public abstract class Peca  {	
 	
-	static String url = "src/Imagens/";
+	static String path = "src/Imagens/";
 		
 	protected Image image;
 	

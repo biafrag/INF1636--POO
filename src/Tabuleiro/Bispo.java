@@ -18,7 +18,7 @@ public class Bispo extends Peca {
 		if (cor == Cor.Escuro) 
 		{
 			try {
-				image=ImageIO.read(new File(url + "PurpleB.png"));
+				image=ImageIO.read(new File(path + "PurpleB.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());
@@ -28,7 +28,7 @@ public class Bispo extends Peca {
 		else if (cor == Cor.Claro)
 		{
 			try {
-				image=ImageIO.read(new File(url + "CyanB.png"));
+				image=ImageIO.read(new File(path + "CyanB.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());

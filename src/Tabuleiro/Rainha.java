@@ -19,7 +19,7 @@ public class Rainha extends Peca {
 		if (cor == Cor.Escuro) 
 		{
 			try {
-				image=ImageIO.read(new File(url + "PurpleQ.png"));
+				image=ImageIO.read(new File(path + "PurpleQ.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());
@@ -29,7 +29,7 @@ public class Rainha extends Peca {
 		else if (cor == Cor.Claro)
 		{
 			try {
-				image=ImageIO.read(new File(url + "CyanQ.png"));
+				image=ImageIO.read(new File(path + "CyanQ.png"));
 			}
 			catch(IOException e) {
 				System.out.println(e.getMessage());
