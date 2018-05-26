@@ -13,14 +13,14 @@ public class Tabuleiro {
 	 * Torre Cavalo Bispo Rainha Rei Bispo Cavalo Torre
 	 */
 
-	private Celula tabuleiro[][];
+	private static Celula tabuleiro[][];
 	
 	public Tabuleiro()
 	{
 		double posX=0;
 		double posY=0;
-		double larg=1000/8.0;
-		double alt=760/8.0;
+		int larg=Celula.getLarg();
+		int alt=Celula.getAlt();
 		Cor c=Cor.Claro;
 		tabuleiro=new Celula[8][8];
 		for(int i=0;i<8;i++)
@@ -61,7 +61,7 @@ public class Tabuleiro {
 		}
 		
 	}
-	public void Draw(Graphics2D g)
+	public static void Draw(Graphics2D g)
 	{
 		for(int i=0;i<8;i++)
 		{
@@ -127,6 +127,23 @@ public class Tabuleiro {
 		tabuleiro[7][5].setPeca(Bc);
 		tabuleiro[7][6].setPeca(Cc);
 		tabuleiro[7][7].setPeca(Tc);
+	}
+	
+	public static void MexePeca(int x1,int y1,int x2,int y2)
+	{
+		int i1,i2,j1,j2;
+		int larg=Celula.getLarg();
+		int alt=Celula.getAlt();
+		i1=y1/alt;
+		j1=x1/larg;
+		i2=y2/alt;
+		j2=x2/larg;
+		
+		System.out.println("De "+i1+" "+j1);
+		System.out.println("Para "+i2+" "+j2);
+		
+		tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+		tabuleiro[i1][j1].setPeca(null);
 	}
 	
 }

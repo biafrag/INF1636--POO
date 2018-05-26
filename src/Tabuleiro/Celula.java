@@ -9,7 +9,8 @@ public class Celula {
 	private Cor cor;
 	private Peca p;
 	private double posX, posY;
-	
+	private static int larg=1000/8;
+	private static int alt=760/8;
 	public Celula()
 	{
 		posX=0;
@@ -39,8 +40,6 @@ public class Celula {
 	}
 	public void draw(Graphics2D g)
 	{
-		double larg=1000/8.0;
-		double alt=760/8.0;
 		float color1 []=Color.RGBtoHSB(120,80,39, null);
 		Color Color1=Color.getHSBColor(color1[0], color1[1], color1[2]);
 		float color2 []=Color.RGBtoHSB(63,42,20, null);
@@ -59,5 +58,17 @@ public class Celula {
 		{
 			p.Draw(g, posX+(larg/4), posY);
 		}
+	}
+	public static int getLarg()
+	{
+		return larg;
+	}
+	public static int getAlt()
+	{
+		return alt;
+	}
+	public Peca getPeca()
+	{
+		return p;
 	}
 }
