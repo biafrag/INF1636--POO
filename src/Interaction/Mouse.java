@@ -1,7 +1,9 @@
 package Interaction;
 import Tabuleiro.Tabuleiro;
+import java.util.Observer;
+import java.util.Observable;
 import java.awt.event.*;
-public class Mouse implements MouseListener {
+public class Mouse extends Observable implements MouseListener {
 
 	int x1,y1,x2,y2;
 	boolean mousepress=false;
@@ -19,6 +21,8 @@ public class Mouse implements MouseListener {
 			y2=e.getY();
 			mousepress=false;
 			Tabuleiro.MexePeca(x1, y1,x2,y2);
+			this.notifyObservers();
+
 			
 		}
 	}

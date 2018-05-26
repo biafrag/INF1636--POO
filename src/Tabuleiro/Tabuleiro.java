@@ -1,7 +1,9 @@
 package Tabuleiro;
 import Drawing.Cor;
+import java.util.Observer;
+import java.util.Observable;
 import java.awt.Graphics2D;
-public class Tabuleiro {
+public class Tabuleiro  {
 	
 	/* Pretos
 	 * Torre Cavalo Bispo Rei Rainha Bispo Cavalo Torre
@@ -61,7 +63,7 @@ public class Tabuleiro {
 		}
 		
 	}
-	public static void Draw(Graphics2D g)
+	public void Draw(Graphics2D g)
 	{
 		for(int i=0;i<8;i++)
 		{
@@ -142,7 +144,7 @@ public class Tabuleiro {
 		System.out.println("De "+i1+" "+j1);
 		System.out.println("Para "+i2+" "+j2);
 		
-		tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+		//tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
 		tabuleiro[i1][j1].setPeca(null);
 	}
 	

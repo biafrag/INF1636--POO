@@ -56,7 +56,7 @@ public class Celula {
 		g.fill(rt);
 		if(p!=null)
 		{
-			p.Draw(g, posX+(larg/4), posY);
+			p.Draw(g, (int)posX+(larg/4), (int)posY);
 		}
 	}
 	public static int getLarg()
