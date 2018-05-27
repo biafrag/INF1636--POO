@@ -1,8 +1,11 @@
 package Tabuleiro;
-import Drawing.Cor;
-import java.util.Observer;
-import java.util.Observable;
+
+//import java.util.Observer;
+//import java.util.Observable;
 import java.awt.Graphics2D;
+
+import Drawing.Cor;
+
 public class Tabuleiro  {
 	
 	/* Pretos
@@ -131,11 +134,28 @@ public class Tabuleiro  {
 		tabuleiro[7][7].setPeca(Tc);
 	}
 	
+	public static int TemPeca(int x, int y)
+	{
+		int i,j;
+		int larg=Celula.getLarg();
+		int alt=Celula.getAlt();
+		Peca p;
+		i=y/alt;
+		j=x/larg;
+		p = tabuleiro[i][j].getPeca();
+		if (p == null)
+			return 0;
+		return 1;	
+	}
+	
 	public static void MexePeca(int x1,int y1,int x2,int y2)
 	{
 		int i1,i2,j1,j2;
 		int larg=Celula.getLarg();
 		int alt=Celula.getAlt();
+		int a;
+		Peca p ;
+		
 		i1=y1/alt;
 		j1=x1/larg;
 		i2=y2/alt;
@@ -143,9 +163,20 @@ public class Tabuleiro  {
 		
 		System.out.println("De "+i1+" "+j1);
 		System.out.println("Para "+i2+" "+j2);
+				
+		p = tabuleiro[i1][j1].getPeca();
+		System.out.println(p);
+				
+		a = p.ConfereMov(p, x1, y1, x2, y2, p.getCor());
 		
-		//tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
-		tabuleiro[i1][j1].setPeca(null);
+		if (a == 1)	{	
+			tabuleiro[i1][j1].setPeca(null);
+			tabuleiro[i2][j2].setPeca(p);
+		}
+		else {
+			System.out.println("Movimento errado");
+		}
 	}
+	
 	
 }

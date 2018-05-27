@@ -1,13 +1,13 @@
 package Drawing;
 
 import javax.swing.JPanel;
-
-import Tabuleiro.Tabuleiro;
 import java.awt.*;
-import java.awt.geom.*;
 import java.util.Observer;
 import java.util.Observable;
+
+import Tabuleiro.Tabuleiro;
 import Interaction.Mouse;
+
 public class Draw extends JPanel implements Observer{
 	Tabuleiro t;
 	boolean check;

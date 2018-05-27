@@ -10,7 +10,7 @@ public class Principal  {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Draw panel = new Draw();
         panel.addMouseListener(m);
-        //f.addMouseListener(m); ver qual eh o mais certo
+    //  f.addMouseListener(m); // ver qual eh o mais certo
         f.add(panel);
 		}
 
