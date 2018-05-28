@@ -71,4 +71,18 @@ public class Celula {
 	{
 		return p;
 	}
+	public void Acende(int x,int y,Graphics2D g)
+	{
+		float color1 []=Color.RGBtoHSB(120,80,39, null);
+		Color Color1=Color.getHSBColor(color1[0], color1[1], color1[2]);
+		float color2 []=Color.RGBtoHSB(63,42,20, null);
+		Color Color2=Color.getHSBColor(color2[0], color2[1], color2[2]);
+		Rectangle2D rt=new Rectangle2D.Double(x,y,larg,alt);
+		g.setPaint(Color.RED);
+		g.draw(rt);
+		if(p!=null)
+		{
+			p.Draw(g, (int)posX+(larg/4), (int)posY);
+		}
+	}
 }
