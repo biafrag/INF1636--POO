@@ -14,7 +14,7 @@ public class Rei extends Peca {
 		color = cor;
 		CarregaImagem(cor);
 	}
-	private void CarregaImagem(Cor cor)
+	protected void CarregaImagem(Cor cor)
 	{
 		if (cor == Cor.Escuro) 
 		{
@@ -39,7 +39,7 @@ public class Rei extends Peca {
 
 	}
 	
-	static int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
+	public int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
 	{
 
 		/* movimenta-se apenas 1 casa em qualquer direção. O Rei nunca pode se movimentar para uma 

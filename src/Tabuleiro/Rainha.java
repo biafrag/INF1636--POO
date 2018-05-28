@@ -13,7 +13,7 @@ public class Rainha extends Peca {
 		color = cor;
 		CarregaImagem(cor);
 	}
-	private void CarregaImagem(Cor cor)
+	protected void CarregaImagem(Cor cor)
 	{
 		if (cor == Cor.Escuro) 
 		{
@@ -37,7 +37,7 @@ public class Rainha extends Peca {
 		}
 
 	}
-	static int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
+    public int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
 	{
 	
 	/* ela pode ir para frente ou para trás, para direita ou para a esquerda, ou na diagonal, 

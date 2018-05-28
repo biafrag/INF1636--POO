@@ -14,7 +14,7 @@ public class Cavalo extends Peca {
 		color = cor;
 		CarregaImagem(cor);
 	}
-	private void CarregaImagem(Cor cor)
+	protected void CarregaImagem(Cor cor)
 	{
 		if (cor == Cor.Escuro) 
 		{
@@ -39,7 +39,7 @@ public class Cavalo extends Peca {
 
 	}
 	
-	static int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
+	public int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
 	{
 	
 	/*  O cavalo se movimenta 2 casas para frente ou para trás e em seguida 1 casa para a direita 

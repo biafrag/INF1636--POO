@@ -12,7 +12,7 @@ public class Bispo extends Peca {
 		color = cor;
 		CarregaImagem(cor);
 	}
-	private void CarregaImagem(Cor cor)
+	protected void CarregaImagem(Cor cor)
 	{
 		if (cor == Cor.Escuro) 
 		{
@@ -36,7 +36,7 @@ public class Bispo extends Peca {
 		}
 
 	}
-	static int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
+	public int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
 	{
 		int i1,i2,j1,j2;
 		int larg=Celula.getLarg();

@@ -8,11 +8,14 @@ public class Principal  {
 		Mouse m=Mouse.getMouse();
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setLayout(null);
         Draw panel = new Draw();
 		m.addObserver(panel);
-        //panel.addMouseListener(m);
-        f.addMouseListener(m); // ver qual eh o mais certo
+		panel.setLocation(0,0);
+		panel.setSize(1000, 800);
+		panel.addMouseListener(m);
         f.add(panel);
+        f.pack();
 		}
 
 }

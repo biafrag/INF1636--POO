@@ -7,12 +7,13 @@ import javax.imageio.ImageIO;
 import Drawing.Cor;
 
 public class Peao extends Peca {
+	int lance = 0;
 	public Peao(Cor cor)
 	{
 		color = cor;
 		CarregaImagem(cor);
 	}
-	private void CarregaImagem(Cor cor)
+	protected void CarregaImagem(Cor cor)
 	{
 		if (cor == Cor.Escuro) 
 		{
@@ -36,8 +37,7 @@ public class Peao extends Peca {
 		}
 
 	}
-	static int lance = 0;
-	static int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
+	public int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
 	{
 		int i1,i2,j1,j2;
 		int larg=Celula.getLarg();
@@ -48,7 +48,7 @@ public class Peao extends Peca {
 		i2=y2/alt;
 		j2=x2/larg;
 		
-		if (j1 != j2) //Só se movimenta na mesma coluna
+		if (j1 != j2 || i1==i2) //Só se movimenta na mesma coluna
 			return 0;
 		
 		if (i1 == 1 || i1 == 6) // está na primeira posicao, logo ainda não ocorreu lances

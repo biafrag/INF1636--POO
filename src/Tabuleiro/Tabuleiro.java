@@ -148,8 +148,8 @@ public class Tabuleiro  {
 		int larg=Celula.getLarg();
 		int alt=Celula.getAlt();
 		Peca p;
-		i=y/alt;
-		j=x/larg;
+		i=Math.floorDiv(y, alt); 
+		j=Math.floorDiv(x, larg);
 		p = tabuleiro[i][j].getPeca();
 		if (p == null)
 			return 0;
@@ -179,7 +179,7 @@ public class Tabuleiro  {
 		p = tabuleiro[i1][j1].getPeca();
 		System.out.println(p);
 				
-		a = p.ConfereMov(p, x1, y1, x2, y2, p.getCor());
+		a = p.ConfereRegraMov(x1, y1, x2, y2, p.getCor());
 		if (a == 1)	{	
 		    tabuleiro[i2][j2].setPeca(p);
 			tabuleiro[i1][j1].setPeca(null);
