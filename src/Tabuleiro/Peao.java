@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import Drawing.Cor;
+import javafx.util.Pair;
 
 public class Peao extends Peca {
 	int lance = 0;
@@ -84,5 +85,10 @@ public class Peao extends Peca {
 			}		
 		}
 		return 0; //não está dentro das regras
+	}
+	@Override
+	public Pair<Integer, Integer>[][] CatchPossibleMovements() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

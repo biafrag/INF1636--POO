@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import Drawing.Cor;
+import javafx.util.Pair;
 
 public class Cavalo extends Peca {
 
@@ -47,6 +48,11 @@ public class Cavalo extends Peca {
 	 * frente ou para trás. Pode pular outras pecas*/
 		
 		return 1;
+	}
+	@Override
+	public Pair<Integer, Integer>[][] CatchPossibleMovements() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import Drawing.Cor;
+import javafx.util.Pair;
 
 public class Rei extends Peca {
 
@@ -73,6 +74,11 @@ public class Rei extends Peca {
 		}		
 		
 		return 1;
+	}
+	@Override
+	public Pair<Integer, Integer>[][] CatchPossibleMovements() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

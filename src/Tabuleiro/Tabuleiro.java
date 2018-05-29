@@ -165,6 +165,11 @@ public class Tabuleiro  {
 		i2=y2/alt;
 		j2=x2/larg;
 		
+		i1=Math.floorDiv((y1 - 40),alt);
+		j1=Math.floorDiv(x1,larg);
+		i2=Math.floorDiv((y2 - 40),alt);
+		j2=Math.floorDiv(x2,larg);
+		
 		System.out.println("De "+ y1+ " "+i1+" "+j1);
 		System.out.println("Para "+ y2+ " "+i2+" "+j2);
 				
@@ -186,6 +191,13 @@ public class Tabuleiro  {
 		int j=Math.floorDiv(x,larg);
 		System.out.println(i +" "+ j);
 		tabuleiro[i][j].setSelect();
+	}
+	public static void CatchPossibleMoves(int x, int y)
+	{
+		int i=Math.floorDiv(y,alt);
+		int j=Math.floorDiv(x,larg);
+		System.out.println(i +" "+ j);
+		tabuleiro[i][j].catchMoves();
 	}
 	
 }

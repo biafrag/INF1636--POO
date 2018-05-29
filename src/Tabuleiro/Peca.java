@@ -1,5 +1,5 @@
 package Tabuleiro;
-
+import javafx.util.*;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
@@ -26,4 +26,5 @@ public abstract class Peca  {
 	}
 	protected abstract void CarregaImagem(Cor cor);
 	public abstract int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor);
+	public abstract Pair<Integer, Integer>[][] CatchPossibleMovements(); 
 }

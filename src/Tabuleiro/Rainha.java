@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import Drawing.Cor;
+import javafx.util.Pair;
 
 public class Rainha extends Peca {
 	public Rainha(Cor cor)
@@ -44,6 +45,11 @@ public class Rainha extends Peca {
 	 * quantas casas quiser, mas não pode pular nenhuma outra peça.*/
 		
 		return 1;
+	}
+	@Override
+	public Pair<Integer, Integer>[][] CatchPossibleMovements() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

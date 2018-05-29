@@ -42,8 +42,8 @@ public class Mouse extends Observable implements MouseListener {
 		if(mousepress==false)
 		{
 			System.out.println("click1");
-			x1=e.getX();
-			y1=e.getY();
+			x1=e.getX()+40;
+			y1=e.getY()+40;
 			if (Tabuleiro.TemPeca(x1, y1) == false) 
 			{
 				System.out.println("nao tem peca no 1 click");
@@ -60,8 +60,8 @@ public class Mouse extends Observable implements MouseListener {
 		else
 		{
 			System.out.println("click2");
-			x2=e.getX();
-			y2=e.getY();
+			x2=e.getX()+40;
+			y2=e.getY()+40;
 			mousepress=false;
 			if (Tabuleiro.TemPeca(x2, y2) == false)
 			{

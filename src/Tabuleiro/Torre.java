@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 
 import Drawing.Cor;
 import Tabuleiro.Tabuleiro;
+import javafx.util.Pair;
 
 public class Torre extends Peca {
 	
@@ -75,6 +76,11 @@ public class Torre extends Peca {
 		} 
 			
 		return 1;
+	}
+	@Override
+	public Pair<Integer, Integer>[][] CatchPossibleMovements() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

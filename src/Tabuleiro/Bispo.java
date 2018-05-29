@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import Drawing.Cor;
+import javafx.util.Pair;
 
 public class Bispo extends Peca {
 	public Bispo(Cor cor)
@@ -56,6 +57,11 @@ public class Bispo extends Peca {
 		//FALTA VERIFICAR SE TA PULANDO ALGUMA PEÇA
 		
 		return 1;
+	}
+	@Override
+	public Pair<Integer, Integer>[][] CatchPossibleMovements() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
