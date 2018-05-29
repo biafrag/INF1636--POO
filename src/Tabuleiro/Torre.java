@@ -55,21 +55,21 @@ public class Torre extends Peca {
 		
 		if (cor == Cor.Escuro) {
 			for (i = i1+1; i<=i2; i++) {
-				if (Tabuleiro.TemPeca(x1, i*alt)==1)	
+				if (Tabuleiro.TemPeca(x1, i*alt) == true)	
 					return 0;				
 			}
 			for (i = j1+1; i<=j2; i++) {
-				if (Tabuleiro.TemPeca(i*larg, y1)==1)			
+				if (Tabuleiro.TemPeca(i*larg, y1) == true)			
 					return 0;
 			}
 		}
 		else if (cor == Cor.Claro) {
 			for (i = i1-1; i>=i2; i--) {
-				if (Tabuleiro.TemPeca(x1, i*alt)==1)			
+				if (Tabuleiro.TemPeca(x1, i*alt) == true)			
 					return 0;
 			}
 			for (i = j1-1; i>=j2; i--) {
-				if (Tabuleiro.TemPeca(i*larg, y1)==1)			
+				if (Tabuleiro.TemPeca(i*larg, y1) == true)			
 					return 0;
 			}
 		} 

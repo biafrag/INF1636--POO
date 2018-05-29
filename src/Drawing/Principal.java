@@ -15,7 +15,6 @@ public class Principal  {
 		panel.setSize(1000, 800);
 		panel.addMouseListener(m);
         f.add(panel);
-        f.pack();
 		}
 
 }

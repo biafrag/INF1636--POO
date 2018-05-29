@@ -19,13 +19,14 @@ public class Tabuleiro  {
 	 */
     private static Tabuleiro t;
 	private static Celula tabuleiro[][];
-	
+	private static int alt;
+	private static int larg;
 	private Tabuleiro()
 	{
 		double posX=0;
 		double posY=0;
-		int larg=Celula.getLarg();
-		int alt=Celula.getAlt();
+		larg=Celula.getLarg();
+		alt=Celula.getAlt();
 		Cor c=Cor.Claro;
 		tabuleiro=new Celula[8][8];
 		for(int i=0;i<8;i++)
@@ -142,32 +143,23 @@ public class Tabuleiro  {
 		tabuleiro[7][7].setPeca(Tc);
 	}
 	
-	public static int TemPeca(int x, int y)
+	public static boolean TemPeca(int x, int y)
 	{
 		int i,j;
-		int larg=Celula.getLarg();
-		int alt=Celula.getAlt();
 		Peca p;
 		i=Math.floorDiv(y, alt); 
 		j=Math.floorDiv(x, larg);
 		p = tabuleiro[i][j].getPeca();
 		if (p == null)
-			return 0;
-		return 1;	
+			return false;
+		return true;	
 	}
 	
 	public static void MexePeca(int x1,int y1,int x2,int y2)
 	{
 		int i1,i2,j1,j2;
-		int larg=Celula.getLarg();
-		int alt=Celula.getAlt();
 		int a;
 		Peca p ;
-		
-//		i1=Math.floorDiv(y1,alt);
-//		j1=Math.floorDiv(x1,larg);
-//		i2=Math.floorDiv(y2,alt);
-//		j2=Math.floorDiv(x2,larg);
 		i1=y1/alt;
 		j1=x1/larg;
 		i2=y2/alt;
@@ -187,6 +179,13 @@ public class Tabuleiro  {
 		else {
 			System.out.println("Movimento errado");
 		}
+	}
+	public static void Acende(int x, int y)
+	{
+		int i=Math.floorDiv(y,alt);
+		int j=Math.floorDiv(x,larg);
+		System.out.println(i +" "+ j);
+		tabuleiro[i][j].setSelect();
 	}
 	
 }

@@ -1,4 +1,5 @@
 package Tabuleiro;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
@@ -11,15 +12,12 @@ public class Celula {
 	private double posX, posY;
 	private static int larg=1000/8;
 	private static int alt=760/8;
+	boolean select = false;
+	final static BasicStroke Contorno = new BasicStroke(3.0f);
 	public Celula()
 	{
 		posX=0;
 		posY=0;
-	}
-	public Celula(double x,double y)
-	{
-		posX=x;
-		posY=y;
 	}
 	public void setColor(Cor c)
 	{
@@ -58,6 +56,14 @@ public class Celula {
 		{
 			p.Draw(g, (int)posX+(larg/4), (int)posY);
 		}
+		if(select == true)
+		{
+			Rectangle2D r2=new Rectangle2D.Double(posX,posY,larg,alt);
+			g.setPaint(Color.BLUE);
+			g.setStroke(Contorno);
+			g.draw(r2);
+			select=false;
+		}
 	}
 	public static int getLarg()
 	{
@@ -71,18 +77,8 @@ public class Celula {
 	{
 		return p;
 	}
-	public void Acende(int x,int y,Graphics2D g)
+	public void setSelect()
 	{
-		float color1 []=Color.RGBtoHSB(120,80,39, null);
-		Color Color1=Color.getHSBColor(color1[0], color1[1], color1[2]);
-		float color2 []=Color.RGBtoHSB(63,42,20, null);
-		Color Color2=Color.getHSBColor(color2[0], color2[1], color2[2]);
-		Rectangle2D rt=new Rectangle2D.Double(x,y,larg,alt);
-		g.setPaint(Color.RED);
-		g.draw(rt);
-		if(p!=null)
-		{
-			p.Draw(g, (int)posX+(larg/4), (int)posY);
-		}
+		select=true;
 	}
 }
