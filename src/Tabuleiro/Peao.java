@@ -2,10 +2,11 @@ package Tabuleiro;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
+
 import javax.imageio.ImageIO;
 
 import Drawing.Cor;
-import javafx.util.Pair;
 
 public class Peao extends Peca {
 	int lance = 0;
@@ -41,8 +42,6 @@ public class Peao extends Peca {
 	public int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
 	{
 		int i1,i2,j1,j2;
-		int larg=Celula.getLarg();
-		int alt=Celula.getAlt();
 		
 		i1=y1/alt;
 		j1=x1/larg;
@@ -87,8 +86,32 @@ public class Peao extends Peca {
 		return 0; //não está dentro das regras
 	}
 	@Override
-	public Pair<Integer, Integer>[][] CatchPossibleMovements() {
-		// TODO Auto-generated method stub
-		return null;
+	public Vector<Pair> CatchPossibleMovements(int x, int y) {
+		//Peão só anda pra frente 1 casa ou 2 se for no primeiro movimento
+
+		Vector <Pair> positions = new Vector<Pair>();
+		int i,j;
+		i=y/alt;
+		j=x/larg;
+		if(this.color == Cor.Escuro)
+		{
+			positions.add(new Pair(i+1,j));
+			
+		}
+		else
+		{
+			positions.add(new Pair(i-1,j));
+		}
+		
+		if((this.getCor()==Cor.Claro && i==6))
+		{
+			positions.add(new Pair(i-2,j));
+
+		}
+		else if (this.getCor()==Cor.Escuro && i==1)
+		{
+			positions.add(new Pair(i+2,j));
+		}
+		return positions;
 	}
 }

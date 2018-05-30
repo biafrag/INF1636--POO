@@ -2,11 +2,13 @@ package Tabuleiro;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
+
 import javax.imageio.ImageIO;
 
 import Drawing.Cor;
 import Tabuleiro.Tabuleiro;
-import javafx.util.Pair;
+
 
 public class Torre extends Peca {
 	
@@ -78,9 +80,53 @@ public class Torre extends Peca {
 		return 1;
 	}
 	@Override
-	public Pair<Integer, Integer>[][] CatchPossibleMovements() {
+	public Vector<Pair> CatchPossibleMovements(int x, int y) {
 		// TODO Auto-generated method stub
-		return null;
+		Vector <Pair> positions = new Vector<Pair>();
+		int i,j;
+		i=y/alt;
+		j=x/larg;
+		for(int n=j+1;n<8;n++)
+		{
+			if(Tabuleiro.TemPecaIndice(i,n)==false)
+				{
+				    positions.add(new Pair(i,n));
+				}
+			else
+			{
+				break;
+			}
+		}
+		if(color==Cor.Escuro)
+		{
+			for(int n=i+1;n<8;n++)
+			{
+				if(Tabuleiro.TemPecaIndice(n,j)==false)
+					{
+					    positions.add(new Pair(n,j));
+					}
+				else
+				{
+					break;
+				}
+			}
+		}
+
+		else
+		{
+			for(int n=i-1;n>=0;n--)
+			{
+				if(Tabuleiro.TemPecaIndice(n,j)==false)
+					{
+					    positions.add(new Pair(n,j));
+					}
+				else
+				{
+					break;
+				}
+			}
+		}
+		return positions;
 	}
 	
 }

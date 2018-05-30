@@ -1,9 +1,9 @@
 package Tabuleiro;
 import java.awt.BasicStroke;
-import javafx.util.*;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Vector;
 
 import Drawing.Cor;
 public class Celula {
@@ -14,8 +14,9 @@ public class Celula {
 	private static int larg=1000/8;
 	private static int alt=760/8;
 	boolean select = false;
+	boolean ispossiblemove=false;
+	private Vector<Pair> positions;
 	final static BasicStroke Contorno = new BasicStroke(6.0f);
-	Pair<Integer, Integer>[][] positions;
 	public Celula()
 	{
 		posX=0;
@@ -63,16 +64,20 @@ public class Celula {
 				g.setPaint(Color.BLUE);
 				g.setStroke(Contorno);
 				g.draw(r2);
-//				for(int i=0; i<positions.length;i++)
-//				{
-//					Rectangle2D r1=new Rectangle2D.Double(posX,posY,larg,alt);
-//					g.setPaint(Color.RED);
-//					g.setStroke(Contorno);
-//					g.draw(r1);
-//				}
 				select=false;
 			}
 			
+		}
+		else
+		{
+			if(this.ispossiblemove==true)
+			{
+				Rectangle2D r2=new Rectangle2D.Double(posX,posY+3,larg,alt);
+				g.setPaint(Color.RED);
+				g.setStroke(Contorno);
+				g.draw(r2);
+				ispossiblemove=false;
+			}
 		}
 		
 	}
@@ -92,9 +97,13 @@ public class Celula {
 	{
 		select=true;
 	}
-	public void catchMoves()
+	public Vector<Pair> catchMoves(int x,int y)
 	{
-		positions=new Pair[8][8];
-		positions=this.getPeca().CatchPossibleMovements();
+		positions=this.getPeca().CatchPossibleMovements(x,y);
+		return positions;
+	}
+	public void setPossibleMove()
+	{
+		this.ispossiblemove=true;
 	}
 }

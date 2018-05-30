@@ -52,6 +52,7 @@ public class Mouse extends Observable implements MouseListener {
 			else
 			{
 				Tabuleiro.Acende(x1, y1);	
+				Tabuleiro.CatchPossibleMoves(x1, y1);
 				this.setChanged();	
 				notifyObservers();
 			}

@@ -3,6 +3,7 @@ package Tabuleiro;
 //import java.util.Observer;
 //import java.util.Observable;
 import java.awt.Graphics2D;
+import java.util.Vector;
 
 import Drawing.Cor;
 
@@ -21,6 +22,7 @@ public class Tabuleiro  {
 	private static Celula tabuleiro[][];
 	private static int alt;
 	private static int larg;
+	private static Vector<Pair> positions;
 	private Tabuleiro()
 	{
 		double posX=0;
@@ -154,6 +156,13 @@ public class Tabuleiro  {
 			return false;
 		return true;	
 	}
+	public static boolean TemPecaIndice(int i, int j)
+	{
+		if (tabuleiro[i][j].getPeca() == null)
+			return false;
+		return true;	
+	}
+
 	
 	public static void MexePeca(int x1,int y1,int x2,int y2)
 	{
@@ -197,7 +206,14 @@ public class Tabuleiro  {
 		int i=Math.floorDiv(y,alt);
 		int j=Math.floorDiv(x,larg);
 		System.out.println(i +" "+ j);
-		tabuleiro[i][j].catchMoves();
+		positions=tabuleiro[i][j].catchMoves(x,y);
+		if(positions!=null)
+		{
+			for(int n=0;n<positions.size();n++)
+			{
+				tabuleiro[positions.get(n).getX()][positions.get(n).getY()].setPossibleMove();
+			}
+		}
 	}
 	
 }

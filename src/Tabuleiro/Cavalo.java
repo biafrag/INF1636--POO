@@ -2,11 +2,12 @@ package Tabuleiro;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
 import Drawing.Cor;
-import javafx.util.Pair;
+
 
 public class Cavalo extends Peca {
 
@@ -50,10 +51,11 @@ public class Cavalo extends Peca {
 		return 1;
 	}
 	@Override
-	public Pair<Integer, Integer>[][] CatchPossibleMovements() {
+	public Vector<Pair> CatchPossibleMovements(int x, int y) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	
 	
 }

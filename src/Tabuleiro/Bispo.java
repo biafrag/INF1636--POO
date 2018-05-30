@@ -2,14 +2,16 @@ package Tabuleiro;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
+
 import javax.imageio.ImageIO;
 
 import Drawing.Cor;
-import javafx.util.Pair;
 
 public class Bispo extends Peca {
 	public Bispo(Cor cor)
 	{
+
 		color = cor;
 		CarregaImagem(cor);
 	}
@@ -59,9 +61,9 @@ public class Bispo extends Peca {
 		return 1;
 	}
 	@Override
-	public Pair<Integer, Integer>[][] CatchPossibleMovements() {
+	public Vector<Pair> CatchPossibleMovements(int x, int y) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }
