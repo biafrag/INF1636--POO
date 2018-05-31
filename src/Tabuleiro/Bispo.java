@@ -39,36 +39,17 @@ public class Bispo extends Peca {
 		}
 
 	}
-	public int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
-	{
-		int i1,i2,j1,j2;
-		int larg=Celula.getLarg();
-		int alt=Celula.getAlt();
-		
-		i1=y1/alt;
-		j1=x1/larg;
-		i2=y2/alt;
-		j2=x2/larg;
-		
-		if (i1 == i2) //só se move na diagonal
-			return 0;
-		else if (j1 == j2)
-			return 0;
-		
-		//FALTA VERIFICAR SE A COR INICIAL DO TABULEIRO É A MESMA DO FINAL
-		//FALTA VERIFICAR SE TA PULANDO ALGUMA PEÇA
-		
-		return 1;
-	}
 	@Override
 	public Vector<Pair> CatchPossibleMovements(int x, int y) {
 		Vector <Pair> positions = new Vector<Pair>();
 		int i,j;
 		i=y/alt;
 		j=x/larg;
-		for(int n=1;i+n<8 && j+n<8;n++)
+		/*Bispo se movimenta nas diagonais*/
+		
+		for(int n=1;i+n<8 && j+n<8;n++) //pega diagonal pra baixo e pra direita
 		{
-			if(Tabuleiro.TemPecaIndice(i+n,j+n))
+			if(Tabuleiro.TemPecaIndice(i+n,j+n)) // se tiver peça n dá mais pra andar
 			{
 				break;
 			}
@@ -78,7 +59,7 @@ public class Bispo extends Peca {
 			}
 
 		}
-		for(int n=1;i-n>=0 && j-n>=0;n++)
+		for(int n=1;i-n>=0 && j-n>=0;n++) // pega diagonal pra cima pra esquerda
 		{
 			if(Tabuleiro.TemPecaIndice(i-n,j-n))
 			{
@@ -89,7 +70,7 @@ public class Bispo extends Peca {
 				positions.add(new Pair(i-n,j-n));
 			}
 		}
-		for(int n=1;i-n>=0 && j+n<8;n++)
+		for(int n=1;i-n>=0 && j+n<8;n++) //pega diagonal pra cima pra direita
 		{
 			if(Tabuleiro.TemPecaIndice(i-n,j+n))
 			{
@@ -100,7 +81,7 @@ public class Bispo extends Peca {
 				positions.add(new Pair(i-n,j+n));
 			}
 		}
-		for(int n=1;i-n<8 && j-n>=0;n++)
+		for(int n=1;i+n<8 && j-n>=0;n++) //pega diagonal pra baixo e pra esquerda
 		{
 			if(Tabuleiro.TemPecaIndice(i+n,j-n))
 			{

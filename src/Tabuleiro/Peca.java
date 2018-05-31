@@ -22,7 +22,6 @@ public abstract class Peca  {
 		return color;
 	}
 	protected abstract void CarregaImagem(Cor cor);
-	public abstract int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor);
 	public abstract Vector<Pair> CatchPossibleMovements(int x,int y); 
 	public abstract Vector<Pair> PossibleEats(int x,int y); 
 }

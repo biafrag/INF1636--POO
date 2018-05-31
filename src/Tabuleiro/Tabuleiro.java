@@ -174,7 +174,7 @@ public class Tabuleiro  {
 		j1=x1/larg;
 		i2=y2/alt;
 		j2=x2/larg;
-		
+		Vector<Pair> positions;
 		i1=Math.floorDiv((y1 - 40),alt);
 		j1=Math.floorDiv(x1,larg);
 		i2=Math.floorDiv((y2 - 40),alt);
@@ -182,17 +182,16 @@ public class Tabuleiro  {
 		
 		System.out.println("De "+ y1+ " "+i1+" "+j1);
 		System.out.println("Para "+ y2+ " "+i2+" "+j2);
-				
-		p = tabuleiro[i1][j1].getPeca();
-		System.out.println(p);
-				
-		a = p.ConfereRegraMov(x1, y1, x2, y2, p.getCor());
-		if (a == 1)	{	
-		    tabuleiro[i2][j2].setPeca(p);
-			tabuleiro[i1][j1].setPeca(null);
-		}
-		else {
-			System.out.println("Movimento errado");
+		
+		positions=tabuleiro[i1][j1].getPositions();
+		for(int i=0;i<positions.size();i++)
+		{
+			if(positions.get(i).getX()==i2 && positions.get(i).getY()==j2)
+			{
+				tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+				tabuleiro[i1][j1].setPeca(null);
+				break;
+			}
 		}
 	}
 	public static void Acende(int x, int y)

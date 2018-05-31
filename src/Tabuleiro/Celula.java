@@ -132,4 +132,8 @@ public class Celula {
 	{
 		this.ispossibleeat=true;
 	}
+	public Vector<Pair> getPositions()
+	{
+		return positions;
+	}
 }
