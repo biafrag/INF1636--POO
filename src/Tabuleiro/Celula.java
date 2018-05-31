@@ -15,7 +15,9 @@ public class Celula {
 	private static int alt=760/8;
 	boolean select = false;
 	boolean ispossiblemove=false;
+	boolean ispossibleeat=false;
 	private Vector<Pair> positions;
+	private Vector<Pair> eats;
 	final static BasicStroke Contorno = new BasicStroke(6.0f);
 	public Celula()
 	{
@@ -41,10 +43,8 @@ public class Celula {
 	}
 	public void draw(Graphics2D g)
 	{
-		float color1 []=Color.RGBtoHSB(120,80,39, null);
-		Color Color1=Color.getHSBColor(color1[0], color1[1], color1[2]);
-		float color2 []=Color.RGBtoHSB(63,42,20, null);
-		Color Color2=Color.getHSBColor(color2[0], color2[1], color2[2]);
+		Color Color1=new Color(120,80,39);
+		Color Color2=new Color(63,42,20);
 		Rectangle2D rt=new Rectangle2D.Double(posX+1,posY+1,larg+3,alt+3);
 		if(cor==Cor.Claro)
 		{
@@ -61,10 +61,22 @@ public class Celula {
 			if(select == true)
 			{
 				Rectangle2D r2=new Rectangle2D.Double(posX,posY,larg,alt);
-				g.setPaint(Color.BLUE);
+				g.setPaint(Color.RED);
 				g.setStroke(Contorno);
 				g.draw(r2);
+//				Color Color4=new Color(0,0,255,20);
+//				g.setPaint(Color4);
+//				g.fill(rt);
+//				g.draw(r2);
 				select=false;
+			}
+			if(ispossibleeat==true)
+			{
+				Rectangle2D r2=new Rectangle2D.Double(posX,posY,larg,alt);
+				g.setPaint(Color.CYAN);
+				g.setStroke(Contorno);
+				g.draw(r2);
+				ispossibleeat=false;
 			}
 			
 		}
@@ -73,9 +85,13 @@ public class Celula {
 			if(this.ispossiblemove==true)
 			{
 				Rectangle2D r2=new Rectangle2D.Double(posX,posY+3,larg,alt);
-				g.setPaint(Color.RED);
+				g.setPaint(Color.BLUE);
 				g.setStroke(Contorno);
 				g.draw(r2);
+//				Color Color3=new Color(255,0,0,20);
+//				g.setPaint(Color3);
+//				g.fill(rt);
+//				g.draw(r2);
 				ispossiblemove=false;
 			}
 		}
@@ -102,8 +118,18 @@ public class Celula {
 		positions=this.getPeca().CatchPossibleMovements(x,y);
 		return positions;
 	}
+	public Vector<Pair> catchEats(int x,int y)
+	{
+		eats=this.getPeca().PossibleEats(x, y);
+		return eats;
+	}
 	public void setPossibleMove()
 	{
 		this.ispossiblemove=true;
+	}
+	
+	public void setPossibleEats()
+	{
+		this.ispossibleeat=true;
 	}
 }

@@ -22,7 +22,8 @@ public class Tabuleiro  {
 	private static Celula tabuleiro[][];
 	private static int alt;
 	private static int larg;
-	private static Vector<Pair> positions;
+	private static Vector<Pair> _possiblePositions;
+	private static Vector<Pair> _possibleEats;
 	private Tabuleiro()
 	{
 		double posX=0;
@@ -206,12 +207,27 @@ public class Tabuleiro  {
 		int i=Math.floorDiv(y,alt);
 		int j=Math.floorDiv(x,larg);
 		System.out.println(i +" "+ j);
-		positions=tabuleiro[i][j].catchMoves(x,y);
-		if(positions!=null)
+		 _possiblePositions=tabuleiro[i][j].catchMoves(x,y);
+		if( _possiblePositions!=null)
 		{
-			for(int n=0;n<positions.size();n++)
+			for(int n=0;n< _possiblePositions.size();n++)
 			{
-				tabuleiro[positions.get(n).getX()][positions.get(n).getY()].setPossibleMove();
+				tabuleiro[ _possiblePositions.get(n).getX()][ _possiblePositions.get(n).getY()].setPossibleMove();
+			}
+		}
+	}
+	
+	public static void CatchPossibleEats(int x, int y)
+	{
+		int i=Math.floorDiv(y,alt);
+		int j=Math.floorDiv(x,larg);
+		System.out.println(i +" "+ j);
+		 _possibleEats=tabuleiro[i][j].catchEats(x,y);
+		if( _possibleEats!=null)
+		{
+			for(int n=0;n< _possibleEats.size();n++)
+			{
+				tabuleiro[ _possibleEats.get(n).getX()][ _possibleEats.get(n).getY()].setPossibleEats();
 			}
 		}
 	}

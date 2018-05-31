@@ -51,5 +51,10 @@ public class Rainha extends Peca {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public Vector<Pair> PossibleEats(int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

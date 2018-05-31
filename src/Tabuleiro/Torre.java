@@ -97,36 +97,117 @@ public class Torre extends Peca {
 				break;
 			}
 		}
-		if(color==Cor.Escuro)
+		for(int n=i+1;n<8;n++)
 		{
-			for(int n=i+1;n<8;n++)
+			if(Tabuleiro.TemPecaIndice(n,j)==false)
 			{
-				if(Tabuleiro.TemPecaIndice(n,j)==false)
-					{
-					    positions.add(new Pair(n,j));
-					}
-				else
-				{
-					break;
-				}
+			   positions.add(new Pair(n,j));
+			}
+			else
+			{
+			   break;
 			}
 		}
 
-		else
+		for(int n=i-1;n>=0;n--)
 		{
-			for(int n=i-1;n>=0;n--)
+			if(Tabuleiro.TemPecaIndice(n,j)==false)
 			{
-				if(Tabuleiro.TemPecaIndice(n,j)==false)
-					{
-					    positions.add(new Pair(n,j));
-					}
-				else
-				{
-					break;
-				}
+			   positions.add(new Pair(n,j));
+			}
+			else
+			{
+		       break;
 			}
 		}
 		return positions;
+	}
+	@Override
+	public Vector<Pair> PossibleEats(int x, int y) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		Vector <Pair> eats = new Vector<Pair>();
+		int i,j;
+		i=y/alt;
+		j=x/larg;
+		if(color==Cor.Escuro)
+		{
+			for(int n=j+1;n<8;n++)
+			{
+				if(Tabuleiro.TemPecaIndice(i,n) )
+				{
+					if((Tabuleiro.getTabuleiro().getCelula(i, n).getPeca().getCor()==Cor.Claro))
+					{
+						eats.add(new Pair(i,n));	
+					}
+					break;
+				}
+			}
+				
+			for(int n=i+1;n<8;n++)
+			{
+				if(Tabuleiro.TemPecaIndice(n,j))
+				{
+				   if(Tabuleiro.getTabuleiro().getCelula(n, j).getPeca().getCor()==Cor.Claro)
+				   {
+					   eats.add(new Pair(n,j));
+				   }
+				   break;
+				}
+			}
+	
+			for(int n=i-1;n>=0;n--)
+			{
+				if(Tabuleiro.TemPecaIndice(n,j) )
+				{
+					if((Tabuleiro.getTabuleiro().getCelula(n, j).getPeca().getCor()==Cor.Claro))
+					{
+						 eats.add(new Pair(n,j));
+					}
+				  
+				   break;
+				}
+			}
+		}
+		else
+		{
+			for(int n=j+1;n<8;n++)
+			{
+				if(Tabuleiro.TemPecaIndice(i,n))
+				{
+					if(Tabuleiro.getTabuleiro().getCelula(i, n).getPeca().getCor()==Cor.Escuro)
+					{
+						eats.add(new Pair(i,n));
+					}
+					break;
+				}
+			}
+				
+			for(int n=i+1;n<8;n++)
+			{
+				if(Tabuleiro.TemPecaIndice(n,j))
+				{
+					if(Tabuleiro.getTabuleiro().getCelula(n, j).getPeca().getCor()==Cor.Escuro)
+					{
+						eats.add(new Pair(n,j));
+					}
+				   break;
+				}
+			}
+	
+			for(int n=i-1;n>=0;n--)
+			{
+				if(Tabuleiro.TemPecaIndice(n,j))
+				{
+					if(Tabuleiro.getTabuleiro().getCelula(n, j).getPeca().getCor()==Cor.Escuro)
+					{
+						   eats.add(new Pair(n,j));
+					}
+				   break;
+				}
+			}
+		}
+		return eats;
 	}
 	
 }
