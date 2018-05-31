@@ -53,12 +53,138 @@ public class Cavalo extends Peca {
 	@Override
 	public Vector<Pair> CatchPossibleMovements(int x, int y) {
 		// TODO Auto-generated method stub
-		return null;
+		Vector <Pair> position = new Vector<Pair>();
+		int i,j;
+		i=y/alt;
+		j=x/larg;
+		if(i+1<8 && j+2<8)
+		{
+			if(Tabuleiro.TemPecaIndice(i+1,j+2)==false)
+			{
+				position.add(new Pair(i+1,j+2));
+			}
+		}
+		if(i+2<8 && j+1<8)
+		{
+			if(Tabuleiro.TemPecaIndice(i+2,j+1)==false)
+			{
+				position.add(new Pair(i+2,j+1));
+			}		
+		}
+		if(i-1>=0 && j+2<8)
+		{
+			if(Tabuleiro.TemPecaIndice(i-1,j+2)==false)
+			{
+				position.add(new Pair(i-1,j+2));
+			}	
+		}
+		if(i-2>=0 && j+1<8)
+		{
+			if(Tabuleiro.TemPecaIndice(i-2,j+1)==false)
+			{
+				position.add(new Pair(i-2,j+1));
+			}		
+		}
+		if(i+1<8 && j-2>=0)
+		{
+			if(Tabuleiro.TemPecaIndice(i+1,j-2)==false)
+			{
+				position.add(new Pair(i+1,j-2));
+			}	
+		}
+		if(i+2<8 && j-1>=0)
+		{
+			if(Tabuleiro.TemPecaIndice(i+2,j-1)==false)
+			{
+				position.add(new Pair(i+2,j-1));
+			}
+			
+		}
+		if(i-2>=0 && j-1>=0)
+		{
+			if(Tabuleiro.TemPecaIndice(i-2,j-1)==false)
+			{
+				position.add(new Pair(i-2,j-1));
+			}
+			
+		}
+		if(i-1>=0 && j-2>=0)
+		{
+			if(Tabuleiro.TemPecaIndice(i-1,j-2)==false)
+			{
+				position.add(new Pair(i-1,j-2));
+			}
+			
+		}
+		return position;
 	}
 	@Override
 	public Vector<Pair> PossibleEats(int x, int y) {
 		// TODO Auto-generated method stub
-		return null;
+		Vector <Pair> eats = new Vector<Pair>();
+		int i,j;
+		i=y/alt;
+		j=x/larg;
+		if(i+1<8 && j+2<8)
+		{
+			if(Tabuleiro.TemPecaIndice(i+1,j+2) && Tabuleiro.getTabuleiro().getCelula(i+1, j+2).getPeca().getCor()!=color)
+			{
+				eats.add(new Pair(i+1,j+2));
+			}
+		}
+		if(i+2<8 && j+1<8)
+		{
+			if(Tabuleiro.TemPecaIndice(i+2,j+1) && Tabuleiro.getTabuleiro().getCelula(i+2, j+1).getPeca().getCor()!=color)
+			{
+				eats.add(new Pair(i+2,j+1));
+			}		
+		}
+		if(i-1>=0 && j+2<8)
+		{
+			if(Tabuleiro.TemPecaIndice(i-1,j+2) &&  Tabuleiro.getTabuleiro().getCelula(i-1, j+2).getPeca().getCor()!=color)
+			{
+				eats.add(new Pair(i-1,j+2));
+			}	
+		}
+		if(i-2>=0 && j+1<8)
+		{
+			if(Tabuleiro.TemPecaIndice(i-2,j+1) &&  Tabuleiro.getTabuleiro().getCelula(i-2, j+1).getPeca().getCor()!=color)
+			{
+				eats.add(new Pair(i-2,j+1));
+			}		
+		}
+		if(i+1<8 && j-2>=0)
+		{
+			if(Tabuleiro.TemPecaIndice(i+1,j-2) && Tabuleiro.getTabuleiro().getCelula(i+1, j-2).getPeca().getCor()!=color)
+			{
+				eats.add(new Pair(i+1,j-2));
+			}	
+		}
+		if(i+2<8 && j-1>=0)
+		{
+			if(Tabuleiro.TemPecaIndice(i+2,j-1) && Tabuleiro.getTabuleiro().getCelula(i+2, j-1).getPeca().getCor()!=color)
+			{
+				eats.add(new Pair(i+2,j-1));
+			}
+			
+		}
+		if(i-2>=0 && j-1>=0)
+		{
+			if(Tabuleiro.TemPecaIndice(i-2,j-1) && Tabuleiro.getTabuleiro().getCelula(i-2, j-1).getPeca().getCor()!=color)
+			{
+				eats.add(new Pair(i-2,j-1));
+			}
+			
+		}
+		if(i-1>=0 && j-2>=0)
+		{
+			if(Tabuleiro.TemPecaIndice(i-1,j-2) && Tabuleiro.getTabuleiro().getCelula(i-1, j-2).getPeca().getCor()!=color)
+			{
+				eats.add(new Pair(i-1,j-2));
+			}
+			
+		}
+		return eats;
 	}
 
 	

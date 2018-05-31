@@ -6,6 +6,7 @@ public class Principal  {
 	public static void main(String[] args) {
 		Tela f=new Tela();
 		Mouse m=Mouse.getMouse();
+		f.setResizable(false);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setLayout(null);
