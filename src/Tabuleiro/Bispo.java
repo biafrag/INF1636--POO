@@ -62,13 +62,99 @@ public class Bispo extends Peca {
 	}
 	@Override
 	public Vector<Pair> CatchPossibleMovements(int x, int y) {
-		// TODO Auto-generated method stub
-		return null;
+		Vector <Pair> positions = new Vector<Pair>();
+		int i,j;
+		i=y/alt;
+		j=x/larg;
+		for(int n=1;i+n<8 && j+n<8;n++)
+		{
+			if(Tabuleiro.TemPecaIndice(i+n,j+n))
+			{
+				break;
+			}
+			else
+			{
+				positions.add(new Pair(i+n,j+n));
+			}
+
+		}
+		for(int n=1;i-n>=0 && j-n>=0;n++)
+		{
+			if(Tabuleiro.TemPecaIndice(i-n,j-n))
+			{
+				break;
+			}
+			else
+			{
+				positions.add(new Pair(i-n,j-n));
+			}
+		}
+		for(int n=1;i-n>=0 && j+n<8;n++)
+		{
+			if(Tabuleiro.TemPecaIndice(i-n,j+n))
+			{
+				break;
+			}
+			else
+			{
+				positions.add(new Pair(i-n,j+n));
+			}
+		}
+		for(int n=1;i-n<8 && j-n>=0;n++)
+		{
+			if(Tabuleiro.TemPecaIndice(i+n,j-n))
+			{
+				break;
+			}
+			else
+			{
+				positions.add(new Pair(i+n,j-n));
+			}
+		}
+		return positions;
 	}
 	@Override
 	public Vector<Pair> PossibleEats(int x, int y) {
 		// TODO Auto-generated method stub
-		return null;
+		Vector <Pair> eats = new Vector<Pair>();
+		int i,j;
+		i=y/alt;
+		j=x/larg;
+		for(int n=1;i+n<8 && j+n<8;n++)
+		{
+			if(Tabuleiro.TemPecaIndice(i+n,j+n) && color!=Tabuleiro.getTabuleiro().getCelula(i+n,j+n).getPeca().getCor())
+			{
+				eats.add(new Pair(i+n,j+n));
+				break;
+			}
+
+
+		}
+		for(int n=1;i-n>=0 && j-n>=0;n++)
+		{
+			if(Tabuleiro.TemPecaIndice(i-n,j-n) && color!=Tabuleiro.getTabuleiro().getCelula(i-n,j-n).getPeca().getCor())
+			{
+				eats.add(new Pair(i-n,j-n));
+				break;
+			}
+		}
+		for(int n=1;i-n>=0 && j+n<8;n++)
+		{
+			if(Tabuleiro.TemPecaIndice(i-n,j+n) && color!=Tabuleiro.getTabuleiro().getCelula(i-n,j+n).getPeca().getCor())
+			{
+				eats.add(new Pair(i-n,j+n));
+				break;
+			}
+		}
+		for(int n=1;i-n<8 && j-n>=0;n++)
+		{
+			if(Tabuleiro.TemPecaIndice(i+n,j-n) && color!=Tabuleiro.getTabuleiro().getCelula(i+n,j-n).getPeca().getCor())
+			{
+				eats.add(new Pair(i+n,j-n));
+				break;
+			}
+		}
+		return eats;
 	}
 
 }
