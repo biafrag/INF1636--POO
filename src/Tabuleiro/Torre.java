@@ -86,38 +86,61 @@ public class Torre extends Peca {
 		int i,j;
 		i=y/alt;
 		j=x/larg;
-		for(int n=j+1;n<8;n++)
+		if(j!=7)
 		{
-			if(Tabuleiro.TemPecaIndice(i,n)==false)
+			for(int n=j+1;n<8;n++)
+			{
+				if(Tabuleiro.TemPecaIndice(i,n)==false)
+					{
+					    positions.add(new Pair(i,n));
+					}
+				else
 				{
-				    positions.add(new Pair(i,n));
+					break;
 				}
-			else
-			{
-				break;
 			}
 		}
-		for(int n=i+1;n<8;n++)
+		if(j!=0)
 		{
-			if(Tabuleiro.TemPecaIndice(n,j)==false)
+			for(int n=j-1;n>=0;n--)
 			{
-			   positions.add(new Pair(n,j));
-			}
-			else
-			{
-			   break;
+				if(Tabuleiro.TemPecaIndice(i,n)==false)
+					{
+					    positions.add(new Pair(i,n));
+					}
+				else
+				{
+					break;
+				}
 			}
 		}
-
-		for(int n=i-1;n>=0;n--)
+		if(i!=7)
 		{
-			if(Tabuleiro.TemPecaIndice(n,j)==false)
+			for(int n=i+1;n<8;n++)
 			{
-			   positions.add(new Pair(n,j));
+				if(Tabuleiro.TemPecaIndice(n,j)==false)
+				{
+				   positions.add(new Pair(n,j));
+				}
+				else
+				{
+				   break;
+				}
 			}
-			else
+		}
+		
+		if(i!=0) 
+		{
+			for(int n=i-1;n>=0;n--)
 			{
-		       break;
+				if(Tabuleiro.TemPecaIndice(n,j)==false)
+				{
+				   positions.add(new Pair(n,j));
+				}
+				else
+				{
+			       break;
+				}
 			}
 		}
 		return positions;
