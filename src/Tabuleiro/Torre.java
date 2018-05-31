@@ -51,7 +51,7 @@ public class Torre extends Peca {
 		j=x/larg;
 		if(j!=7)
 		{
-			for(int n=j+1;n<8;n++)
+			for(int n=j+1;n<8;n++) //vê movimentos possiveis na mesma linha pra direita
 			{
 				if(Tabuleiro.TemPecaIndice(i,n)==false)
 					{
@@ -67,7 +67,7 @@ public class Torre extends Peca {
 		{
 			for(int n=j-1;n>=0;n--)
 			{
-				if(Tabuleiro.TemPecaIndice(i,n)==false)
+				if(Tabuleiro.TemPecaIndice(i,n)==false) //vê movimentos possiveis na mesma linha pra esquerda
 					{
 					    positions.add(new Pair(i,n));
 					}
@@ -79,7 +79,7 @@ public class Torre extends Peca {
 		}
 		if(i!=7)
 		{
-			for(int n=i+1;n<8;n++)
+			for(int n=i+1;n<8;n++) //vê movimentos possiveis na mesma coluna pra baixo
 			{
 				if(Tabuleiro.TemPecaIndice(n,j)==false)
 				{
@@ -94,7 +94,7 @@ public class Torre extends Peca {
 		
 		if(i!=0) 
 		{
-			for(int n=i-1;n>=0;n--)
+			for(int n=i-1;n>=0;n--) //vê movimentos possiveis na mesma coluna pra cima
 			{
 				if(Tabuleiro.TemPecaIndice(n,j)==false)
 				{

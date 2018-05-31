@@ -103,35 +103,46 @@ public class Bispo extends Peca {
 		j=x/larg;
 		for(int n=1;i+n<8 && j+n<8;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i+n,j+n) && color!=Tabuleiro.getTabuleiro().getCelula(i+n,j+n).getPeca().getCor())
+			if(Tabuleiro.TemPecaIndice(i+n,j+n))
 			{
-				eats.add(new Pair(i+n,j+n));
+				if(color!=Tabuleiro.getTabuleiro().getCelula(i+n,j+n).getPeca().getCor())
+				{
+					eats.add(new Pair(i+n,j+n));
+				}
 				break;
 			}
-
 
 		}
 		for(int n=1;i-n>=0 && j-n>=0;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i-n,j-n) && color!=Tabuleiro.getTabuleiro().getCelula(i-n,j-n).getPeca().getCor())
+			if(Tabuleiro.TemPecaIndice(i-n,j-n) )
 			{
-				eats.add(new Pair(i-n,j-n));
+				if(color!=Tabuleiro.getTabuleiro().getCelula(i-n,j-n).getPeca().getCor())
+				{
+					eats.add(new Pair(i-n,j-n));	
+				}
 				break;
 			}
 		}
 		for(int n=1;i-n>=0 && j+n<8;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i-n,j+n) && color!=Tabuleiro.getTabuleiro().getCelula(i-n,j+n).getPeca().getCor())
+			if(Tabuleiro.TemPecaIndice(i-n,j+n))
 			{
-				eats.add(new Pair(i-n,j+n));
+				if( color!=Tabuleiro.getTabuleiro().getCelula(i-n,j+n).getPeca().getCor())
+				{
+					eats.add(new Pair(i-n,j+n));
+				}
 				break;
 			}
 		}
 		for(int n=1;i-n<8 && j-n>=0;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i+n,j-n) && color!=Tabuleiro.getTabuleiro().getCelula(i+n,j-n).getPeca().getCor())
+			if(Tabuleiro.TemPecaIndice(i+n,j-n))
 			{
-				eats.add(new Pair(i+n,j-n));
+				if(color!=Tabuleiro.getTabuleiro().getCelula(i+n,j-n).getPeca().getCor())
+				{
+					eats.add(new Pair(i+n,j-n));
+				}
 				break;
 			}
 		}
