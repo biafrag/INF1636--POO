@@ -47,7 +47,7 @@ public class Peao extends Peca {
 		int i,j;
 		i=y/alt;
 		j=x/larg;
-		if(this.color == Cor.Escuro ) //se o peao for escuro desce no tabuleiro
+		if(this.color == Cor.Escuro )
 		{
 			if(Tabuleiro.TemPecaIndice(i+1,j)==false)
 			{
@@ -55,7 +55,7 @@ public class Peao extends Peca {
 			}
 			
 		}
-		else //se for claro sobe
+		else
 		{
 			if(Tabuleiro.TemPecaIndice(i-1,j)==false)
 			{
@@ -63,7 +63,7 @@ public class Peao extends Peca {
 			}
 		}
 		
-		if(this.getCor()==Cor.Claro && i==6 && Tabuleiro.TemPecaIndice(i-1, j)==false) //se for primeira jogada
+		if(this.getCor()==Cor.Claro && i==6 && Tabuleiro.TemPecaIndice(i-1, j)==false)
 		{
 			if(Tabuleiro.TemPecaIndice(i-2,j)==false)
 			{
@@ -88,36 +88,70 @@ public class Peao extends Peca {
 		int i,j;
 		i=y/alt;
 		j=x/larg;
-		if (i!=7)
+		if(color==Cor.Escuro)
 		{
-			if(j==0)
+			if (i!=7)
 			{
-				if(Tabuleiro.TemPecaIndice(i+1, j+1) && Tabuleiro.getTabuleiro().getCelula(i+1, j+1).getPeca().getCor()!=color)
+				if(j==0)
 				{
-					eats.add(new Pair(i+1,j+1));
+					if(Tabuleiro.TemPecaIndice(i+1, j+1) && Tabuleiro.getTabuleiro().getCelula(i+1, j+1).getPeca().getCor()==Cor.Claro)
+					{
+						eats.add(new Pair(i+1,j+1));
+					}
 				}
-			}
-			else if(j==7)
-			{
-				if(Tabuleiro.TemPecaIndice(i+1, j-1) && Tabuleiro.getTabuleiro().getCelula(i+1, j-1).getPeca().getCor()!=color)
+				else if(j==7)
 				{
-					eats.add(new Pair(i+1,j-1));	
+					if(Tabuleiro.TemPecaIndice(i+1, j-1) && Tabuleiro.getTabuleiro().getCelula(i+1, j-1).getPeca().getCor()==Cor.Claro)
+					{
+						eats.add(new Pair(i+1,j-1));	
+					}
 				}
-			}
-			else
-			{
-				if(Tabuleiro.TemPecaIndice(i+1, j+1) && Tabuleiro.getTabuleiro().getCelula(i+1, j+1).getPeca().getCor()!=color)
+				else
 				{
-					eats.add(new Pair(i+1,j+1));
+					if(Tabuleiro.TemPecaIndice(i+1, j+1) && Tabuleiro.getTabuleiro().getCelula(i+1, j+1).getPeca().getCor()==Cor.Claro)
+					{
+						eats.add(new Pair(i+1,j+1));
+					}
+					if(Tabuleiro.TemPecaIndice(i+1, j-1) && Tabuleiro.getTabuleiro().getCelula(i+1, j-1).getPeca().getCor()==Cor.Claro)
+					{
+						eats.add(new Pair(i+1,j-1));	
+					}
 				}
-				if(Tabuleiro.TemPecaIndice(i+1, j-1) && Tabuleiro.getTabuleiro().getCelula(i+1, j-1).getPeca().getCor()!=color)
-				{
-					eats.add(new Pair(i+1,j-1));	
-				}
-			}
 				
+			}
 		}
-
+		else
+		{
+			if (i!=0)
+			{
+				if(j==0)
+				{
+					if(Tabuleiro.TemPecaIndice(i-1, j+1) && Tabuleiro.getTabuleiro().getCelula(i-1, j+1).getPeca().getCor()==Cor.Escuro)
+					{
+						eats.add(new Pair(i-1,j+1));	
+					}
+					
+				}
+				else if(j==7)
+				{
+					if(Tabuleiro.TemPecaIndice(i-1, j-1) && Tabuleiro.getTabuleiro().getCelula(i-1, j-1).getPeca().getCor()==Cor.Escuro)
+					{
+						eats.add(new Pair(i-1,j-1));	
+					}
+				}
+				else
+				{
+					if(Tabuleiro.TemPecaIndice(i-1, j+1) && Tabuleiro.getTabuleiro().getCelula(i-1, j+1).getPeca().getCor()==Cor.Escuro)
+					{
+						eats.add(new Pair(i-1,j+1));
+					}
+					if(Tabuleiro.TemPecaIndice(i-1, j-1) && Tabuleiro.getTabuleiro().getCelula(i-1, j-1).getPeca().getCor()==Cor.Escuro)
+					{
+						eats.add(new Pair(i-1,j-1));	
+					}
+				}
+			}
+		}
 		return eats;
 	}
 }
