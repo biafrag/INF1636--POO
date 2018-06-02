@@ -136,4 +136,8 @@ public class Celula {
 	{
 		return positions;
 	}
+	public Vector<Pair> getEats()
+	{
+		return eats;
+	}
 }

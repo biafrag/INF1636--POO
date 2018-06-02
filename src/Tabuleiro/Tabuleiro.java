@@ -227,4 +227,33 @@ public class Tabuleiro  {
 		}
 	}
 	
+	public static void ComePeca(int x1, int y1, int x2, int y2)
+	{
+		int i1,i2,j1,j2;
+		i1=y1/alt;
+		j1=x1/larg;
+		i2=y2/alt;
+		j2=x2/larg;
+		Vector<Pair> eats;
+		i1=Math.floorDiv((y1 - 40),alt);
+		j1=Math.floorDiv(x1,larg);
+		i2=Math.floorDiv((y2 - 40),alt);
+		j2=Math.floorDiv(x2,larg);
+		
+		System.out.println(y1+ " "+i1+" "+j1);
+		
+		
+		eats=tabuleiro[i1][j1].getEats();
+		for(int k=0;k<eats.size();k++)
+		{
+			if(eats.get(k).getX()==i2 && eats.get(k).getY()==j2)
+			{
+				System.out.println("Come "+ y2+ " "+i2+" "+j2);
+				tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+				tabuleiro[i1][j1].setPeca(null);
+				break;
+			}
+		}
+	}
+	
 }

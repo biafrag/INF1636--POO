@@ -10,6 +10,7 @@ public class Mouse extends Observable implements MouseListener {
 
 	int x1,y1,x2,y2;
 	boolean mousepress=false;
+	boolean jogador=true; //jogador1
 	private static Mouse mouse;
 	private Tabuleiro t;
 	private Mouse()
@@ -51,6 +52,7 @@ public class Mouse extends Observable implements MouseListener {
 			}
 			else
 			{
+				
 				Tabuleiro.Acende(x1, y1);	
 				Tabuleiro.CatchPossibleMoves(x1, y1);
 				Tabuleiro.CatchPossibleEats(x1, y1);
@@ -73,7 +75,10 @@ public class Mouse extends Observable implements MouseListener {
 			}	
 			else
 			{
-				
+				System.out.println("click2 com peca");
+				Tabuleiro.ComePeca(x1,y1,x2, y2);
+				this.setChanged();
+				notifyObservers();				
 			}
 		}
 		
