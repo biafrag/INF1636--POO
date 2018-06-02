@@ -24,6 +24,7 @@ public class Tabuleiro  {
 	private static int larg;
 	private static Vector<Pair> _possiblePositions;
 	private static Vector<Pair> _possibleEats;
+	private static boolean jogador=true;
 	private Tabuleiro()
 	{
 		double posX=0;
@@ -176,8 +177,14 @@ public class Tabuleiro  {
 		i2=Math.floorDiv((y2 - 40),alt);
 		j2=Math.floorDiv(x2,larg);
 		
+		if(jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Escuro)
+			return;
+		else if (!jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Claro)
+			return;
+		
 		System.out.println("De "+ y1+ " "+i1+" "+j1);
 		System.out.println("Para "+ y2+ " "+i2+" "+j2);
+		System.out.println("joga: " + jogador);
 		
 		positions=tabuleiro[i1][j1].getPositions();
 		for(int i=0;i<positions.size();i++)
@@ -186,6 +193,11 @@ public class Tabuleiro  {
 			{
 				tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
 				tabuleiro[i1][j1].setPeca(null);
+				if (jogador)
+					jogador = false;
+				else
+					jogador = true;
+				System.out.println("joga: " + jogador);
 				break;
 			}
 		}
@@ -240,9 +252,13 @@ public class Tabuleiro  {
 		i2=Math.floorDiv((y2 - 40),alt);
 		j2=Math.floorDiv(x2,larg);
 		
+		if(jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Escuro)
+			return;
+		else if (!jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Claro)
+			return;
+		
 		System.out.println(y1+ " "+i1+" "+j1);
-		
-		
+		System.out.println("come: " + jogador);
 		eats=tabuleiro[i1][j1].getEats();
 		for(int k=0;k<eats.size();k++)
 		{
@@ -251,6 +267,11 @@ public class Tabuleiro  {
 				System.out.println("Come "+ y2+ " "+i2+" "+j2);
 				tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
 				tabuleiro[i1][j1].setPeca(null);
+				if (jogador)
+					jogador = false;
+				else
+					jogador = true;
+				System.out.println("come: " + jogador);
 				break;
 			}
 		}

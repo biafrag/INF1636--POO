@@ -10,7 +10,6 @@ public class Mouse extends Observable implements MouseListener {
 
 	int x1,y1,x2,y2;
 	boolean mousepress=false;
-	boolean jogador=true; //jogador1
 	private static Mouse mouse;
 	private Tabuleiro t;
 	private Mouse()
@@ -69,19 +68,17 @@ public class Mouse extends Observable implements MouseListener {
 			mousepress=false;
 			if (Tabuleiro.TemPeca(x2, y2) == false)
 			{
-				Tabuleiro.MexePeca(x1, y1,x2,y2); 
+				Tabuleiro.MexePeca(x1,y1,x2,y2);
 				this.setChanged();
 				notifyObservers();
 			}	
 			else
 			{
-				System.out.println("click2 com peca");
-				Tabuleiro.ComePeca(x1,y1,x2, y2);
+				Tabuleiro.ComePeca(x1,y1,x2,y2);
 				this.setChanged();
 				notifyObservers();				
 			}
-		}
-		
+		}	
 	}
 	public void mouseReleased(MouseEvent e)
 	{
