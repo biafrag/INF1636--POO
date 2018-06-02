@@ -1,13 +1,14 @@
 package Tabuleiro;
-
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.Vector;
+
 
 import Drawing.Cor;
-
 public abstract class Peca  {		
-	static String path = "Imagens/";
-		
+	static String path = "src/Imagens/";
+	protected static int larg=Celula.getLarg();
+	protected static int alt=Celula.getAlt();
 	protected Image image;
 	
 	Cor color; //claro cyan escuro purple
@@ -20,20 +21,7 @@ public abstract class Peca  {
 	public Cor getCor() {
 		return color;
 	}
-	
-	public int ConfereMov (Object objeto,int x1,int y1,int x2,int y2, Cor cor) {
-		if (objeto instanceof Bispo) 
-	       return Bispo.ConfereRegraMov(x1,y1,x2,y2,cor);
-	    else if (objeto instanceof Cavalo)
-	       return Cavalo.ConfereRegraMov(x1,y1,x2,y2,cor);
-	    else if (objeto instanceof Peao)
-		       return Peao.ConfereRegraMov(x1,y1,x2,y2,cor);
-	    else if (objeto instanceof Rainha)
-		       return Rainha.ConfereRegraMov(x1,y1,x2,y2,cor);
-	    else if (objeto instanceof Rei)
-		       return Rei.ConfereRegraMov(x1,y1,x2,y2,cor);
-	    else if (objeto instanceof Torre)
-		       return Torre.ConfereRegraMov(x1,y1,x2,y2,cor);;
-	    return 1;
-	}
+	protected abstract void CarregaImagem(Cor cor);
+	public abstract Vector<Pair> CatchPossibleMovements(int x,int y); 
+	public abstract Vector<Pair> PossibleEats(int x,int y); 
 }

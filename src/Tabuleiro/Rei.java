@@ -2,6 +2,7 @@ package Tabuleiro;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
@@ -14,7 +15,7 @@ public class Rei extends Peca {
 		color = cor;
 		CarregaImagem(cor);
 	}
-	private void CarregaImagem(Cor cor)
+	protected void CarregaImagem(Cor cor)
 	{
 		if (cor == Cor.Escuro) 
 		{
@@ -39,41 +40,175 @@ public class Rei extends Peca {
 
 	}
 	
-	static int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
-	{
-
-		/* movimenta-se apenas 1 casa em qualquer direção. O Rei nunca pode se movimentar para uma 
-		 * casa que esteja sob ataque ou capturar uma peça que esteja defendida por uma peça 
-		 * adversária. AINDA FALTA OS MOVIMENTOS ESPECIAIS*/
+	@Override
+	public Vector<Pair> CatchPossibleMovements(int x, int y) {
+		// TODO Auto-generated method stub
+		Vector <Pair> positions = new Vector<Pair>();
+		int i,j;
+		i=y/alt;
+		j=x/larg;
 		
-		int i1,i2,j1,j2;
-		int larg=Celula.getLarg();
-		int alt=Celula.getAlt();
-
-		i1=y1/alt;
-		j1=x1/larg;
-		i2=y2/alt;
-		j2=x2/larg;
-		
-		/* i1 5 i2 4 j3 6 j1 1 j2 2 j3 0
-		 * i2=4 <= i1-1 =4
-		 * i3=6 <= i1+! =6
-		 * j3=0 <= j1-1 =0
-		 * j2=2 <= j1+1 =2
-		 * 
-		 */
-		if (cor == Cor.Claro) { 
-			if ((i2 > i1-1 || i2 > i1+1) || (j2 > j1+1 || j2 > j1-1)) // só pode andar uma casa
-				return 0;
-		}
-		else if (cor == Cor.Escuro) 
+		/* movimenta-se apenas 1 casa em qualquer direção. Nunca pode se movimentar para uma casa que 
+		 * esteja sob ataque ou capturar uma peça que esteja defendida por uma peça adversária.  */
+		if (i!=7)
 		{
-			if ((i2 < i1-1 || i2 < i1+1) || (j2 < j1+1 || j2 < j1-1)) // só pode andar uma casa
-				return 0;	
+			if(Tabuleiro.TemPecaIndice(i+1,j)==false) //para baixo
+			{
+				positions.add(new Pair(i+1,j));
+			}
+		}
+		if (i!=0) 
+		{
+			if(Tabuleiro.TemPecaIndice(i-1,j)==false) //para cima
+			{
+				positions.add(new Pair(i-1,j));
+			}
+		}
+		if (j!=7)
+		{
+			if(Tabuleiro.TemPecaIndice(i,j+1)==false) //para direita
+			{
+				positions.add(new Pair(i,j+1));
+			}
+			if (i!=0)
+			{
+				if(Tabuleiro.TemPecaIndice(i-1,j+1)==false) //diagonal para cima e para direita
+				{
+					positions.add(new Pair(i-1,j+1));
+				}
+			}
+			if (i!=7)
+			{
+				if(Tabuleiro.TemPecaIndice(i+1,j+1)==false) //diagonal para baixo e para direita
+				{
+					positions.add(new Pair(i+1,j+1));
+				}
+			}
+		}
+		if (j!=0)
+		{
+			if(Tabuleiro.TemPecaIndice(i,j-1)==false) //para esquerda
+			{
+				positions.add(new Pair(i,j-1));
+			}
+			if (i!=0)
+			{
+				if(Tabuleiro.TemPecaIndice(i-1,j-1)==false) //diagonal para cima e para esquerda
+				{
+					positions.add(new Pair(i-1,j-1));
+				}
+			}
+			if (i!=7)
+			{
+				if(Tabuleiro.TemPecaIndice(i+1,j-1)==false) //diagonal para baixo e para esquerda
+				{
+					positions.add(new Pair(i+1,j-1));
+				}
+			}
 		}		
 		
-		return 1;
+//		for(int n = 1;n<4 && j+n<8 && i+1<8;n++)
+//		{
+//			if(Tabuleiro.TemPeca(i+1, j+n)==false)
+//			{
+//				positions.add(new Pair(i+1,j+n));
+//			}
+//		}
+//		for(int n = 2;n<4 && i+n<8 && j-1>=0;n++)
+//		{
+//			if(Tabuleiro.TemPeca(i+n, j-1)==false)
+//			{
+//				positions.add(new Pair(i+n,j-n));
+//			}
+//		}
+//		for(int n = 2;n<4 && j+n<8 && i+1<8;n++)
+//		{
+//			if(Tabuleiro.TemPeca(i+n, j+3)==false)
+//			{
+//				positions.add(new Pair(i+n,j+3));
+//			}
+//		}
+//		for(int n = 2;n<3 && j+n<8 && i+1<8;n++)
+//		{
+//			if(Tabuleiro.TemPeca(i+3, j+n)==false)
+//			{
+//				positions.add(new Pair(i+3,j+n));
+//			}
+//		}
+		return positions;
 	}
-	
+	@Override
+	public Vector<Pair> PossibleEats(int x, int y) {
+		Vector <Pair> eats = new Vector<Pair>();
+		int i,j;
+		i=y/alt;
+		j=x/larg;
+		if (i!=0)
+		{
+			if(Tabuleiro.TemPecaIndice(i-1,j)) 
+			{
+				if((Tabuleiro.getTabuleiro().getCelula(i-1, j).getPeca().getCor()!=color))
+				{
+					eats.add(new Pair(i-1,j));	
+				}	
+			}
+			if(Tabuleiro.TemPecaIndice(i-1,j+1)) //diagonal para cima e para direita
+			{
+				if((Tabuleiro.getTabuleiro().getCelula(i-1, j+1).getPeca().getCor()!=color))
+				{
+					eats.add(new Pair(i-1,j+1));	
+				}
+			}
+			if (j!=0)
+			{
+				if(Tabuleiro.TemPecaIndice(i-1,j-1)) //diagonal para cima e para esquerda
+				{
+					if((Tabuleiro.getTabuleiro().getCelula(i-1, j-1).getPeca().getCor()!=color))
+					{
+						eats.add(new Pair(i-1,j-1));	
+					}
+				}
+			}
+		}
+		if (j!=0)
+		{
+			if(Tabuleiro.TemPecaIndice(i,j-1)) //para esquerda
+			{
+				if((Tabuleiro.getTabuleiro().getCelula(i, j-1).getPeca().getCor()!=color))
+				{
+					eats.add(new Pair(i,j-1));	
+				}
+			}			
+			if(Tabuleiro.TemPecaIndice(i+1,j-1)) //diagonal para baixo e para esquerda
+			{
+				if((Tabuleiro.getTabuleiro().getCelula(i+1, j-1).getPeca().getCor()!=color))
+				{
+					eats.add(new Pair(i+1,j-1));	
+				}
+			}		
+		}		
+		if(Tabuleiro.TemPecaIndice(i,j+1)) 
+		{
+			if((Tabuleiro.getTabuleiro().getCelula(i, j+1).getPeca().getCor()!=color))
+			{
+				eats.add(new Pair(i,j+1));	
+			}
+		}
+		if(Tabuleiro.TemPecaIndice(i+1,j)) 
+		{
+			if((Tabuleiro.getTabuleiro().getCelula(i+1, j).getPeca().getCor()!=color))
+			{
+				eats.add(new Pair(i+1,j));	
+			}
+		}
+		if(Tabuleiro.TemPecaIndice(i+1,j+1)) 
+		{
+			if((Tabuleiro.getTabuleiro().getCelula(i+1, j+1).getPeca().getCor()!=color))
+			{
+				eats.add(new Pair(i+1,j+1));	
+			}
+		}		
+		return eats;
+	}	
 }
 	

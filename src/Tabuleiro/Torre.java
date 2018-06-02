@@ -2,10 +2,13 @@ package Tabuleiro;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
+
 import javax.imageio.ImageIO;
 
 import Drawing.Cor;
 import Tabuleiro.Tabuleiro;
+
 
 public class Torre extends Peca {
 	
@@ -14,7 +17,7 @@ public class Torre extends Peca {
 		color = cor;
 		CarregaImagem(cor);
 	}
-	private void CarregaImagem(Cor cor)
+	protected void CarregaImagem(Cor cor)
 	{
 		if (cor == Cor.Escuro) 
 		{
@@ -38,43 +41,114 @@ public class Torre extends Peca {
 		}
 
 	}	
-	static int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
-	{
-		int i1,i2,j1,j2;
-		int larg=Celula.getLarg();
-		int alt=Celula.getAlt();
-		int i;
-		
-		i1=y1/alt;
-		j1=x1/larg;
-		i2=y2/alt;
-		j2=x2/larg;
-		
-		if (i1 != i2 && j1 != j2) //não se move na diagonal
-			return 0;
-		
-		if (cor == Cor.Escuro) {
-			for (i = i1+1; i<=i2; i++) {
-				if (Tabuleiro.TemPeca(x1, i*alt)==1)	
-					return 0;				
-			}
-			for (i = j1+1; i<=j2; i++) {
-				if (Tabuleiro.TemPeca(i*larg, y1)==1)			
-					return 0;
+	
+	@Override
+	public Vector<Pair> CatchPossibleMovements(int x, int y) {
+		// TODO Auto-generated method stub
+		Vector <Pair> positions = new Vector<Pair>();
+		int i,j;
+		i=y/alt;
+		j=x/larg;
+		if(j!=7)
+		{
+			for(int n=j+1;n<8;n++) //vê movimentos possiveis na mesma linha pra direita
+			{
+				if(Tabuleiro.TemPecaIndice(i,n)==false)
+				{
+				    positions.add(new Pair(i,n));
+				}
+				else
+				{
+					break;
+				}
 			}
 		}
-		else if (cor == Cor.Claro) {
-			for (i = i1-1; i>=i2; i--) {
-				if (Tabuleiro.TemPeca(x1, i*alt)==1)			
-					return 0;
+		if(j!=0)
+		{
+			for(int n=j-1;n>=0;n--)
+			{
+				if(Tabuleiro.TemPecaIndice(i,n)==false) //vê movimentos possiveis na mesma linha pra esquerda
+				{
+				    positions.add(new Pair(i,n));
+				}
+				else
+				{
+					break;
+				}
 			}
-			for (i = j1-1; i>=j2; i--) {
-				if (Tabuleiro.TemPeca(i*larg, y1)==1)			
-					return 0;
+		}
+		if(i!=7)
+		{
+			for(int n=i+1;n<8;n++) //vê movimentos possiveis na mesma coluna pra baixo
+			{
+				if(Tabuleiro.TemPecaIndice(n,j)==false)
+				{
+				   positions.add(new Pair(n,j));
+				}
+				else
+				{
+				   break;
+				}
 			}
-		} 
-			
-		return 1;
+		}		
+		if(i!=0) 
+		{
+			for(int n=i-1;n>=0;n--) //vê movimentos possiveis na mesma coluna pra cima
+			{
+				if(Tabuleiro.TemPecaIndice(n,j)==false)
+				{
+				   positions.add(new Pair(n,j));
+				}
+				else
+				{
+			       break;
+				}
+			}
+		}
+		return positions;
+	}
+	@Override
+	public Vector<Pair> PossibleEats(int x, int y) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		Vector <Pair> eats = new Vector<Pair>();
+		int i,j;
+		i=y/alt;
+		j=x/larg;
+		for(int n=j+1;n<8;n++)
+		{
+			if(Tabuleiro.TemPecaIndice(i,n) )
+			{
+				if((Tabuleiro.getTabuleiro().getCelula(i, n).getPeca().getCor()!=color))
+				{
+					eats.add(new Pair(i,n));	
+				}
+				break;
+			}
+		}
+		for(int n=i+1;n<8;n++)
+		{
+			if(Tabuleiro.TemPecaIndice(n,j))
+			{
+			   if(Tabuleiro.getTabuleiro().getCelula(n, j).getPeca().getCor()!=color)
+			   {
+				   eats.add(new Pair(n,j));
+			   }
+			   break;
+			}
+		}
+		for(int n=i-1;n>=0;n--)
+		{
+			if(Tabuleiro.TemPecaIndice(n,j) )
+			{
+				if((Tabuleiro.getTabuleiro().getCelula(n, j).getPeca().getCor()!=color))
+				{
+					 eats.add(new Pair(n,j));
+				}
+				break;
+			}
+		}
+		return eats;
 	}
 	
 }

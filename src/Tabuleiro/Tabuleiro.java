@@ -3,6 +3,7 @@ package Tabuleiro;
 //import java.util.Observer;
 //import java.util.Observable;
 import java.awt.Graphics2D;
+import java.util.Vector;
 
 import Drawing.Cor;
 
@@ -17,15 +18,18 @@ public class Tabuleiro  {
 	 * Peao ...									  Peao
 	 * Torre Cavalo Bispo Rainha Rei Bispo Cavalo Torre
 	 */
-
+    private static Tabuleiro t;
 	private static Celula tabuleiro[][];
-	
-	public Tabuleiro()
+	private static int alt;
+	private static int larg;
+	private static Vector<Pair> _possiblePositions;
+	private static Vector<Pair> _possibleEats;
+	private Tabuleiro()
 	{
 		double posX=0;
 		double posY=0;
-		int larg=Celula.getLarg();
-		int alt=Celula.getAlt();
+		larg=Celula.getLarg();
+		alt=Celula.getAlt();
 		Cor c=Cor.Claro;
 		tabuleiro=new Celula[8][8];
 		for(int i=0;i<8;i++)
@@ -65,6 +69,14 @@ public class Tabuleiro  {
 		}
 		}
 		
+	}
+	public static Tabuleiro getTabuleiro()
+	{
+		if(t==null)
+		{
+			t= new Tabuleiro();
+		}
+		return t;
 	}
 	public void Draw(Graphics2D g)
 	{
@@ -134,49 +146,87 @@ public class Tabuleiro  {
 		tabuleiro[7][7].setPeca(Tc);
 	}
 	
-	public static int TemPeca(int x, int y)
+	public static boolean TemPeca(int x, int y)
 	{
 		int i,j;
-		int larg=Celula.getLarg();
-		int alt=Celula.getAlt();
 		Peca p;
-		i=y/alt;
-		j=x/larg;
+		i=Math.floorDiv(y, alt); 
+		j=Math.floorDiv(x, larg);
 		p = tabuleiro[i][j].getPeca();
 		if (p == null)
-			return 0;
-		return 1;	
+			return false;
+		return true;	
 	}
-	
+	public static boolean TemPecaIndice(int i, int j)
+	{
+		if (tabuleiro[i][j].getPeca() == null)
+			return false;
+		return true;	
+	}	
 	public static void MexePeca(int x1,int y1,int x2,int y2)
 	{
 		int i1,i2,j1,j2;
-		int larg=Celula.getLarg();
-		int alt=Celula.getAlt();
 		int a;
 		Peca p ;
-		
 		i1=y1/alt;
 		j1=x1/larg;
 		i2=y2/alt;
 		j2=x2/larg;
+		Vector<Pair> positions;
+		i1=Math.floorDiv((y1 - 40),alt);
+		j1=Math.floorDiv(x1,larg);
+		i2=Math.floorDiv((y2 - 40),alt);
+		j2=Math.floorDiv(x2,larg);
 		
-		System.out.println("De "+i1+" "+j1);
-		System.out.println("Para "+i2+" "+j2);
-				
-		p = tabuleiro[i1][j1].getPeca();
-		System.out.println(p);
-				
-		a = p.ConfereMov(p, x1, y1, x2, y2, p.getCor());
+		System.out.println("De "+ y1+ " "+i1+" "+j1);
+		System.out.println("Para "+ y2+ " "+i2+" "+j2);
 		
-		if (a == 1)	{	
-			tabuleiro[i1][j1].setPeca(null);
-			tabuleiro[i2][j2].setPeca(p);
+		positions=tabuleiro[i1][j1].getPositions();
+		for(int i=0;i<positions.size();i++)
+		{
+			if(positions.get(i).getX()==i2 && positions.get(i).getY()==j2)
+			{
+				tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+				tabuleiro[i1][j1].setPeca(null);
+				break;
+			}
 		}
-		else {
-			System.out.println("Movimento errado");
+	}
+	public static void Acende(int x, int y)
+	{
+		int i=Math.floorDiv(y,alt);
+		int j=Math.floorDiv(x,larg);
+		System.out.println(i +" "+ j);
+		tabuleiro[i][j].setSelect();
+	}
+	public static void CatchPossibleMoves(int x, int y)
+	{
+		int i=Math.floorDiv(y,alt);
+		int j=Math.floorDiv(x,larg);
+		System.out.println(i +" "+ j);
+		 _possiblePositions=tabuleiro[i][j].catchMoves(x,y);
+		if( _possiblePositions!=null)
+		{
+			for(int n=0;n< _possiblePositions.size();n++)
+			{
+				tabuleiro[ _possiblePositions.get(n).getX()][ _possiblePositions.get(n).getY()].setPossibleMove();
+			}
 		}
 	}
 	
+	public static void CatchPossibleEats(int x, int y)
+	{
+		int i=Math.floorDiv(y,alt);
+		int j=Math.floorDiv(x,larg);
+		System.out.println(i +" "+ j);
+		 _possibleEats=tabuleiro[i][j].catchEats(x,y);
+		if( _possibleEats!=null)
+		{
+			for(int n=0;n< _possibleEats.size();n++)
+			{
+				tabuleiro[ _possibleEats.get(n).getX()][ _possibleEats.get(n).getY()].setPossibleEats();
+			}
+		}
+	}
 	
 }

@@ -2,6 +2,8 @@ package Tabuleiro;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
+
 import javax.imageio.ImageIO;
 
 import Drawing.Cor;
@@ -12,7 +14,7 @@ public class Peao extends Peca {
 		color = cor;
 		CarregaImagem(cor);
 	}
-	private void CarregaImagem(Cor cor)
+	protected void CarregaImagem(Cor cor)
 	{
 		if (cor == Cor.Escuro) 
 		{
@@ -36,53 +38,119 @@ public class Peao extends Peca {
 		}
 
 	}
-	static int lance = 0;
-	static int ConfereRegraMov(int x1,int y1,int x2,int y2, Cor cor)
-	{
-		int i1,i2,j1,j2;
-		int larg=Celula.getLarg();
-		int alt=Celula.getAlt();
-		
-		i1=y1/alt;
-		j1=x1/larg;
-		i2=y2/alt;
-		j2=x2/larg;
-		
-		if (j1 != j2) //Só se movimenta na mesma coluna
-			return 0;
-		
-		if (i1 == 1 || i1 == 6) // está na primeira posicao, logo ainda não ocorreu lances
-			lance = 0;	
-		
-		if (cor == Cor.Claro) { 
-				if (i2 > i1)  //só se movimenta para frente
-					return 0; 
-				if (lance == 0 && i2 >= i1-2) //Prim lance do peao, ele pode andar 2 casas
-				{
-					lance++;
-					return 1;			
-				}
-				else if (i2 >= i1-1) //depois do primeiro, só pode andar uma
-				{
-					lance++;
-					return 1;	
-				}
-		}
-		else if (cor == Cor.Escuro) 
+	@Override
+	public Vector<Pair> CatchPossibleMovements(int x, int y) {
+		//Peão só anda pra frente 1 casa ou 2 se for no primeiro movimento
+
+		Vector <Pair> positions = new Vector<Pair>();
+		int i,j;
+		i=y/alt;
+		j=x/larg;
+		if(this.color == Cor.Escuro )
 		{
-			if (i2 < i1)  //só se movimenta para frente
-				return 0; 
-			if (lance == 0 && i2 <= i1+2)
+			if(Tabuleiro.TemPecaIndice(i+1,j)==false)
 			{
-				lance++;   //só atualiza o lance, se a jogada estiver correta
-				return 1;
+				positions.add(new Pair(i+1,j));
 			}
-			else if (i2 <= i1+1)
-			{
-				lance++;
-				return 1;	
-			}		
+			
 		}
-		return 0; //não está dentro das regras
+		else
+		{
+			if(Tabuleiro.TemPecaIndice(i-1,j)==false)
+			{
+				positions.add(new Pair(i-1,j));
+			}
+		}
+		
+		if(this.getCor()==Cor.Claro && i==6 && Tabuleiro.TemPecaIndice(i-1, j)==false)
+		{
+			if(Tabuleiro.TemPecaIndice(i-2,j)==false)
+			{
+				positions.add(new Pair(i-2,j));
+			}
+
+		}
+		else if (this.getCor()==Cor.Escuro && i==1 && Tabuleiro.TemPecaIndice(i+1, j)==false)
+		{
+			if(Tabuleiro.TemPecaIndice(i+2,j)==false)
+			{
+				positions.add(new Pair(i+2,j));
+				
+			}
+		}
+		return positions;
+	}
+	
+	public Vector<Pair> PossibleEats(int x, int y)
+	{
+		Vector <Pair> eats = new Vector<Pair>();
+		int i,j;
+		i=y/alt;
+		j=x/larg;
+		if(color==Cor.Escuro)
+		{
+			if (i!=7)
+			{
+				if(j==0)
+				{
+					if(Tabuleiro.TemPecaIndice(i+1, j+1) && Tabuleiro.getTabuleiro().getCelula(i+1, j+1).getPeca().getCor()==Cor.Claro)
+					{
+						eats.add(new Pair(i+1,j+1));
+					}
+				}
+				else if(j==7)
+				{
+					if(Tabuleiro.TemPecaIndice(i+1, j-1) && Tabuleiro.getTabuleiro().getCelula(i+1, j-1).getPeca().getCor()==Cor.Claro)
+					{
+						eats.add(new Pair(i+1,j-1));	
+					}
+				}
+				else
+				{
+					if(Tabuleiro.TemPecaIndice(i+1, j+1) && Tabuleiro.getTabuleiro().getCelula(i+1, j+1).getPeca().getCor()==Cor.Claro)
+					{
+						eats.add(new Pair(i+1,j+1));
+					}
+					if(Tabuleiro.TemPecaIndice(i+1, j-1) && Tabuleiro.getTabuleiro().getCelula(i+1, j-1).getPeca().getCor()==Cor.Claro)
+					{
+						eats.add(new Pair(i+1,j-1));	
+					}
+				}
+				
+			}
+		}
+		else
+		{
+			if (i!=0)
+			{
+				if(j==0)
+				{
+					if(Tabuleiro.TemPecaIndice(i-1, j+1) && Tabuleiro.getTabuleiro().getCelula(i-1, j+1).getPeca().getCor()==Cor.Escuro)
+					{
+						eats.add(new Pair(i-1,j+1));	
+					}
+					
+				}
+				else if(j==7)
+				{
+					if(Tabuleiro.TemPecaIndice(i-1, j-1) && Tabuleiro.getTabuleiro().getCelula(i-1, j-1).getPeca().getCor()==Cor.Escuro)
+					{
+						eats.add(new Pair(i-1,j-1));	
+					}
+				}
+				else
+				{
+					if(Tabuleiro.TemPecaIndice(i-1, j+1) && Tabuleiro.getTabuleiro().getCelula(i-1, j+1).getPeca().getCor()==Cor.Escuro)
+					{
+						eats.add(new Pair(i-1,j+1));
+					}
+					if(Tabuleiro.TemPecaIndice(i-1, j-1) && Tabuleiro.getTabuleiro().getCelula(i-1, j-1).getPeca().getCor()==Cor.Escuro)
+					{
+						eats.add(new Pair(i-1,j-1));	
+					}
+				}
+			}
+		}
+		return eats;
 	}
 }
