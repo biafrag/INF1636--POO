@@ -152,11 +152,14 @@ public class Rei extends Peca {
 					eats.add(new Pair(i-1,j));	
 				}	
 			}
-			if(Tabuleiro.TemPecaIndice(i-1,j+1)) //diagonal para cima e para direita
+			if (j!=7)
 			{
-				if((Tabuleiro.getTabuleiro().getCelula(i-1, j+1).getPeca().getCor()!=color))
+				if(Tabuleiro.TemPecaIndice(i-1,j+1)) //diagonal para cima e para direita
 				{
-					eats.add(new Pair(i-1,j+1));	
+					if((Tabuleiro.getTabuleiro().getCelula(i-1, j+1).getPeca().getCor()!=color))
+					{
+						eats.add(new Pair(i-1,j+1));	
+					}
 				}
 			}
 			if (j!=0)
@@ -179,35 +182,47 @@ public class Rei extends Peca {
 					eats.add(new Pair(i,j-1));	
 				}
 			}			
-			if(Tabuleiro.TemPecaIndice(i+1,j-1)) //diagonal para baixo e para esquerda
+			if (i!=7)
 			{
-				if((Tabuleiro.getTabuleiro().getCelula(i+1, j-1).getPeca().getCor()!=color))
+				if(Tabuleiro.TemPecaIndice(i+1,j-1)) //diagonal para baixo e para esquerda
 				{
-					eats.add(new Pair(i+1,j-1));	
+					if((Tabuleiro.getTabuleiro().getCelula(i+1, j-1).getPeca().getCor()!=color))
+					{
+						eats.add(new Pair(i+1,j-1));	
+					}
+				}		
+			}
+		}		
+		if (j!=7)
+		{
+			if(Tabuleiro.TemPecaIndice(i,j+1)) 
+			{
+				if((Tabuleiro.getTabuleiro().getCelula(i, j+1).getPeca().getCor()!=color))
+				{
+					eats.add(new Pair(i,j+1));	
 				}
-			}		
-		}		
-		if(Tabuleiro.TemPecaIndice(i,j+1)) 
-		{
-			if((Tabuleiro.getTabuleiro().getCelula(i, j+1).getPeca().getCor()!=color))
+			}
+			if (i!=7)
 			{
-				eats.add(new Pair(i,j+1));	
+				if(Tabuleiro.TemPecaIndice(i+1,j+1)) 
+				{
+					if((Tabuleiro.getTabuleiro().getCelula(i+1, j+1).getPeca().getCor()!=color))
+					{
+						eats.add(new Pair(i+1,j+1));	
+					}
+				}		
 			}
 		}
-		if(Tabuleiro.TemPecaIndice(i+1,j)) 
+		if (i!=7)
 		{
-			if((Tabuleiro.getTabuleiro().getCelula(i+1, j).getPeca().getCor()!=color))
+			if(Tabuleiro.TemPecaIndice(i+1,j)) 
 			{
-				eats.add(new Pair(i+1,j));	
+				if((Tabuleiro.getTabuleiro().getCelula(i+1, j).getPeca().getCor()!=color))
+				{
+					eats.add(new Pair(i+1,j));	
+				}
 			}
 		}
-		if(Tabuleiro.TemPecaIndice(i+1,j+1)) 
-		{
-			if((Tabuleiro.getTabuleiro().getCelula(i+1, j+1).getPeca().getCor()!=color))
-			{
-				eats.add(new Pair(i+1,j+1));	
-			}
-		}		
 		return eats;
 	}	
 }

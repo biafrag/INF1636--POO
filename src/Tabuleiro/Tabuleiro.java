@@ -166,8 +166,6 @@ public class Tabuleiro  {
 	public static void MexePeca(int x1,int y1,int x2,int y2)
 	{
 		int i1,i2,j1,j2;
-		int a;
-		Peca p ;
 		i1=y1/alt;
 		j1=x1/larg;
 		i2=y2/alt;
