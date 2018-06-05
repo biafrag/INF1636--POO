@@ -61,7 +61,7 @@ public class Celula {
 			if(select == true)
 			{
 				Rectangle2D r2=new Rectangle2D.Double(posX,posY,larg,alt);
-				g.setPaint(Color.BLACK);
+				g.setPaint(Color.YELLOW);
 				g.setStroke(Contorno);
 				g.draw(r2);
 //				Color Color4=new Color(0,0,255,20);

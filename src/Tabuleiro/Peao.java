@@ -3,10 +3,13 @@ package Tabuleiro;
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
+import javax.swing.*;
+import java.awt.event.*;
 
 import javax.imageio.ImageIO;
 
 import Drawing.Cor;
+import Tabuleiro.Tabuleiro;
 
 public class Peao extends Peca {
 	public Peao(Cor cor)
@@ -38,20 +41,27 @@ public class Peao extends Peca {
 		}
 
 	}
-	@Override
+	@Override	
 	public Vector<Pair> CatchPossibleMovements(int x, int y) {
-		//Peão só anda pra frente 1 casa ou 2 se for no primeiro movimento
-
+		//Peão só anda pra frente 1 casa ou 2 se for no primeiro movimento		
 		Vector <Pair> positions = new Vector<Pair>();
 		int i,j;
 		i=y/alt;
 		j=x/larg;
+	//	JPopupMenu popup = Tabuleiro.CriaPopup(x,y);
 		if(this.color == Cor.Escuro )
 		{
 			if(Tabuleiro.TemPecaIndice(i+1,j)==false)
 			{
 				positions.add(new Pair(i+1,j));
 			}
+			/* System.out.println("i: "+i);
+			if (i==6) {
+				//MOSTRAR O POPUP MENU DE ESCOLHA
+				 System.out.println("teste b");
+				 popup.show(null,x,y);
+				 System.out.println("teste c");
+			}*/
 			
 		}
 		else
@@ -60,6 +70,14 @@ public class Peao extends Peca {
 			{
 				positions.add(new Pair(i-1,j));
 			}
+			/*System.out.println("teste a");
+			if (i==0) {
+				//MOSTRAR O POPUP MENU DE ESCOLHA
+				 * 
+				System.out.println("teste b");
+				 popup.show(null,x,y);
+				 System.out.println("teste c");
+			}*/
 		}
 		
 		if(this.getCor()==Cor.Claro && i==6 && Tabuleiro.TemPecaIndice(i-1, j)==false)

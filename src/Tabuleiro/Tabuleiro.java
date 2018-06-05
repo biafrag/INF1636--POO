@@ -3,7 +3,12 @@ package Tabuleiro;
 //import java.util.Observer;
 //import java.util.Observable;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
+
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 import Drawing.Cor;
 
@@ -184,7 +189,7 @@ public class Tabuleiro  {
 		
 		System.out.println("De "+ y1+ " "+i1+" "+j1);
 		System.out.println("Para "+ y2+ " "+i2+" "+j2);
-		System.out.println("joga: " + jogador);
+		System.out.println("joga: " + jogador);		
 		
 		positions=tabuleiro[i1][j1].getPositions();
 		for(int i=0;i<positions.size();i++)
@@ -219,6 +224,10 @@ public class Tabuleiro  {
 		{
 			for(int n=0;n< _possiblePositions.size();n++)
 			{
+				if(jogador && tabuleiro[i][j].getPeca().getCor() == Cor.Escuro)
+					break;
+				else if (!jogador && tabuleiro[i][j].getPeca().getCor() == Cor.Claro)
+					break;
 				tabuleiro[ _possiblePositions.get(n).getX()][ _possiblePositions.get(n).getY()].setPossibleMove();
 			}
 		}
@@ -234,6 +243,10 @@ public class Tabuleiro  {
 		{
 			for(int n=0;n< _possibleEats.size();n++)
 			{
+				if(jogador && tabuleiro[i][j].getPeca().getCor() == Cor.Escuro)
+					break;
+				else if (!jogador && tabuleiro[i][j].getPeca().getCor() == Cor.Claro)
+					break;
 				tabuleiro[ _possibleEats.get(n).getX()][ _possibleEats.get(n).getY()].setPossibleEats();
 			}
 		}
@@ -276,5 +289,59 @@ public class Tabuleiro  {
 			}
 		}
 	}
+	
+/*	public static JPopupMenu CriaPopup(int x, int y) {
+		JPopupMenu popup = new JPopupMenu();
+		int i,j;
+		//c é claro e e é escuro
+		Peca Bc,Be,Cc,Ce,Qe,Qc,Te,Tc;
+		Bc=new Bispo(Cor.Claro);
+		Be=new Bispo(Cor.Escuro);
+		Cc=new Cavalo(Cor.Claro);
+		Ce=new Cavalo(Cor.Escuro);
+		Qc=new Rainha(Cor.Claro);
+		Qe=new Rainha(Cor.Escuro);
+		Tc=new Torre(Cor.Claro);
+		Te=new Torre(Cor.Escuro);
+		i=y/alt;
+		j=x/larg;
+		i=Math.floorDiv((y - 40),alt);
+		j=Math.floorDiv(x,larg);
+		
+		tabuleiro[i][j].setPeca(null);
+
+		JMenuItem menuItem = new JMenuItem("Rainha");
+		menuItem.addActionListener(new ActionListener() {	 
+			public void actionPerformed(ActionEvent e) {				
+			//	if (tabuleiro[i][j].getColor() == Cor.Claro)
+			//		tabuleiro[i][j].setPeca(Qc);
+				//else
+				//	tabuleiro[i][j].setPeca(Qe);
+			}
+		});
+		popup.add(menuItem);     
+		menuItem = new JMenuItem("Torre");
+		menuItem.addActionListener(new ActionListener() {	 
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("teste");
+			}
+		});
+		popup.add(menuItem);  
+		menuItem = new JMenuItem("Bispo");
+		menuItem.addActionListener(new ActionListener() {	 
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("teste");
+			}
+		});
+		popup.add(menuItem);  
+		menuItem = new JMenuItem("Cavalo");
+		menuItem.addActionListener(new ActionListener() {	 
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("teste");
+			}
+		});
+		popup.add(menuItem);  
+		return popup;
+	}*/
 	
 }

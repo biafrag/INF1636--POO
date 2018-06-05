@@ -2,6 +2,9 @@ package Interaction;
 
 //import java.util.Observer;
 import java.util.Observable;
+
+import javax.swing.JPopupMenu;
+
 import java.awt.event.*;
 
 import Tabuleiro.Tabuleiro;
@@ -12,6 +15,8 @@ public class Mouse extends Observable implements MouseListener {
 	boolean mousepress=false;
 	private static Mouse mouse;
 	private Tabuleiro t;
+//	JPopupMenu popup = Tabuleiro.CriaPopup();
+//	int i = 2;
 	private Mouse()
 	{
 	}
@@ -28,6 +33,7 @@ public class Mouse extends Observable implements MouseListener {
 
 
 	}
+	
 	public void mouseEntered(MouseEvent e)
 	{
 	}
@@ -51,7 +57,6 @@ public class Mouse extends Observable implements MouseListener {
 			}
 			else
 			{
-				
 				Tabuleiro.Acende(x1, y1);	
 				Tabuleiro.CatchPossibleMoves(x1, y1);
 				Tabuleiro.CatchPossibleEats(x1, y1);
@@ -69,6 +74,7 @@ public class Mouse extends Observable implements MouseListener {
 			if (Tabuleiro.TemPeca(x2, y2) == false)
 			{
 				Tabuleiro.MexePeca(x1,y1,x2,y2);
+			//	showPopup(e);
 				this.setChanged();
 				notifyObservers();
 			}	
@@ -82,6 +88,9 @@ public class Mouse extends Observable implements MouseListener {
 	}
 	public void mouseReleased(MouseEvent e)
 	{
-	}
-
+		//showPopup(e);
+	}	 
+	/*private void showPopup(MouseEvent e) {
+        popup.show(e.getComponent(),e.getX(), e.getY());         
+     } */
 }
