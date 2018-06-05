@@ -48,14 +48,14 @@ public class Peao extends Peca {
 		int i,j;
 		i=y/alt;
 		j=x/larg;
-	//	JPopupMenu popup = Tabuleiro.CriaPopup(x,y);
+		JPopupMenu popup = Tabuleiro.CriaPopup(x,y);
 		if(this.color == Cor.Escuro )
 		{
 			if(Tabuleiro.TemPecaIndice(i+1,j)==false)
 			{
 				positions.add(new Pair(i+1,j));
 			}
-			/* System.out.println("i: "+i);
+		/*	 System.out.println("i: "+i);
 			if (i==6) {
 				//MOSTRAR O POPUP MENU DE ESCOLHA
 				 System.out.println("teste b");

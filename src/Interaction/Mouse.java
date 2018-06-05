@@ -15,8 +15,7 @@ public class Mouse extends Observable implements MouseListener {
 	boolean mousepress=false;
 	private static Mouse mouse;
 	private Tabuleiro t;
-//	JPopupMenu popup = Tabuleiro.CriaPopup();
-//	int i = 2;
+
 	private Mouse()
 	{
 	}
@@ -74,7 +73,6 @@ public class Mouse extends Observable implements MouseListener {
 			if (Tabuleiro.TemPeca(x2, y2) == false)
 			{
 				Tabuleiro.MexePeca(x1,y1,x2,y2);
-			//	showPopup(e);
 				this.setChanged();
 				notifyObservers();
 			}	
@@ -82,7 +80,13 @@ public class Mouse extends Observable implements MouseListener {
 			{
 				Tabuleiro.ComePeca(x1,y1,x2,y2);
 				this.setChanged();
-				notifyObservers();				
+				notifyObservers();
+			//	if (x2 == 0) {
+					JPopupMenu popup = Tabuleiro.CriaPopup(x2,y2);
+					popup.show(e.getComponent(),e.getX(), e.getY()); 
+					this.setChanged();
+					notifyObservers();	    
+			//	}				
 			}
 		}	
 	}

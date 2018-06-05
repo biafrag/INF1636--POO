@@ -290,58 +290,94 @@ public class Tabuleiro  {
 		}
 	}
 	
-/*	public static JPopupMenu CriaPopup(int x, int y) {
-		JPopupMenu popup = new JPopupMenu();
-		int i,j;
-		//c é claro e e é escuro
-		Peca Bc,Be,Cc,Ce,Qe,Qc,Te,Tc;
-		Bc=new Bispo(Cor.Claro);
-		Be=new Bispo(Cor.Escuro);
-		Cc=new Cavalo(Cor.Claro);
-		Ce=new Cavalo(Cor.Escuro);
-		Qc=new Rainha(Cor.Claro);
-		Qe=new Rainha(Cor.Escuro);
-		Tc=new Torre(Cor.Claro);
-		Te=new Torre(Cor.Escuro);
-		i=y/alt;
-		j=x/larg;
-		i=Math.floorDiv((y - 40),alt);
-		j=Math.floorDiv(x,larg);
-		
-		tabuleiro[i][j].setPeca(null);
+	public static JPopupMenu CriaPopup(int x, int y) {
+		JPopupMenu popup = new JPopupMenu();					
 
 		JMenuItem menuItem = new JMenuItem("Rainha");
 		menuItem.addActionListener(new ActionListener() {	 
-			public void actionPerformed(ActionEvent e) {				
-			//	if (tabuleiro[i][j].getColor() == Cor.Claro)
-			//		tabuleiro[i][j].setPeca(Qc);
-				//else
-				//	tabuleiro[i][j].setPeca(Qe);
+			public void actionPerformed(ActionEvent e) {	
+				Peca p;
+				int i,j;
+				i=y/alt;
+				j=x/larg;
+				i=Math.floorDiv((y - 40),alt);
+				j=Math.floorDiv(x,larg);				
+				if (tabuleiro[i][j].getColor() == Cor.Claro) {
+					p = new Rainha(Cor.Claro);
+				}
+				else {
+					p = new Rainha(Cor.Escuro);
+				}		
+				tabuleiro[i][j].setPeca(null);
+				tabuleiro[i][j].setPeca(p);
 			}
 		});
 		popup.add(menuItem);     
+		
 		menuItem = new JMenuItem("Torre");
 		menuItem.addActionListener(new ActionListener() {	 
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("teste");
+				Peca p;
+				int i,j;
+				i=y/alt;
+				j=x/larg;
+				i=Math.floorDiv((y - 40),alt);
+				j=Math.floorDiv(x,larg);
+				if (tabuleiro[i][j].getColor() == Cor.Claro) {
+					p = new Torre(Cor.Claro);
+				}
+				else {
+					p = new Torre(Cor.Escuro);
+				}						
+				tabuleiro[i][j].setPeca(null);
+				tabuleiro[i][j].setPeca(p);
 			}
 		});
 		popup.add(menuItem);  
+		
 		menuItem = new JMenuItem("Bispo");
 		menuItem.addActionListener(new ActionListener() {	 
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("teste");
+				Peca p;
+				int i,j;
+				i=y/alt;
+				j=x/larg;
+				i=Math.floorDiv((y - 40),alt);
+				j=Math.floorDiv(x,larg);
+				if (tabuleiro[i][j].getColor() == Cor.Claro) {
+					p = new Bispo(Cor.Claro);
+				}
+				else {
+					p = new Bispo(Cor.Escuro);
+				}		
+				tabuleiro[i][j].setPeca(null);
+				tabuleiro[i][j].setPeca(p);
 			}
 		});
 		popup.add(menuItem);  
+		
 		menuItem = new JMenuItem("Cavalo");
 		menuItem.addActionListener(new ActionListener() {	 
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("teste");
+				Peca p;
+				int i,j;
+				i=y/alt;
+				j=x/larg;
+				i=Math.floorDiv((y - 40),alt);
+				j=Math.floorDiv(x,larg);
+				if (tabuleiro[i][j].getColor() == Cor.Claro) {
+					p = new Cavalo(Cor.Claro);
+				}
+				else {
+					p = new Cavalo(Cor.Escuro);
+				}		
+				tabuleiro[i][j].setPeca(null);
+				tabuleiro[i][j].setPeca(p);
 			}
 		});
 		popup.add(menuItem);  
+		
 		return popup;
-	}*/
+	}
 	
 }
