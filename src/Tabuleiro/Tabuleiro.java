@@ -304,6 +304,11 @@ public class Tabuleiro {
 				break;
 			}
 		}
+		Peca p = tabuleiro[i2][j2].getPeca();
+		if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
+		{
+			peaochange=true;
+		}	
 	}
 	public static JPopupMenu CriaPopup(int x, int y) {
 		JPopupMenu popup = new JPopupMenu();					
