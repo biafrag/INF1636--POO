@@ -85,27 +85,30 @@ public class Mouse extends Observable implements MouseListener {
 				this.setChanged();
 				notifyObservers();
 			}	
+			else 
+			{
+				Tabuleiro.ComePeca(x1,y1,x2,y2);
+				this.setChanged();
+				notifyObservers();
+			}		
 				
-			}
+		}
 		if(Tabuleiro.getPeaoChange()==true)
 		{
-			Tabuleiro.ComePeca(x1,y1,x2,y2);
-			this.setChanged();
+			/*Tabuleiro.ComePeca(x1,y1,x2,y2); */
+			this.setChanged(); 
 			notifyObservers();
-		//	if (x2 == 0) {
-				JPopupMenu popup = Tabuleiro.CriaPopup(x2,y2);
-				popup.show(e.getComponent(),e.getX(), e.getY()); 	    
-		//	}
+			JPopupMenu popup = Tabuleiro.CriaPopup(x2,y2);
+			popup.show(e.getComponent(),e.getX(), e.getY()); 	
+			this.setChanged(); 
+			notifyObservers();
 			Tabuleiro.setPeaoChange(false);
-			atualizationpeao=true;
-			
+			atualizationpeao=true;			
 		}
+		
 	}
 	public void mouseReleased(MouseEvent e)
 	{
 
 	}	 
-	/*private void showPopup(MouseEvent e) {
-        popup.show(e.getComponent(),e.getX(), e.getY());         
-     } */
 }
