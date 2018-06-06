@@ -48,7 +48,7 @@ public class Peao extends Peca {
 		int i,j;
 		i=y/alt;
 		j=x/larg;
-		JPopupMenu popup = Tabuleiro.CriaPopup(x,y);
+		//JPopupMenu popup = Tabuleiro.CriaPopup(x,y);
 		if(this.color == Cor.Escuro )
 		{
 			if(Tabuleiro.TemPecaIndice(i+1,j)==false)
