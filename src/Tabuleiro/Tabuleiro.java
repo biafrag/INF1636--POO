@@ -305,7 +305,6 @@ public class Tabuleiro {
 			}
 		}
 	}
-	
 	public static JPopupMenu CriaPopup(int x, int y) {
 		JPopupMenu popup = new JPopupMenu();					
 
@@ -318,7 +317,7 @@ public class Tabuleiro {
 				j=x/larg;
 				i=Math.floorDiv((y - 40),alt);
 				j=Math.floorDiv(x,larg);				
-				if (tabuleiro[i][j].getColor() == Cor.Claro) {
+				if (tabuleiro[i][j].getPeca().getCor() == Cor.Claro) {
 					p = new Rainha(Cor.Claro);
 				}
 				else {
@@ -339,7 +338,7 @@ public class Tabuleiro {
 				j=x/larg;
 				i=Math.floorDiv((y - 40),alt);
 				j=Math.floorDiv(x,larg);
-				if (tabuleiro[i][j].getColor() == Cor.Claro) {
+				if (tabuleiro[i][j].getPeca().getCor() == Cor.Claro) {
 					p = new Torre(Cor.Claro);
 				}
 				else {
@@ -360,7 +359,7 @@ public class Tabuleiro {
 				j=x/larg;
 				i=Math.floorDiv((y - 40),alt);
 				j=Math.floorDiv(x,larg);
-				if (tabuleiro[i][j].getColor() == Cor.Claro) {
+				if (tabuleiro[i][j].getPeca().getCor() == Cor.Claro) {
 					p = new Bispo(Cor.Claro);
 				}
 				else {
@@ -381,7 +380,7 @@ public class Tabuleiro {
 				j=x/larg;
 				i=Math.floorDiv((y - 40),alt);
 				j=Math.floorDiv(x,larg);
-				if (tabuleiro[i][j].getColor() == Cor.Claro) {
+				if (tabuleiro[i][j].getPeca().getCor() == Cor.Claro) {
 					p = new Cavalo(Cor.Claro);
 				}
 				else {
