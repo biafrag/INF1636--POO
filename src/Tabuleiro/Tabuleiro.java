@@ -119,22 +119,22 @@ public class Tabuleiro {
 		Te=new Torre(Cor.Escuro);
 		
 		//Escuras
-//		tabuleiro[0][0].setPeca(Te);
-//		tabuleiro[0][1].setPeca(Ce);
-//		tabuleiro[0][2].setPeca(Be);
-//		tabuleiro[0][3].setPeca(Ke);
-//		tabuleiro[0][4].setPeca(Qe);
-//		tabuleiro[0][5].setPeca(Be);
-//		tabuleiro[0][6].setPeca(Ce);
-//		tabuleiro[0][7].setPeca(Te);
-//		tabuleiro[1][0].setPeca(Pe);
-//		tabuleiro[1][1].setPeca(Pe);
-//		tabuleiro[1][2].setPeca(Pe);
-//		tabuleiro[1][3].setPeca(Pe);
-//		tabuleiro[1][4].setPeca(Pe);
-//		tabuleiro[1][5].setPeca(Pe);
-//		tabuleiro[1][6].setPeca(Pe);
-//		tabuleiro[1][7].setPeca(Pe);
+		tabuleiro[0][0].setPeca(Te);
+		tabuleiro[0][1].setPeca(Ce);
+		tabuleiro[0][2].setPeca(Be);
+		tabuleiro[0][3].setPeca(Ke);
+		tabuleiro[0][4].setPeca(Qe);
+		tabuleiro[0][5].setPeca(Be);
+		tabuleiro[0][6].setPeca(Ce);
+		tabuleiro[0][7].setPeca(Te);
+		tabuleiro[1][0].setPeca(Pe);
+		tabuleiro[1][1].setPeca(Pe);
+		tabuleiro[1][2].setPeca(Pe);
+		tabuleiro[1][3].setPeca(Pe);
+		tabuleiro[1][4].setPeca(Pe);
+		tabuleiro[1][5].setPeca(Pe);
+		tabuleiro[1][6].setPeca(Pe);
+		tabuleiro[1][7].setPeca(Pe);
 		
 		//Claras
 		tabuleiro[6][0].setPeca(Pc);
@@ -185,11 +185,15 @@ public class Tabuleiro {
 		i2=Math.floorDiv((y2 - 40),alt);
 		j2=Math.floorDiv(x2,larg);
 		
-//		if(jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Escuro)
-//			return;
-//		else if (!jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Claro)
-//			return;
-		
+		if(jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Escuro)
+		{
+			return;
+		}
+		else if (!jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Claro)
+		{
+			return;
+		}
+				
 		System.out.println("De "+ y1+ " "+i1+" "+j1);
 		System.out.println("Para "+ y2+ " "+i2+" "+j2);
 		System.out.println("joga: " + jogador);		
@@ -208,13 +212,12 @@ public class Tabuleiro {
 				System.out.println("joga: " + jogador);
 				break;
 			}
-		}
+		}		
 		Peca p = tabuleiro[i2][j2].getPeca();
 		if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
 		{
 			peaochange=true;
-		}
-		
+		}	
 	}
 	public static void Acende(int x, int y)
 	{
@@ -274,10 +277,14 @@ public class Tabuleiro {
 		i2=Math.floorDiv((y2 - 40),alt);
 		j2=Math.floorDiv(x2,larg);
 		
-//		if(jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Escuro)
-//			return;
-//		else if (!jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Claro)
-//			return;
+		if(jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Escuro)
+		{
+			return;
+		}
+		else if (!jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Claro)
+		{
+			return;
+		}
 		
 		System.out.println(y1+ " "+i1+" "+j1);
 		System.out.println("come: " + jogador);
