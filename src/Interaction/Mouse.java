@@ -90,8 +90,7 @@ public class Mouse extends Observable implements MouseListener {
 				Tabuleiro.ComePeca(x1,y1,x2,y2);
 				this.setChanged();
 				notifyObservers();
-			}		
-				
+			}						
 		}
 		if(Tabuleiro.getPeaoChange()==true)
 		{

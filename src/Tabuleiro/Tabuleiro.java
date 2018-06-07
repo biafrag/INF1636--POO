@@ -357,7 +357,7 @@ public class Tabuleiro {
 			else
 				jogador = true;
 		}
-		if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
+		if(p0 instanceof Peao && ((i2==0 && p0.getCor()==Cor.Claro) || (i2==7 && p0.getCor()==Cor.Escuro)))
 		{
 			peaochange=true;
 		}
