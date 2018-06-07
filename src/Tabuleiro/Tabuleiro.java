@@ -15,7 +15,7 @@ import Drawing.Cor;
 import Interaction.Mouse;
 
 public class Tabuleiro {
-	
+
 	/* Pretos
 	 * Torre Cavalo Bispo Rei Rainha Bispo Cavalo Torre
 	 * Peao ...									  Peao
@@ -25,7 +25,7 @@ public class Tabuleiro {
 	 * Peao ...									  Peao
 	 * Torre Cavalo Bispo Rainha Rei Bispo Cavalo Torre
 	 */
-    private static Tabuleiro t;
+	private static Tabuleiro t;
 	private static Celula tabuleiro[][];
 	private static int alt;
 	private static int larg;
@@ -46,7 +46,7 @@ public class Tabuleiro {
 			for(int j=0; j<8;j++)
 			{
 				tabuleiro[i][j]=new Celula();
-				
+
 			}
 		}
 		setPeca();
@@ -74,10 +74,10 @@ public class Tabuleiro {
 			}
 			else
 			{
-			c=Cor.Claro;
+				c=Cor.Claro;
+			}
 		}
-		}
-		
+
 	}
 	public static Tabuleiro getTabuleiro()
 	{
@@ -117,7 +117,7 @@ public class Tabuleiro {
 		Ke=new Rei(Cor.Escuro);
 		Tc=new Torre(Cor.Claro);
 		Te=new Torre(Cor.Escuro);
-		
+
 		//Escuras
 		tabuleiro[0][0].setPeca(Te);
 		tabuleiro[0][1].setPeca(Ce);
@@ -135,7 +135,7 @@ public class Tabuleiro {
 		tabuleiro[1][5].setPeca(Pe);
 		tabuleiro[1][6].setPeca(Pe);
 		tabuleiro[1][7].setPeca(Pe);
-		
+
 		//Claras
 		tabuleiro[6][0].setPeca(Pc);
 		tabuleiro[6][1].setPeca(Pc);
@@ -154,7 +154,7 @@ public class Tabuleiro {
 		tabuleiro[7][6].setPeca(Cc);
 		tabuleiro[7][7].setPeca(Tc);
 	}
-	
+
 	public static boolean TemPeca(int x, int y)
 	{
 		int i,j;
@@ -184,7 +184,7 @@ public class Tabuleiro {
 		j1=Math.floorDiv(x1,larg);
 		i2=Math.floorDiv((y2 - 40),alt);
 		j2=Math.floorDiv(x2,larg);
-		
+
 		if(jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Escuro)
 		{
 			return;
@@ -193,11 +193,11 @@ public class Tabuleiro {
 		{
 			return;
 		}
-				
+
 		System.out.println("De "+ y1+ " "+i1+" "+j1);
 		System.out.println("Para "+ y2+ " "+i2+" "+j2);
 		System.out.println("joga: " + jogador);		
-		
+
 		positions=tabuleiro[i1][j1].getPositions();
 		for(int i=0;i<positions.size();i++)
 		{
@@ -218,6 +218,7 @@ public class Tabuleiro {
 		{
 			peaochange=true;
 		}	
+
 	}
 	public static void Acende(int x, int y)
 	{
@@ -231,7 +232,7 @@ public class Tabuleiro {
 		int i=Math.floorDiv(y,alt);
 		int j=Math.floorDiv(x,larg);
 		System.out.println(i +" "+ j);
-		 _possiblePositions=tabuleiro[i][j].catchMoves(x,y);
+		_possiblePositions=tabuleiro[i][j].catchMoves(x,y);
 		if( _possiblePositions!=null)
 		{
 			for(int n=0;n< _possiblePositions.size();n++)
@@ -244,13 +245,13 @@ public class Tabuleiro {
 			}
 		}
 	}
-	
+
 	public static void CatchPossibleEats(int x, int y)
 	{
 		int i=Math.floorDiv(y,alt);
 		int j=Math.floorDiv(x,larg);
 		System.out.println(i +" "+ j);
-		 _possibleEats=tabuleiro[i][j].catchEats(x,y);
+		_possibleEats=tabuleiro[i][j].catchEats(x,y);
 		if( _possibleEats!=null)
 		{
 			for(int n=0;n< _possibleEats.size();n++)
@@ -263,10 +264,11 @@ public class Tabuleiro {
 			}
 		}
 	}
-	
+
 	public static void ComePeca(int x1, int y1, int x2, int y2)
 	{
 		int i1,i2,j1,j2;
+
 		i1=y1/alt;
 		j1=x1/larg;
 		i2=y2/alt;
@@ -276,17 +278,21 @@ public class Tabuleiro {
 		j1=Math.floorDiv(x1,larg);
 		i2=Math.floorDiv((y2 - 40),alt);
 		j2=Math.floorDiv(x2,larg);
-		
-		if(jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Escuro)
+
+		Peca p0 = tabuleiro[i1][j1].getPeca();
+		Peca p = tabuleiro[i2][j2].getPeca();
+
+		if(jogador && p0.getCor() == Cor.Escuro)
 		{
 			return;
 		}
-		else if (!jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Claro)
+		else if (!jogador && p0.getCor() == Cor.Claro)
 		{
 			return;
 		}
-		
+
 		System.out.println(y1+ " "+i1+" "+j1);
+
 		System.out.println("come: " + jogador);
 		eats=tabuleiro[i1][j1].getEats();
 		for(int k=0;k<eats.size();k++)
@@ -304,11 +310,62 @@ public class Tabuleiro {
 				break;
 			}
 		}
-		Peca p = tabuleiro[i2][j2].getPeca();
+
 		if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
 		{
 			peaochange=true;
-		}	
+		}
+
+		if ((p0 instanceof Rei && p instanceof Torre) && (p0.getCor()==p.getCor()))
+		{
+			if (j1 == 3 && ((i1 == 7 && p0.getCor() == Cor.Claro) || (i1 == 0 && p0.getCor() == Cor.Escuro)))
+			{
+				if (j2 == 0 && ((i2 == 7 && p0.getCor() == Cor.Claro) || (i2 == 0 && p0.getCor() == Cor.Escuro)))
+				{
+					//Roque Curto
+					j2++;
+					while (j1>j2) {						
+						if (tabuleiro[i2][j2].getPeca() != null)
+						{
+							System.out.println("tem peça no meio");
+							return;
+						}
+						j2++;
+					}
+					tabuleiro[i1][j1].setPeca(null);
+					j1 -= 2;
+					tabuleiro[i1][j1].setPeca(p0);
+					j1+=1;
+					tabuleiro[i2][j1].setPeca(p);
+					tabuleiro[i2][0].setPeca(null);	
+				}
+				else if (j2 == 7 && ((i2 == 7 && p0.getCor() == Cor.Claro) || (i2 == 0 && p0.getCor() == Cor.Escuro)))
+				{
+					//Roque Longo
+					j2--;
+					while (j1<j2) {						
+						if (tabuleiro[i2][j2].getPeca() != null)
+						{
+							System.out.println("tem peça no meio");
+							return;
+						}
+						j2--;
+					}
+					tabuleiro[i1][j1].setPeca(null);
+					j1 += 2;
+					tabuleiro[i1][j1].setPeca(p0);
+					j1-=1;
+					tabuleiro[i2][j1].setPeca(p);
+					tabuleiro[i2][7].setPeca(null);
+				}
+			}
+			if (jogador)
+				jogador = false;
+			else
+				jogador = true;
+		}
+
+
 	}
 	public static JPopupMenu CriaPopup(int x, int y) {
 		JPopupMenu popup = new JPopupMenu();					
@@ -333,7 +390,7 @@ public class Tabuleiro {
 			}
 		});
 		popup.add(menuItem);     
-		
+
 		menuItem = new JMenuItem("Torre");
 		menuItem.addActionListener(new ActionListener() {	 
 			public void actionPerformed(ActionEvent e) {
@@ -354,7 +411,7 @@ public class Tabuleiro {
 			}
 		});
 		popup.add(menuItem);  
-		
+
 		menuItem = new JMenuItem("Bispo");
 		menuItem.addActionListener(new ActionListener() {	 
 			public void actionPerformed(ActionEvent e) {
@@ -375,7 +432,7 @@ public class Tabuleiro {
 			}
 		});
 		popup.add(menuItem);  
-		
+
 		menuItem = new JMenuItem("Cavalo");
 		menuItem.addActionListener(new ActionListener() {	 
 			public void actionPerformed(ActionEvent e) {
