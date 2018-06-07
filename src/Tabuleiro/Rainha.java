@@ -206,11 +206,22 @@ public class Rainha extends Peca {
 		//verifica direita/esquerda na mesma linha e cima/baixo na mesma coluna
 		for(int n=j+1;n<8;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i,n) )
+			if(Tabuleiro.TemPecaIndice(i,n))
 			{
 				if((Tabuleiro.getTabuleiro().getCelula(i, n).getPeca().getCor()!=color))
 				{
 					eats.add(new Pair(i,n));	
+				}
+				break;
+			}
+		}
+		for(int n=j-1;n>=0;n--)
+		{
+			if(Tabuleiro.TemPecaIndice(i,n))
+			{
+				if((Tabuleiro.getTabuleiro().getCelula(i, n).getPeca().getCor()!=color))
+				{
+					eats.add(new Pair(i,n));
 				}
 				break;
 			}

@@ -268,7 +268,6 @@ public class Tabuleiro {
 	public static void ComePeca(int x1, int y1, int x2, int y2)
 	{
 		int i1,i2,j1,j2;
-
 		i1=y1/alt;
 		j1=x1/larg;
 		i2=y2/alt;
@@ -309,13 +308,7 @@ public class Tabuleiro {
 				System.out.println("come: " + jogador);
 				break;
 			}
-		}
-
-		if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
-		{
-			peaochange=true;
-		}
-
+		}		
 		if ((p0 instanceof Rei && p instanceof Torre) && (p0.getCor()==p.getCor()))
 		{
 			if (j1 == 3 && ((i1 == 7 && p0.getCor() == Cor.Claro) || (i1 == 0 && p0.getCor() == Cor.Escuro)))
@@ -364,8 +357,10 @@ public class Tabuleiro {
 			else
 				jogador = true;
 		}
-
-
+		if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
+		{
+			peaochange=true;
+		}
 	}
 	public static JPopupMenu CriaPopup(int x, int y) {
 		JPopupMenu popup = new JPopupMenu();					
