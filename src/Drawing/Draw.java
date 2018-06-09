@@ -9,19 +9,26 @@ import Tabuleiro.Tabuleiro;
 import Interaction.Mouse;
 
 public class Draw extends JPanel implements Observer{
-	Tabuleiro t;
-	Mouse m;
+	private Tabuleiro t;
+	private boolean firsttime;
+	private Mouse m;
 	public Draw()
 	{
+		firsttime=false;
 		Mouse m=Mouse.getMouse();
 		m.addObserver(this);
 		this.addMouseListener(m);
 	}
 	public void paintComponent(Graphics g) 
 	{
+		if(firsttime==false)
+		{
+			t=Tabuleiro.getTabuleiro();
+			t.addObserver(this);
+			firsttime=true;
+		}
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
-		t=Tabuleiro.getTabuleiro();
 		t.Draw(g2d);
 	}
 

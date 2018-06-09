@@ -12,11 +12,8 @@ public class Principal  {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setLayout(null);
         Draw panel = new Draw();
-//        Mouse m=Mouse.getMouse();
-//		m.addObserver(panel);
 		panel.setLocation(0,0);
 		panel.setSize(1000, 800);
-//		panel.addMouseListener(m);
         f.add(panel);              
 	}
 	

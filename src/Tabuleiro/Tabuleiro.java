@@ -1,20 +1,28 @@
 package Tabuleiro;
 
+import java.awt.Component;
 //import java.util.Observer;
 //import java.util.Observable;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Observable;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import Drawing.Cor;
-import Interaction.Mouse;
+import Pecas.Bispo;
+import Pecas.Cavalo;
+import Pecas.Peao;
+import Pecas.Peca;
+import Pecas.Rainha;
+import Pecas.Rei;
+import Pecas.Torre;
+import java.util.Observable;
 
-public class Tabuleiro {
+public class Tabuleiro extends Observable implements ActionListener{
 
 	/* Pretos
 	 * Torre Cavalo Bispo Rei Rainha Bispo Cavalo Torre
@@ -29,10 +37,12 @@ public class Tabuleiro {
 	private static Celula tabuleiro[][];
 	private static int alt;
 	private static int larg;
-	private static Vector<Pair> _possiblePositions;
-	private static Vector<Pair> _possibleEats;
-	private static boolean jogador=true;
-	private static boolean peaochange=false;
+	private Vector<Pair> _possiblePositions;
+	private Vector<Pair> _possibleEats;
+	private boolean jogador=true;
+	private boolean peaochange=false;
+	private int xPeao,yPeao;
+	JPopupMenu popup;
 	private Tabuleiro() 
 	{
 		double posX=0;
@@ -41,6 +51,7 @@ public class Tabuleiro {
 		alt=Celula.getAlt();
 		Cor c=Cor.Claro;
 		tabuleiro=new Celula[8][8];
+		this.CriaPopup();
 		for(int i=0;i<8;i++)
 		{
 			for(int j=0; j<8;j++)
@@ -172,7 +183,7 @@ public class Tabuleiro {
 			return false;
 		return true;	
 	}	
-	public static void MexePeca(int x1,int y1,int x2,int y2)
+	public void MexePeca(int x1,int y1,int x2,int y2)
 	{
 		int i1,i2,j1,j2;
 		i1=y1/alt;
@@ -227,7 +238,7 @@ public class Tabuleiro {
 		System.out.println(i +" "+ j);
 		tabuleiro[i][j].setSelect();
 	}
-	public static void CatchPossibleMoves(int x, int y)
+	public void CatchPossibleMoves(int x, int y)
 	{
 		int i=Math.floorDiv(y,alt);
 		int j=Math.floorDiv(x,larg);
@@ -246,7 +257,7 @@ public class Tabuleiro {
 		}
 	}
 
-	public static void CatchPossibleEats(int x, int y)
+	public void CatchPossibleEats(int x, int y)
 	{
 		int i=Math.floorDiv(y,alt);
 		int j=Math.floorDiv(x,larg);
@@ -265,7 +276,7 @@ public class Tabuleiro {
 		}
 	}
 
-	public static void ComePeca(int x1, int y1, int x2, int y2)
+	public void ComePeca(int x1, int y1, int x2, int y2)
 	{
 		int i1,i2,j1,j2;
 		i1=y1/alt;
@@ -362,100 +373,91 @@ public class Tabuleiro {
 			peaochange=true;
 		}
 	}
-	public static JPopupMenu CriaPopup(int x, int y) {
-		JPopupMenu popup = new JPopupMenu();					
+	public JPopupMenu  CriaPopup() {
+		popup = new JPopupMenu();					
 
 		JMenuItem menuItem = new JMenuItem("Rainha");
-		menuItem.addActionListener(new ActionListener() {	 
-			public void actionPerformed(ActionEvent e) {	
-				Peca p;
-				int i,j;
-				i=y/alt;
-				j=x/larg;
-				i=Math.floorDiv((y - 40),alt);
-				j=Math.floorDiv(x,larg);				
-				if (tabuleiro[i][j].getPeca().getCor() == Cor.Claro) {
-					p = new Rainha(Cor.Claro);
-				}
-				else {
-					p = new Rainha(Cor.Escuro);
-				}		
-				tabuleiro[i][j].setPeca(null);
-				tabuleiro[i][j].setPeca(p);
-			}
-		});
+		menuItem.addActionListener(this);	 
+
 		popup.add(menuItem);     
 
 		menuItem = new JMenuItem("Torre");
-		menuItem.addActionListener(new ActionListener() {	 
-			public void actionPerformed(ActionEvent e) {
-				Peca p;
-				int i,j;
-				i=y/alt;
-				j=x/larg;
-				i=Math.floorDiv((y - 40),alt);
-				j=Math.floorDiv(x,larg);
-				if (tabuleiro[i][j].getPeca().getCor() == Cor.Claro) {
-					p = new Torre(Cor.Claro);
-				}
-				else {
-					p = new Torre(Cor.Escuro);
-				}						
-				tabuleiro[i][j].setPeca(null);
-				tabuleiro[i][j].setPeca(p);
-			}
-		});
+		menuItem.addActionListener(this);	 
 		popup.add(menuItem);  
 
 		menuItem = new JMenuItem("Bispo");
-		menuItem.addActionListener(new ActionListener() {	 
-			public void actionPerformed(ActionEvent e) {
-				Peca p;
-				int i,j;
-				i=y/alt;
-				j=x/larg;
-				i=Math.floorDiv((y - 40),alt);
-				j=Math.floorDiv(x,larg);
-				if (tabuleiro[i][j].getPeca().getCor() == Cor.Claro) {
-					p = new Bispo(Cor.Claro);
-				}
-				else {
-					p = new Bispo(Cor.Escuro);
-				}		
-				tabuleiro[i][j].setPeca(null);
-				tabuleiro[i][j].setPeca(p);
-			}
-		});
+		menuItem.addActionListener(this);	 
 		popup.add(menuItem);  
 
 		menuItem = new JMenuItem("Cavalo");
-		menuItem.addActionListener(new ActionListener() {	 
-			public void actionPerformed(ActionEvent e) {
-				Peca p;
-				int i,j;
-				i=y/alt;
-				j=x/larg;
-				i=Math.floorDiv((y - 40),alt);
-				j=Math.floorDiv(x,larg);
-				if (tabuleiro[i][j].getPeca().getCor() == Cor.Claro) {
-					p = new Cavalo(Cor.Claro);
-				}
-				else {
-					p = new Cavalo(Cor.Escuro);
-				}		
-				tabuleiro[i][j].setPeca(null);
-				tabuleiro[i][j].setPeca(p);
-			}
-		});
+		menuItem.addActionListener(this);
 		popup.add(menuItem);  
 		return popup;
 	}
-	public static boolean getPeaoChange()
+	public boolean getPeaoChange()
 	{
 		return peaochange;
 	}
-	public static void setPeaoChange(boolean a)
+	public void setPeaoChange(boolean a)
 	{
 		peaochange=a;
+	}
+	public void setPositionPeao(int x, int y)
+	{
+		xPeao=x;
+		yPeao=y;
+	}
+	public void TurnPeao(String s)
+	{
+		Peca p;
+		int i,j;
+		i=yPeao/alt;
+		j=xPeao/larg;
+		i=Math.floorDiv((yPeao - 40),alt);
+		j=Math.floorDiv(xPeao,larg);
+		Cor c=tabuleiro[i][j].getPeca().getCor();
+		System.out.println("AAAAAAA "+s);
+		switch(s)
+		{
+			case "Cavalo":
+				p = new Cavalo(c);
+				break;
+			case "Bispo":
+				p=new Bispo(c);
+				break;
+			case "Rainha":
+				p=new Rainha(c);
+				break;
+			case "Torre":
+				p=new Torre(c);
+				break;
+			default:
+				p=new Rainha(c);
+		}		
+		tabuleiro[i][j].setPeca(null);
+		tabuleiro[i][j].setPeca(p);
+	}
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		System.out.println("AAAAAAA "+arg0.getActionCommand());
+		if(arg0.getActionCommand() =="Cavalo")
+		{
+			TurnPeao("Cavalo");
+		}
+		else if(arg0.getActionCommand()=="Rainha")
+		{
+			TurnPeao("Rainha");
+		}
+		else if(arg0.getActionCommand()=="Bispo")
+		{
+			TurnPeao("Bispo");
+		}
+		else if(arg0.getActionCommand()=="Torre")
+		{
+			TurnPeao("Torre");
+		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 }

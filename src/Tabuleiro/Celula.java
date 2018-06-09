@@ -6,6 +6,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.Vector;
 
 import Drawing.Cor;
+import Pecas.Peca;
 public class Celula {
 
 	private Cor cor;
@@ -57,27 +58,26 @@ public class Celula {
 		g.fill(rt);
 		if(p!=null)
 		{
-			p.Draw(g, (int)posX+(larg/4), (int)posY);
-			if(select == true)
-			{
-				Rectangle2D r2=new Rectangle2D.Double(posX,posY,larg,alt);
-				g.setPaint(Color.YELLOW);
-				g.setStroke(Contorno);
-				g.draw(r2);
-//				Color Color4=new Color(0,0,255,20);
-//				g.setPaint(Color4);
-//				g.fill(rt);
-//				g.draw(r2);
-				select=false;
-			}
 			if(ispossibleeat==true)
 			{
 				Rectangle2D r2=new Rectangle2D.Double(posX,posY,larg,alt);
 				g.setPaint(Color.RED);
 				g.setStroke(Contorno);
 				g.draw(r2);
+//				g.setPaint(new Color(255,0,0,20));
+//				g.fill(rt);
+//				g.draw(r2);
 				ispossibleeat=false;
 			}
+			if(select == true)
+			{
+				Rectangle2D r2=new Rectangle2D.Double(posX,posY,larg,alt);
+				g.setPaint(Color.YELLOW);
+				g.setStroke(Contorno);
+				g.draw(r2);
+				select=false;
+			}
+			p.Draw(g, (int)posX+(larg/4), (int)posY);
 			
 		}
 		else
