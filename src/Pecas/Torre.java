@@ -162,6 +162,10 @@ public class Torre extends Peca {
 		}
 		return eats;
 	}
+	public String getName()
+	{
+		return "Torre";
+	}
 	
 }
 	

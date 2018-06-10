@@ -164,4 +164,8 @@ public class Peao extends Peca {
 		}
 		return eats;
 	}
+	public String getName()
+	{
+		return "Peao";
+	}
 }

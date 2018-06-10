@@ -200,7 +200,10 @@ public class Cavalo extends Peca {
 		return eats;
 	}
 
-	
+	public String getName()
+	{
+		return "Cavalo";
+	}
 	
 }
 	

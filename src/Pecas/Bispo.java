@@ -149,5 +149,9 @@ public class Bispo extends Peca {
 		}
 		return eats;
 	}
+	public String getName()
+	{
+		return "Bispo";
+	}
 
 }

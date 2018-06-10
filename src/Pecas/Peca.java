@@ -26,4 +26,5 @@ public abstract class Peca  {
 	protected abstract void CarregaImagem(Cor cor);
 	public abstract Vector<Pair> CatchPossibleMovements(int x,int y); 
 	public abstract Vector<Pair> PossibleEats(int x,int y); 
+	public abstract String getName();
 }

@@ -227,5 +227,9 @@ public class Rei extends Peca {
 		}
 		return eats;
 	}	
+	public String getName()
+	{
+		return "Rei";
+	}
 }
 	

@@ -252,5 +252,8 @@ public class Rainha extends Peca {
 		}
 		return eats;
 	}
-	
+	public String getName()
+	{
+		return "Rainha";
+	}
 }
