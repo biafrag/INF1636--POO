@@ -601,7 +601,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				e.printStackTrace();
 			}
 		}
-		else if(arg0.getActionCommand() =="Cavalo")
+		else if(arg0.getActionCommand()=="Cavalo")
 		{
 			TurnPeao("Cavalo");
 		}

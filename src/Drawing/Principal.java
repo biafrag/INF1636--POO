@@ -1,7 +1,6 @@
 package Drawing;
 
 import javax.swing.*;
-import Interaction.Mouse;
 
 public class Principal  {
 	

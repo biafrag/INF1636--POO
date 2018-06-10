@@ -3,8 +3,6 @@ package Pecas;
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
-import javax.swing.*;
-import java.awt.event.*;
 
 import javax.imageio.ImageIO;
 
