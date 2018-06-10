@@ -514,6 +514,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				return;
 			}
 		}
+		
 		aux=load.next();
 		if(aux=="false")
 		{
@@ -531,46 +532,45 @@ public class Tabuleiro extends Observable implements ActionListener{
 			{
 				aux=load.next();
 				aux2=load.next();
-				if(aux2=="Escuro")
+				switch(aux2)
 				{
+				case "Escuro":
 					c=Cor.Escuro;
-				}
-				else
-				{
+					break;
+				case "Claro":
 					c=Cor.Claro;
+					break;
+				default:
+					c=Cor.Claro;	
 				}
 				System.out.println(aux+" "+aux2);
-				p=new Peao(c);
-				p=new Bispo(c);
-				if(aux=="null")
+				switch(aux)
 				{
-					p=null;
-					System.out.println("pqqqqqq");
-				}
-				else if(aux=="Peao")
-				{
-					p=new Peao(c);
-				}
-				else if(aux=="Bispo")
-				{
-					p=new Bispo(c);
-				}
-				else if(aux=="Torre")
-				{
-					p=new Torre(c);
-				}
-				else if(aux=="Rainha")
-				{
-					p=new Rainha(c);
-				}
-				else if(aux=="Rei")
-				{
-					p=new Rei(c);
-				}
-				else if(aux=="Cavalo")
-				{
-					p=new Cavalo(c);
-				}
+				    case "null":
+						p = null;
+						break;
+					case "Cavalo":
+						p = new Cavalo(c);
+						break;
+					case "Bispo":
+						p=new Bispo(c);
+						break;
+					case "Rainha":
+						p=new Rainha(c);
+						break;
+					case "Torre":
+						p=new Torre(c);
+						break;
+					case "Rei":
+						p=new Rei(c);
+						break;
+					case "Peao":
+						p=new Peao(c);
+						break;
+					default:
+						p=new Rainha(c);
+				}		
+				tabuleiro[i][j].setPeca(null);
 				tabuleiro[i][j].setPeca(p);
 			}
 		}
