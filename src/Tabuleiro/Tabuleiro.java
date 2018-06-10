@@ -19,7 +19,8 @@ import Pecas.Rainha;
 import Pecas.Rei;
 import Pecas.Torre;
 import java.util.Observable;
-
+import java.util.Scanner;
+import java.io.*;
 public class Tabuleiro extends Observable implements ActionListener{
 
 	/* Pretos
@@ -371,6 +372,18 @@ public class Tabuleiro extends Observable implements ActionListener{
 			peaochange=true;
 		}
 	}
+	
+	public JPopupMenu  CriaPopupSave()
+	{
+		popup = new JPopupMenu();
+		JMenuItem menuItem = new JMenuItem("Load");
+		popup.add(menuItem);
+		menuItem.addActionListener(this);
+		menuItem = new JMenuItem("Save");
+		popup.add(menuItem);
+		menuItem.addActionListener(this);
+		return popup;
+	}
 	public JPopupMenu  CriaPopup() {
 		popup = new JPopupMenu();					
 
@@ -435,11 +448,160 @@ public class Tabuleiro extends Observable implements ActionListener{
 		tabuleiro[i][j].setPeca(null);
 		tabuleiro[i][j].setPeca(p);
 	}
+	public void SaveFile() throws IOException
+	{
+		/*Jogador da vez
+		 * [0][0] booleano se tem peça tipo da peça cor da peca
+		 * .
+		 * .
+		 * .
+		 * .
+		 * .
+		 * .
+		 * .
+		 */
+		PrintWriter file=null;
+		try 
+		{
+			file= new PrintWriter(new FileWriter("tabuleiro.txt"));
+		}
+		finally
+		{
+		}
+		file.println(jogador);
+		for(int i=0;i<8;i++)
+		{
+			for(int j=0;j<8;j++)
+			{
+				Peca p=tabuleiro[i][j].getPeca();
+				String cor=new String();
+				String name;
+				if(p==null)
+				{
+					name="null";
+					cor="Escuro";
+				}
+				else
+				{
+					if(p.getCor()==Cor.Escuro)
+					{
+						cor="Escuro";
+					}
+					else
+					{
+						cor="Claro";
+					}
+					name=p.getName();
+				}
+				file.println(name+ " "+cor);
+			}
+		}
+		file.close();
+	}
+	public void Load() throws FileNotFoundException 
+	{
+		System.out.println("LOadddd");
+		Scanner load=null;
+		String aux,aux2;
+		try 
+		{
+			load=new Scanner(new BufferedReader(new FileReader("tabuleiro.txt")));
+		}
+		finally
+		{
+			if(load==null)
+			{
+				return;
+			}
+		}
+		aux=load.next();
+		if(aux=="false")
+		{
+			jogador=false;
+		}
+		else
+		{
+			jogador=true;
+		}
+		Peca p;
+		Cor c;
+		for(int i=0;i<8;i++)
+		{
+			for(int j=0;j<8;j++)
+			{
+				aux=load.next();
+				aux2=load.next();
+				if(aux2=="Escuro")
+				{
+					c=Cor.Escuro;
+				}
+				else
+				{
+					c=Cor.Claro;
+				}
+				System.out.println(aux+" "+aux2);
+				p=new Peao(c);
+				p=new Bispo(c);
+				if(aux=="null")
+				{
+					p=null;
+					System.out.println("pqqqqqq");
+				}
+				else if(aux=="Peao")
+				{
+					p=new Peao(c);
+				}
+				else if(aux=="Bispo")
+				{
+					p=new Bispo(c);
+				}
+				else if(aux=="Torre")
+				{
+					p=new Torre(c);
+				}
+				else if(aux=="Rainha")
+				{
+					p=new Rainha(c);
+				}
+				else if(aux=="Rei")
+				{
+					p=new Rei(c);
+				}
+				else if(aux=="Cavalo")
+				{
+					p=new Cavalo(c);
+				}
+				tabuleiro[i][j].setPeca(p);
+			}
+		}
+		load.close();
+		this.setChanged();
+		this.notifyObservers();
+	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		System.out.println("AAAAAAA "+arg0.getActionCommand());
-		if(arg0.getActionCommand() =="Cavalo")
+		System.out.println("Ta entrando");
+		if(arg0.getActionCommand()=="Load")
+		{
+			try {
+				Load();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(arg0.getActionCommand()=="Save")
+		{
+			try {
+				SaveFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(arg0.getActionCommand() =="Cavalo")
 		{
 			TurnPeao("Cavalo");
 		}

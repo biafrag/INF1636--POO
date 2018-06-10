@@ -46,7 +46,7 @@ public class Celula {
 	{
 		Color Color1=new Color(120,80,39);
 		Color Color2=new Color(63,42,20);
-		Rectangle2D rt=new Rectangle2D.Double(posX+1,posY+1,larg+3,alt+3);
+		Rectangle2D rt=new Rectangle2D.Double(posX,posY,larg,alt);
 		if(cor==Cor.Claro)
 		{
 			g.setPaint(Color1);
@@ -61,19 +61,22 @@ public class Celula {
 			if(ispossibleeat==true)
 			{
 				Rectangle2D r2=new Rectangle2D.Double(posX,posY,larg,alt);
-				g.setPaint(Color.RED);
-				g.setStroke(Contorno);
-				g.draw(r2);
-//				g.setPaint(new Color(255,0,0,20));
-//				g.fill(rt);
+//				g.setPaint(Color.RED);
+//				g.setStroke(Contorno);
 //				g.draw(r2);
+				g.setPaint(new Color(255,0,0,80));
+				g.fill(rt);
+				g.draw(r2);
 				ispossibleeat=false;
 			}
 			if(select == true)
 			{
 				Rectangle2D r2=new Rectangle2D.Double(posX,posY,larg,alt);
-				g.setPaint(Color.YELLOW);
-				g.setStroke(Contorno);
+//				g.setPaint(Color.YELLOW);
+//				g.setStroke(Contorno);
+//				g.draw(r2);
+				g.setPaint(new Color(255,255,0,80));
+				g.fill(rt);
 				g.draw(r2);
 				select=false;
 			}
@@ -84,14 +87,14 @@ public class Celula {
 		{
 			if(this.ispossiblemove==true)
 			{
-				Rectangle2D r2=new Rectangle2D.Double(posX,posY+3,larg,alt);
-				g.setPaint(Color.WHITE);
-				g.setStroke(Contorno);
-				g.draw(r2);
-//				Color Color3=new Color(255,0,0,20);
-//				g.setPaint(Color3);
-//				g.fill(rt);
+				Rectangle2D r2=new Rectangle2D.Double(posX,posY,larg,alt);
+//				g.setPaint(Color.WHITE);
+//				g.setStroke(Contorno);
 //				g.draw(r2);
+				Color Color3=new Color(255,255,255,80);
+				g.setPaint(Color3);
+				g.fill(rt);
+				g.draw(r2);
 				ispossiblemove=false;
 			}
 		}
