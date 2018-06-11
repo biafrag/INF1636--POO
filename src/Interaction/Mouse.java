@@ -1,7 +1,6 @@
 package Interaction;
 
 import java.util.Observable;
-
 import javax.swing.JPopupMenu;
 
 import java.awt.event.*;
