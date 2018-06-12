@@ -36,7 +36,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 	 * Torre Cavalo Bispo Rainha Rei Bispo Cavalo Torre
 	 */
 	private static Tabuleiro t;
-	private static Celula tabuleiro[][];
+	private Celula tabuleiro[][];
 	private static int alt;
 	private static int larg;
 	private Vector<Pair> _possiblePositions;
@@ -168,7 +168,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		tabuleiro[7][7].setPeca(Tc);
 	}
 
-	public static boolean TemPeca(int x, int y)
+	public boolean TemPeca(int x, int y)
 	{
 		int i,j;
 		Peca p;
@@ -179,7 +179,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			return false;
 		return true;	
 	}
-	public static boolean TemPecaIndice(int i, int j)
+	public boolean TemPecaIndice(int i, int j)
 	{
 		if (tabuleiro[i][j].getPeca() == null)
 			return false;
@@ -233,7 +233,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}	
 
 	}
-	public static void Acende(int x, int y)
+	public void Acende(int x, int y)
 	{
 		int i=Math.floorDiv(y,alt);
 		int j=Math.floorDiv(x,larg);

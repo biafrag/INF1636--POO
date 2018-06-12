@@ -50,7 +50,7 @@ public class Bispo extends Peca {
 		
 		for(int n=1;i+n<8 && j+n<8;n++) //pega diagonal pra baixo e pra direita
 		{
-			if(Tabuleiro.TemPecaIndice(i+n,j+n)) // se tiver peça n dá mais pra andar
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j+n)) // se tiver peça n dá mais pra andar
 			{
 				break;
 			}
@@ -62,7 +62,7 @@ public class Bispo extends Peca {
 		}
 		for(int n=1;i-n>=0 && j-n>=0;n++) // pega diagonal pra cima pra esquerda
 		{
-			if(Tabuleiro.TemPecaIndice(i-n,j-n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j-n))
 			{
 				break;
 			}
@@ -73,7 +73,7 @@ public class Bispo extends Peca {
 		}
 		for(int n=1;i-n>=0 && j+n<8;n++) //pega diagonal pra cima pra direita
 		{
-			if(Tabuleiro.TemPecaIndice(i-n,j+n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j+n))
 			{
 				break;
 			}
@@ -84,7 +84,7 @@ public class Bispo extends Peca {
 		}
 		for(int n=1;i+n<8 && j-n>=0;n++) //pega diagonal pra baixo e pra esquerda
 		{
-			if(Tabuleiro.TemPecaIndice(i+n,j-n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j-n))
 			{
 				break;
 			}
@@ -104,7 +104,7 @@ public class Bispo extends Peca {
 		j=x/larg;
 		for(int n=1;i+n<8 && j+n<8;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i+n,j+n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j+n))
 			{
 				if(color!=Tabuleiro.getTabuleiro().getCelula(i+n,j+n).getPeca().getCor())
 				{
@@ -116,7 +116,7 @@ public class Bispo extends Peca {
 		}
 		for(int n=1;i-n>=0 && j-n>=0;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i-n,j-n) )
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j-n) )
 			{
 				if(color!=Tabuleiro.getTabuleiro().getCelula(i-n,j-n).getPeca().getCor())
 				{
@@ -127,7 +127,7 @@ public class Bispo extends Peca {
 		}
 		for(int n=1;i-n>=0 && j+n<8;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i-n,j+n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j+n))
 			{
 				if( color!=Tabuleiro.getTabuleiro().getCelula(i-n,j+n).getPeca().getCor())
 				{
@@ -138,7 +138,7 @@ public class Bispo extends Peca {
 		}
 		for(int n=1;i+n<8 && j-n>=0;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i+n,j-n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j-n))
 			{
 				if(color!=Tabuleiro.getTabuleiro().getCelula(i+n,j-n).getPeca().getCor())
 				{

@@ -54,7 +54,7 @@ public class Torre extends Peca {
 		{
 			for(int n=j+1;n<8;n++) //vê movimentos possiveis na mesma linha pra direita
 			{
-				if(Tabuleiro.TemPecaIndice(i,n)==false)
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i,n)==false)
 				{
 				    positions.add(new Pair(i,n));
 				}
@@ -68,7 +68,7 @@ public class Torre extends Peca {
 		{
 			for(int n=j-1;n>=0;n--)
 			{
-				if(Tabuleiro.TemPecaIndice(i,n)==false) //vê movimentos possiveis na mesma linha pra esquerda
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i,n)==false) //vê movimentos possiveis na mesma linha pra esquerda
 				{
 				    positions.add(new Pair(i,n));
 				}
@@ -82,7 +82,7 @@ public class Torre extends Peca {
 		{
 			for(int n=i+1;n<8;n++) //vê movimentos possiveis na mesma coluna pra baixo
 			{
-				if(Tabuleiro.TemPecaIndice(n,j)==false)
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(n,j)==false)
 				{
 				   positions.add(new Pair(n,j));
 				}
@@ -96,7 +96,7 @@ public class Torre extends Peca {
 		{
 			for(int n=i-1;n>=0;n--) //vê movimentos possiveis na mesma coluna pra cima
 			{
-				if(Tabuleiro.TemPecaIndice(n,j)==false)
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(n,j)==false)
 				{
 				   positions.add(new Pair(n,j));
 				}
@@ -118,7 +118,7 @@ public class Torre extends Peca {
 		j=x/larg;
 		for(int n=j+1;n<8;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i,n) )
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i,n) )
 			{
 				if((Tabuleiro.getTabuleiro().getCelula(i, n).getPeca().getCor()!=color))
 				{
@@ -129,7 +129,7 @@ public class Torre extends Peca {
 		}
 		for(int n=i+1;n<8;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(n,j))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(n,j))
 			{
 			   if(Tabuleiro.getTabuleiro().getCelula(n, j).getPeca().getCor()!=color)
 			   {
@@ -140,7 +140,7 @@ public class Torre extends Peca {
 		}
 		for(int n=i-1;n>=0;n--)
 		{
-			if(Tabuleiro.TemPecaIndice(n,j) )
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(n,j) )
 			{
 				if((Tabuleiro.getTabuleiro().getCelula(n, j).getPeca().getCor()!=color))
 				{
@@ -151,7 +151,7 @@ public class Torre extends Peca {
 		}
 		for(int n=j-1;n>=0;n--)
 		{
-			if(Tabuleiro.TemPecaIndice(i,n) )
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i,n) )
 			{
 				if((Tabuleiro.getTabuleiro().getCelula(i, n).getPeca().getCor()!=color))
 				{

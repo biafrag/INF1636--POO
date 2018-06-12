@@ -52,7 +52,7 @@ public class Rainha extends Peca {
 		{
 			for(int n=j+1;n<8;n++) //vê movimentos possiveis na mesma linha pra direita
 			{
-				if(Tabuleiro.TemPecaIndice(i,n)==false)
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i,n)==false)
 				{
 				    positions.add(new Pair(i,n));
 				}
@@ -64,7 +64,7 @@ public class Rainha extends Peca {
 			}
 			for(int n=1;i+n<8 && j+n<8;n++) //pega diagonal pra baixo e pra direita
 			{
-				if(Tabuleiro.TemPecaIndice(i+n,j+n)) 
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j+n)) 
 				{
 					break;
 				}
@@ -76,7 +76,7 @@ public class Rainha extends Peca {
 			}
 			for(int n=1;i-n>=0 && j+n<8;n++) //pega diagonal pra cima pra direita
 			{
-				if(Tabuleiro.TemPecaIndice(i-n,j+n))
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j+n))
 				{
 					break;
 				}
@@ -90,7 +90,7 @@ public class Rainha extends Peca {
 		{
 			for(int n=j-1;n>=0;n--)
 			{
-				if(Tabuleiro.TemPecaIndice(i,n)==false) //vê movimentos possiveis na mesma linha pra esquerda
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i,n)==false) //vê movimentos possiveis na mesma linha pra esquerda
 				{
 				    positions.add(new Pair(i,n));
 				}
@@ -101,7 +101,7 @@ public class Rainha extends Peca {
 			}
 			for(int n=1;i-n>=0 && j-n>=0;n++) // pega diagonal pra cima pra esquerda
 			{
-				if(Tabuleiro.TemPecaIndice(i-n,j-n))
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j-n))
 				{
 					break;
 				}
@@ -112,7 +112,7 @@ public class Rainha extends Peca {
 			}		
 			for(int n=1;i+n<8 && j-n>=0;n++) //pega diagonal pra baixo e pra esquerda
 			{
-				if(Tabuleiro.TemPecaIndice(i+n,j-n))
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j-n))
 				{
 					break;
 				}
@@ -126,7 +126,7 @@ public class Rainha extends Peca {
 		{
 			for(int n=i+1;n<8;n++) //vê movimentos possiveis na mesma coluna pra baixo
 			{
-				if(Tabuleiro.TemPecaIndice(n,j)==false)
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(n,j)==false)
 				{
 				   positions.add(new Pair(n,j));
 				}
@@ -140,7 +140,7 @@ public class Rainha extends Peca {
 		{
 			for(int n=i-1;n>=0;n--) //vê movimentos possiveis na mesma coluna pra cima
 			{
-				if(Tabuleiro.TemPecaIndice(n,j)==false)
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(n,j)==false)
 				{
 				   positions.add(new Pair(n,j));
 				}
@@ -162,7 +162,7 @@ public class Rainha extends Peca {
 		//Verifica na diagonal
 		for(int n=1;i+n<8 && j+n<8;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i+n,j+n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j+n))
 			{
 				if(color!=Tabuleiro.getTabuleiro().getCelula(i+n,j+n).getPeca().getCor())
 				{
@@ -174,7 +174,7 @@ public class Rainha extends Peca {
 		}
 		for(int n=1;i-n>=0 && j-n>=0;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i-n,j-n) )
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j-n) )
 			{
 				if(color!=Tabuleiro.getTabuleiro().getCelula(i-n,j-n).getPeca().getCor())
 				{
@@ -185,7 +185,7 @@ public class Rainha extends Peca {
 		}
 		for(int n=1;i-n>=0 && j+n<8;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i-n,j+n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j+n))
 			{
 				if( color!=Tabuleiro.getTabuleiro().getCelula(i-n,j+n).getPeca().getCor())
 				{
@@ -196,7 +196,7 @@ public class Rainha extends Peca {
 		}
 		for(int n=1;i+n<8 && j-n>=0;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i+n,j-n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j-n))
 			{
 				if(color!=Tabuleiro.getTabuleiro().getCelula(i+n,j-n).getPeca().getCor())
 				{
@@ -208,7 +208,7 @@ public class Rainha extends Peca {
 		//verifica direita/esquerda na mesma linha e cima/baixo na mesma coluna
 		for(int n=j+1;n<8;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(i,n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i,n))
 			{
 				if((Tabuleiro.getTabuleiro().getCelula(i, n).getPeca().getCor()!=color))
 				{
@@ -219,7 +219,7 @@ public class Rainha extends Peca {
 		}
 		for(int n=j-1;n>=0;n--)
 		{
-			if(Tabuleiro.TemPecaIndice(i,n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i,n))
 			{
 				if((Tabuleiro.getTabuleiro().getCelula(i, n).getPeca().getCor()!=color))
 				{
@@ -230,7 +230,7 @@ public class Rainha extends Peca {
 		}
 		for(int n=i+1;n<8;n++)
 		{
-			if(Tabuleiro.TemPecaIndice(n,j))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(n,j))
 			{
 			   if(Tabuleiro.getTabuleiro().getCelula(n, j).getPeca().getCor()!=color)
 			   {
@@ -241,7 +241,7 @@ public class Rainha extends Peca {
 		}
 		for(int n=i-1;n>=0;n--)
 		{
-			if(Tabuleiro.TemPecaIndice(n,j) )
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(n,j) )
 			{
 				if((Tabuleiro.getTabuleiro().getCelula(n, j).getPeca().getCor()!=color))
 				{

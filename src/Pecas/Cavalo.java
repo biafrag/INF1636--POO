@@ -65,7 +65,7 @@ public class Cavalo extends Peca {
 		if(i+1<8 && j+2<8) 
 		{
 			//1 pra baixo 2 pra direita
-			if(Tabuleiro.TemPecaIndice(i+1,j+2)==false)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1,j+2)==false)
 			{
 				position.add(new Pair(i+1,j+2));
 			}
@@ -73,7 +73,7 @@ public class Cavalo extends Peca {
 		if(i+2<8 && j+1<8)
 		{
 			//2 pra baixo 1 pra direita
-			if(Tabuleiro.TemPecaIndice(i+2,j+1)==false)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+2,j+1)==false)
 			{
 				position.add(new Pair(i+2,j+1));
 			}		
@@ -81,7 +81,7 @@ public class Cavalo extends Peca {
 		if(i-1>=0 && j+2<8)
 		{
 			//1 pra cima 2 pra direita
-			if(Tabuleiro.TemPecaIndice(i-1,j+2)==false)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1,j+2)==false)
 			{
 				position.add(new Pair(i-1,j+2));
 			}	
@@ -89,7 +89,7 @@ public class Cavalo extends Peca {
 		if(i-2>=0 && j+1<8)
 		{
 			//2 para cima 1 pra direita
-			if(Tabuleiro.TemPecaIndice(i-2,j+1)==false)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-2,j+1)==false)
 			{
 				position.add(new Pair(i-2,j+1));
 			}		
@@ -97,7 +97,7 @@ public class Cavalo extends Peca {
 		if(i+1<8 && j-2>=0)
 		{
 			//1 pra cima 2 pra esquerda
-			if(Tabuleiro.TemPecaIndice(i+1,j-2)==false)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1,j-2)==false)
 			{
 				position.add(new Pair(i+1,j-2));
 			}	
@@ -105,7 +105,7 @@ public class Cavalo extends Peca {
 		if(i+2<8 && j-1>=0)
 		{
 			//2 pra baixo 1 pra esquerda
-			if(Tabuleiro.TemPecaIndice(i+2,j-1)==false)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+2,j-1)==false)
 			{
 				position.add(new Pair(i+2,j-1));
 			}
@@ -114,7 +114,7 @@ public class Cavalo extends Peca {
 		if(i-2>=0 && j-1>=0)
 		{
 			//2 pra cima 1 pra esquerda
-			if(Tabuleiro.TemPecaIndice(i-2,j-1)==false)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-2,j-1)==false)
 			{
 				position.add(new Pair(i-2,j-1));
 			}
@@ -123,7 +123,7 @@ public class Cavalo extends Peca {
 		if(i-1>=0 && j-2>=0)
 		{
 			//1 pra cima 2 pra esquerda
-			if(Tabuleiro.TemPecaIndice(i-1,j-2)==false)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1,j-2)==false)
 			{
 				position.add(new Pair(i-1,j-2));
 			}
@@ -140,42 +140,42 @@ public class Cavalo extends Peca {
 		j=x/larg;
 		if(i+1<8 && j+2<8)
 		{
-			if(Tabuleiro.TemPecaIndice(i+1,j+2) && Tabuleiro.getTabuleiro().getCelula(i+1, j+2).getPeca().getCor()!=color)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1,j+2) && Tabuleiro.getTabuleiro().getCelula(i+1, j+2).getPeca().getCor()!=color)
 			{
 				eats.add(new Pair(i+1,j+2));
 			}
 		}
 		if(i+2<8 && j+1<8)
 		{
-			if(Tabuleiro.TemPecaIndice(i+2,j+1) && Tabuleiro.getTabuleiro().getCelula(i+2, j+1).getPeca().getCor()!=color)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+2,j+1) && Tabuleiro.getTabuleiro().getCelula(i+2, j+1).getPeca().getCor()!=color)
 			{
 				eats.add(new Pair(i+2,j+1));
 			}		
 		}
 		if(i-1>=0 && j+2<8)
 		{
-			if(Tabuleiro.TemPecaIndice(i-1,j+2) &&  Tabuleiro.getTabuleiro().getCelula(i-1, j+2).getPeca().getCor()!=color)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1,j+2) &&  Tabuleiro.getTabuleiro().getCelula(i-1, j+2).getPeca().getCor()!=color)
 			{
 				eats.add(new Pair(i-1,j+2));
 			}	
 		}
 		if(i-2>=0 && j+1<8)
 		{
-			if(Tabuleiro.TemPecaIndice(i-2,j+1) &&  Tabuleiro.getTabuleiro().getCelula(i-2, j+1).getPeca().getCor()!=color)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-2,j+1) &&  Tabuleiro.getTabuleiro().getCelula(i-2, j+1).getPeca().getCor()!=color)
 			{
 				eats.add(new Pair(i-2,j+1));
 			}		
 		}
 		if(i+1<8 && j-2>=0)
 		{
-			if(Tabuleiro.TemPecaIndice(i+1,j-2) && Tabuleiro.getTabuleiro().getCelula(i+1, j-2).getPeca().getCor()!=color)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1,j-2) && Tabuleiro.getTabuleiro().getCelula(i+1, j-2).getPeca().getCor()!=color)
 			{
 				eats.add(new Pair(i+1,j-2));
 			}	
 		}
 		if(i+2<8 && j-1>=0)
 		{
-			if(Tabuleiro.TemPecaIndice(i+2,j-1) && Tabuleiro.getTabuleiro().getCelula(i+2, j-1).getPeca().getCor()!=color)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+2,j-1) && Tabuleiro.getTabuleiro().getCelula(i+2, j-1).getPeca().getCor()!=color)
 			{
 				eats.add(new Pair(i+2,j-1));
 			}
@@ -183,7 +183,7 @@ public class Cavalo extends Peca {
 		}
 		if(i-2>=0 && j-1>=0)
 		{
-			if(Tabuleiro.TemPecaIndice(i-2,j-1) && Tabuleiro.getTabuleiro().getCelula(i-2, j-1).getPeca().getCor()!=color)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-2,j-1) && Tabuleiro.getTabuleiro().getCelula(i-2, j-1).getPeca().getCor()!=color)
 			{
 				eats.add(new Pair(i-2,j-1));
 			}
@@ -191,7 +191,7 @@ public class Cavalo extends Peca {
 		}
 		if(i-1>=0 && j-2>=0)
 		{
-			if(Tabuleiro.TemPecaIndice(i-1,j-2) && Tabuleiro.getTabuleiro().getCelula(i-1, j-2).getPeca().getCor()!=color)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1,j-2) && Tabuleiro.getTabuleiro().getCelula(i-1, j-2).getPeca().getCor()!=color)
 			{
 				eats.add(new Pair(i-1,j-2));
 			}

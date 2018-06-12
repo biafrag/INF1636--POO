@@ -56,14 +56,14 @@ public class Mouse extends Observable implements MouseListener {
 				System.out.println("click1");
 				x1=e.getX()+40;
 				y1=e.getY()+40;
-				if (Tabuleiro.TemPeca(x1, y1) == false) 
+				if (t.TemPeca(x1, y1) == false) 
 				{
 					System.out.println("nao tem peca no 1 click");
 					return;
 				}
 				else
 				{
-					Tabuleiro.Acende(x1, y1);	
+					t.Acende(x1, y1);	
 					t.CatchPossibleMoves(x1, y1);
 					t.CatchPossibleEats(x1, y1);
 					this.setChanged();	
@@ -77,7 +77,7 @@ public class Mouse extends Observable implements MouseListener {
 				x2=e.getX()+40;
 				y2=e.getY()+40;
 				mousepress=false;
-				if (Tabuleiro.TemPeca(x2, y2) == false)
+				if (t.TemPeca(x2, y2) == false)
 				{
 					t.MexePeca(x1,y1,x2,y2);
 					this.setChanged();
