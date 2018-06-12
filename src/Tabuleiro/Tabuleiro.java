@@ -463,10 +463,12 @@ public class Tabuleiro extends Observable implements ActionListener{
 		 * .
 		 * .
 		 */
+		JFileChooser chooser = new JFileChooser();
+		chooser.showSaveDialog(null);
 		PrintWriter file=null;
 		try 
 		{
-			file= new PrintWriter(new FileWriter("tabuleiro.txt"));
+			file= new PrintWriter(new FileWriter(chooser.getSelectedFile()+".txt"));
 		}
 		finally
 		{
@@ -503,20 +505,17 @@ public class Tabuleiro extends Observable implements ActionListener{
 	}
 	public void Load() throws FileNotFoundException 
 	{
-		System.out.println("LOadddd");
 		JFileChooser chooser = new JFileChooser();
-		//FileNameExtensionFilter filter = new FileNameExtensionFilter("txt");
-//		 chooser.setFileFilter(filter);
-//		 
-		 int returnVal = chooser.showOpenDialog(Tela.getInstanceTela());
-//		  if(returnVal == JFileChooser.APPROVE_OPTION) {
-//		       System.out.println("You chose to open this file: " +
-//		            chooser.getSelectedFile().getName());}
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+		chooser.setFileFilter(filter);
+		 
+		chooser.showOpenDialog(Tela.getInstanceTela());
 		Scanner load=null;
 		String aux,aux2;
+		System.out.println(chooser.getSelectedFile().getPath());
 		try 
 		{
-			load=new Scanner(new BufferedReader(new FileReader("tabuleiro.txt")));
+			load=new Scanner(new BufferedReader(new FileReader(chooser.getSelectedFile().getPath())));
 		}
 		finally
 		{
