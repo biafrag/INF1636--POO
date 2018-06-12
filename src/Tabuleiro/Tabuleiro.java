@@ -7,10 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Drawing.Cor;
+import Drawing.Tela;
 import Pecas.Bispo;
 import Pecas.Cavalo;
 import Pecas.Peao;
@@ -501,6 +504,14 @@ public class Tabuleiro extends Observable implements ActionListener{
 	public void Load() throws FileNotFoundException 
 	{
 		System.out.println("LOadddd");
+		JFileChooser chooser = new JFileChooser();
+		//FileNameExtensionFilter filter = new FileNameExtensionFilter("txt");
+//		 chooser.setFileFilter(filter);
+//		 
+		 int returnVal = chooser.showOpenDialog(Tela.getInstanceTela());
+//		  if(returnVal == JFileChooser.APPROVE_OPTION) {
+//		       System.out.println("You chose to open this file: " +
+//		            chooser.getSelectedFile().getName());}
 		Scanner load=null;
 		String aux,aux2;
 		try 
@@ -619,5 +630,19 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		this.setChanged();
 		this.notifyObservers();
+	}
+	public void verifyChange()
+	{
+		int i,j;
+		i=yPeao/alt;
+		j=xPeao/larg;
+		Peca p;
+		if(tabuleiro[i][j].getPeca() instanceof Peao)
+		{
+			p=new Rainha(tabuleiro[i][j].getPeca().getCor());
+			tabuleiro[i][j].setPeca(null);
+			tabuleiro[i][j].setPeca(p);
+		}
+		
 	}
 }

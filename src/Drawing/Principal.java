@@ -5,7 +5,7 @@ import javax.swing.*;
 public class Principal  {
 	
 	public static void main(String[] args) {
-		Tela f=new Tela();
+		Tela f=Tela.getInstanceTela();
 		f.setResizable(false);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -95,6 +95,7 @@ public class Mouse extends Observable implements MouseListener {
 				JPopupMenu popup=t.CriaPopup();
 				t.setPositionPeao(x2,y2);
 				popup.show(e.getComponent(),e.getX(), e.getY()); 	
+				t.verifyChange();
 				t.setPeaoChange(false);
 			}
 		}
