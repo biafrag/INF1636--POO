@@ -44,6 +44,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 	private boolean jogador=true;
 	private boolean peaochange=false;
 	private int xPeao,yPeao;
+	private int iRei,jRei;
 	JPopupMenu popup;
 	private Tabuleiro() 
 	{
@@ -257,6 +258,11 @@ public class Tabuleiro extends Observable implements ActionListener{
 				tabuleiro[ _possiblePositions.get(n).getX()][ _possiblePositions.get(n).getY()].setPossibleMove();
 			}
 		}
+//		for(int k=0;k<this._possiblePositions.size();k++)
+//		{
+//			VerifyCheck(k,i,j,_possiblePositions.elementAt(k).getX(),_possiblePositions.elementAt(k).getY());
+//		}
+		
 	}
 
 	public void CatchPossibleEats(int x, int y)
@@ -644,4 +650,32 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		
 	}
+	public boolean VerifyCheck(int index,int i1,int j1,int i2,int j2) //1 eh a posição q ele tá e 2 é a que ele vai
+	{
+		Peca p;
+		Vector<Pair> v;
+		tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+		tabuleiro[i1][j1].setPeca(null);
+		for(int i=0;i<8;i++)
+		{
+			for(int j=0;j<8;j++)
+			{
+				//Passar pelo tabuleiro todo vendo quais tem peca
+				p=tabuleiro[i][j].getPeca();
+				if(tabuleiro[i][j].getPeca()!=null)
+				{
+					v=p.PossibleEats(i*alt, j*larg);
+					for(int k=0;k<v.size();k++)
+					{
+						if(v.elementAt(k).getX()==iRei && v.elementAt(k).getY()==jRei)
+						{
+							this._possiblePositions.remove(index);
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+}
 }
