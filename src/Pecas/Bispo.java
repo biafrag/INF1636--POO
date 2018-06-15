@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 import Drawing.Cor;
 import Tabuleiro.Pair;
-import Tabuleiro.Tabuleiro;
+import Tabuleiro.TabuleiroFacade;
 
 public class Bispo extends Peca {
 	public Bispo(Cor cor)
@@ -50,7 +50,7 @@ public class Bispo extends Peca {
 		
 		for(int n=1;i+n<8 && j+n<8;n++) //pega diagonal pra baixo e pra direita
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j+n)) // se tiver peça n dá mais pra andar
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i+n, j+n)) // se tiver peça n dá mais pra andar
 			{
 				break;
 			}
@@ -62,7 +62,7 @@ public class Bispo extends Peca {
 		}
 		for(int n=1;i-n>=0 && j-n>=0;n++) // pega diagonal pra cima pra esquerda
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j-n))
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i-n,j-n))
 			{
 				break;
 			}
@@ -73,7 +73,7 @@ public class Bispo extends Peca {
 		}
 		for(int n=1;i-n>=0 && j+n<8;n++) //pega diagonal pra cima pra direita
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j+n))
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i-n,j+n))
 			{
 				break;
 			}
@@ -84,7 +84,7 @@ public class Bispo extends Peca {
 		}
 		for(int n=1;i+n<8 && j-n>=0;n++) //pega diagonal pra baixo e pra esquerda
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j-n))
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i+n,j-n))
 			{
 				break;
 			}
@@ -104,9 +104,9 @@ public class Bispo extends Peca {
 		j=x/larg;
 		for(int n=1;i+n<8 && j+n<8;n++)
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j+n))
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i+n,j+n))
 			{
-				if(color!=Tabuleiro.getTabuleiro().getCelula(i+n,j+n).getPeca().getCor())
+				if(color!=TabuleiroFacade.getTFacade().getPecaCor(i+n, j+n))
 				{
 					eats.add(new Pair(i+n,j+n));
 				}
@@ -116,9 +116,9 @@ public class Bispo extends Peca {
 		}
 		for(int n=1;i-n>=0 && j-n>=0;n++)
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j-n) )
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i-n,j-n) )
 			{
-				if(color!=Tabuleiro.getTabuleiro().getCelula(i-n,j-n).getPeca().getCor())
+				if(color!=TabuleiroFacade.getTFacade().getPecaCor(i-n,j-n))
 				{
 					eats.add(new Pair(i-n,j-n));	
 				}
@@ -127,9 +127,9 @@ public class Bispo extends Peca {
 		}
 		for(int n=1;i-n>=0 && j+n<8;n++)
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j+n))
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i-n,j+n))
 			{
-				if( color!=Tabuleiro.getTabuleiro().getCelula(i-n,j+n).getPeca().getCor())
+				if( color!=TabuleiroFacade.getTFacade().getPecaCor(i-n,j+n))
 				{
 					eats.add(new Pair(i-n,j+n));
 				}
@@ -138,9 +138,9 @@ public class Bispo extends Peca {
 		}
 		for(int n=1;i+n<8 && j-n>=0;n++)
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j-n))
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i+n,j-n))
 			{
-				if(color!=Tabuleiro.getTabuleiro().getCelula(i+n,j-n).getPeca().getCor())
+				if(color!=TabuleiroFacade.getTFacade().getPecaCor(i+n,j-n))
 				{
 					eats.add(new Pair(i+n,j-n));
 				}

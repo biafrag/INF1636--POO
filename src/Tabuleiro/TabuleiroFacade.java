@@ -6,6 +6,7 @@ import java.util.Observable;
 
 import javax.swing.JPopupMenu;
 
+import Drawing.Cor;
 //import Interaction.Mouse;
 import Tabuleiro.Tabuleiro;
 
@@ -23,13 +24,8 @@ public class TabuleiroFacade extends Observable {
 		}
 		return tfa;
 	}
-	/*public static void getTabuleiro()
-	{
-		//t = Tabuleiro.getTabuleiro();
-	}*/
 	public void VerificaMovimentosPossiveis(int x, int y)
 	{
-		System.out.println("teste1");
 		if (t.TemPeca(x, y) == false) 
 		{
 			System.out.println("nao tem peca no 1 click");
@@ -37,7 +33,6 @@ public class TabuleiroFacade extends Observable {
 		}
 		else
 		{
-			System.out.println("teste2");
 			t.Acende(x, y);	
 			t.CatchPossibleMoves(x, y);
 			t.CatchPossibleEats(x, y);
@@ -79,6 +74,14 @@ public class TabuleiroFacade extends Observable {
 	public void Draw(Graphics2D g2d) {
 		t.Draw(g2d);
 	}
-
+	
+	public boolean TemPecaIndice(int i, int j)
+	{
+		return t.TemPecaIndice(i, j);
+	}
+	public Cor getPecaCor(int i,int j)
+	{
+		return Tabuleiro.getTabuleiro().getCelula(i,j).getPeca().getCor();
+	}
 	
 }

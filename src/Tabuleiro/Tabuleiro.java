@@ -1,11 +1,12 @@
 package Tabuleiro;
 
-//import java.util.Observer;
-//import java.util.Observable;
+import java.util.Observable;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
+import java.util.Scanner;
+import java.io.*;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
@@ -21,9 +22,7 @@ import Pecas.Peca;
 import Pecas.Rainha;
 import Pecas.Rei;
 import Pecas.Torre;
-import java.util.Observable;
-import java.util.Scanner;
-import java.io.*;
+
 public class Tabuleiro extends Observable implements ActionListener{
 
 	/* Pretos

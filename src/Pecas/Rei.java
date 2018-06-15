@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 import Drawing.Cor;
 import Tabuleiro.Pair;
-import Tabuleiro.Tabuleiro;
+import Tabuleiro.TabuleiroFacade;
 
 public class Rei extends Peca {
 
@@ -54,34 +54,34 @@ public class Rei extends Peca {
 		 * esteja sob ataque ou capturar uma peça que esteja defendida por uma peça adversária.  */
 		if (i!=7)
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1,j)==false) //para baixo
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i+1,j)==false) //para baixo
 			{
 				positions.add(new Pair(i+1,j));
 			}
 		}
 		if (i!=0) 
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1,j)==false) //para cima
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i-1,j)==false) //para cima
 			{
 				positions.add(new Pair(i-1,j));
 			}
 		}
 		if (j!=7)
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i,j+1)==false) //para direita
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i,j+1)==false) //para direita
 			{
 				positions.add(new Pair(i,j+1));
 			}
 			if (i!=0)
 			{
-				if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1,j+1)==false) //diagonal para cima e para direita
+				if(TabuleiroFacade.getTFacade().TemPecaIndice(i-1,j+1)==false) //diagonal para cima e para direita
 				{
 					positions.add(new Pair(i-1,j+1));
 				}
 			}
 			if (i!=7)
 			{
-				if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1,j+1)==false) //diagonal para baixo e para direita
+				if(TabuleiroFacade.getTFacade().TemPecaIndice(i+1,j+1)==false) //diagonal para baixo e para direita
 				{
 					positions.add(new Pair(i+1,j+1));
 				}
@@ -89,54 +89,25 @@ public class Rei extends Peca {
 		}
 		if (j!=0)
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i,j-1)==false) //para esquerda
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i,j-1)==false) //para esquerda
 			{
 				positions.add(new Pair(i,j-1));
 			}
 			if (i!=0)
 			{
-				if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1,j-1)==false) //diagonal para cima e para esquerda
+				if(TabuleiroFacade.getTFacade().TemPecaIndice(i-1,j-1)==false) //diagonal para cima e para esquerda
 				{
 					positions.add(new Pair(i-1,j-1));
 				}
 			}
 			if (i!=7)
 			{
-				if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1,j-1)==false) //diagonal para baixo e para esquerda
+				if(TabuleiroFacade.getTFacade().TemPecaIndice(i+1,j-1)==false) //diagonal para baixo e para esquerda
 				{
 					positions.add(new Pair(i+1,j-1));
 				}
 			}
 		}		
-		
-//		for(int n = 1;n<4 && j+n<8 && i+1<8;n++)
-//		{
-//			if(Tabuleiro.TemPeca(i+1, j+n)==false)
-//			{
-//				positions.add(new Pair(i+1,j+n));
-//			}
-//		}
-//		for(int n = 2;n<4 && i+n<8 && j-1>=0;n++)
-//		{
-//			if(Tabuleiro.TemPeca(i+n, j-1)==false)
-//			{
-//				positions.add(new Pair(i+n,j-n));
-//			}
-//		}
-//		for(int n = 2;n<4 && j+n<8 && i+1<8;n++)
-//		{
-//			if(Tabuleiro.TemPeca(i+n, j+3)==false)
-//			{
-//				positions.add(new Pair(i+n,j+3));
-//			}
-//		}
-//		for(int n = 2;n<3 && j+n<8 && i+1<8;n++)
-//		{
-//			if(Tabuleiro.TemPeca(i+3, j+n)==false)
-//			{
-//				positions.add(new Pair(i+3,j+n));
-//			}
-//		}
 		return positions;
 	}
 	@Override
@@ -147,18 +118,18 @@ public class Rei extends Peca {
 		j=x/larg;
 		if (i!=0)
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1,j)) 
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i-1,j)) 
 			{
-				if((Tabuleiro.getTabuleiro().getCelula(i-1, j).getPeca().getCor()!=color))
+				if(TabuleiroFacade.getTFacade().getPecaCor(i-1, j)!=color)
 				{
 					eats.add(new Pair(i-1,j));	
 				}	
 			}
 			if (j!=7)
 			{
-				if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1,j+1)) //diagonal para cima e para direita
+				if(TabuleiroFacade.getTFacade().TemPecaIndice(i-1,j+1)) //diagonal para cima e para direita
 				{
-					if((Tabuleiro.getTabuleiro().getCelula(i-1, j+1).getPeca().getCor()!=color))
+					if(TabuleiroFacade.getTFacade().getPecaCor(i-1, j+1)!=color)
 					{
 						eats.add(new Pair(i-1,j+1));	
 					}
@@ -166,9 +137,9 @@ public class Rei extends Peca {
 			}
 			if (j!=0)
 			{
-				if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1,j-1)) //diagonal para cima e para esquerda
+				if(TabuleiroFacade.getTFacade().TemPecaIndice(i-1,j-1)) //diagonal para cima e para esquerda
 				{
-					if((Tabuleiro.getTabuleiro().getCelula(i-1, j-1).getPeca().getCor()!=color))
+					if(TabuleiroFacade.getTFacade().getPecaCor(i-1, j-1)!=color)
 					{
 						eats.add(new Pair(i-1,j-1));	
 					}
@@ -177,18 +148,18 @@ public class Rei extends Peca {
 		}
 		if (j!=0)
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i,j-1)) //para esquerda
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i,j-1)) //para esquerda
 			{
-				if((Tabuleiro.getTabuleiro().getCelula(i, j-1).getPeca().getCor()!=color))
+				if(TabuleiroFacade.getTFacade().getPecaCor(i, j-1)!=color)
 				{
 					eats.add(new Pair(i,j-1));	
 				}
 			}			
 			if (i!=7)
 			{
-				if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1,j-1)) //diagonal para baixo e para esquerda
+				if(TabuleiroFacade.getTFacade().TemPecaIndice(i+1,j-1)) //diagonal para baixo e para esquerda
 				{
-					if((Tabuleiro.getTabuleiro().getCelula(i+1, j-1).getPeca().getCor()!=color))
+					if(TabuleiroFacade.getTFacade().getPecaCor(i+1, j-1)!=color)
 					{
 						eats.add(new Pair(i+1,j-1));	
 					}
@@ -197,18 +168,18 @@ public class Rei extends Peca {
 		}		
 		if (j!=7)
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i,j+1)) 
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i,j+1)) 
 			{
-				if((Tabuleiro.getTabuleiro().getCelula(i, j+1).getPeca().getCor()!=color))
+				if(TabuleiroFacade.getTFacade().getPecaCor(i, j+1)!=color)
 				{
 					eats.add(new Pair(i,j+1));	
 				}
 			}
 			if (i!=7)
 			{
-				if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1,j+1)) 
+				if(TabuleiroFacade.getTFacade().TemPecaIndice(i+1,j+1)) 
 				{
-					if((Tabuleiro.getTabuleiro().getCelula(i+1, j+1).getPeca().getCor()!=color))
+					if(TabuleiroFacade.getTFacade().getPecaCor(i+1, j+1)!=color)
 					{
 						eats.add(new Pair(i+1,j+1));	
 					}
@@ -217,9 +188,9 @@ public class Rei extends Peca {
 		}
 		if (i!=7)
 		{
-			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1,j)) 
+			if(TabuleiroFacade.getTFacade().TemPecaIndice(i+1,j)) 
 			{
-				if((Tabuleiro.getTabuleiro().getCelula(i+1, j).getPeca().getCor()!=color))
+				if(TabuleiroFacade.getTFacade().getPecaCor(i+1, j)!=color)
 				{
 					eats.add(new Pair(i+1,j));	
 				}
