@@ -1,10 +1,7 @@
 package Drawing;
+
 import java.awt.Insets;
-
-//import javax.swing.*;
 import javax.swing.JFrame;
-
-import Tabuleiro.Tabuleiro;
 
 public class Tela extends JFrame {
 	

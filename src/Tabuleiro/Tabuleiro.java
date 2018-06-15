@@ -46,7 +46,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 	private int xPeao,yPeao;
 	private int iRei,jRei;
 	JPopupMenu popup;
-	private Tabuleiro() 
+	//private 
+	Tabuleiro() 
 	{
 		double posX=0;
 		double posY=0;

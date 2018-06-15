@@ -116,7 +116,7 @@ public class Peao extends Peca {
 				}
 				else
 				{
-					if(Tabuleiro.getTabuleiro().getTabuleiro().TemPecaIndice(i+1, j+1) && Tabuleiro.getTabuleiro().getCelula(i+1, j+1).getPeca().getCor()==Cor.Claro)
+					if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1, j+1) && Tabuleiro.getTabuleiro().getCelula(i+1, j+1).getPeca().getCor()==Cor.Claro)
 					{
 						eats.add(new Pair(i+1,j+1));
 					}

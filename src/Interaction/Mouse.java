@@ -1,19 +1,15 @@
 package Interaction;
 
-import java.util.Observable;
-import javax.swing.JPopupMenu;
-
 import java.awt.event.*;
 
-import Tabuleiro.Tabuleiro;
+import Tabuleiro.TabuleiroFacade;
 
-public class Mouse extends Observable implements MouseListener {
+public class Mouse implements MouseListener {
 
 	int x1,y1,x2,y2;
 	private boolean mousepress=false;
 	private static Mouse mouse;
-	private Tabuleiro t;
-	boolean atualizationpeao=false;
+	private TabuleiroFacade t;
 	private boolean firsttime=true;
 
 	private Mouse()
@@ -32,7 +28,6 @@ public class Mouse extends Observable implements MouseListener {
 
 
 	}
-	
 	public void mouseEntered(MouseEvent e)
 	{
 		
@@ -44,7 +39,7 @@ public class Mouse extends Observable implements MouseListener {
 	{
 		if(firsttime==true)
 		{
-			t=Tabuleiro.getTabuleiro();
+			t = TabuleiroFacade.getTFacade();
 			firsttime=false;
 		}
 		if(e.getButton()==MouseEvent.BUTTON1)
@@ -56,19 +51,7 @@ public class Mouse extends Observable implements MouseListener {
 				System.out.println("click1");
 				x1=e.getX()+40;
 				y1=e.getY()+40;
-				if (t.TemPeca(x1, y1) == false) 
-				{
-					System.out.println("nao tem peca no 1 click");
-					return;
-				}
-				else
-				{
-					t.Acende(x1, y1);	
-					t.CatchPossibleMoves(x1, y1);
-					t.CatchPossibleEats(x1, y1);
-					this.setChanged();	
-					notifyObservers();
-				}
+				t.VerificaMovimentosPossiveis(x1, y1);
 				mousepress=true;
 			}
 			else
@@ -77,37 +60,18 @@ public class Mouse extends Observable implements MouseListener {
 				x2=e.getX()+40;
 				y2=e.getY()+40;
 				mousepress=false;
-				if (t.TemPeca(x2, y2) == false)
-				{
-					t.MexePeca(x1,y1,x2,y2);
-					this.setChanged();
-					notifyObservers();
-				}	
-				else 
-				{
-					t.ComePeca(x1,y1,x2,y2);
-					this.setChanged();
-					notifyObservers();
-				}						
+				t.RealizaJogada(x1, y1, x2, y2);
 			}
-			if(t.getPeaoChange()==true)
-			{
-				JPopupMenu popup=t.CriaPopup();
-				t.setPositionPeao(x2,y2);
-				popup.show(e.getComponent(),e.getX(), e.getY()); 	
-				t.verifyChange();
-				t.setPeaoChange(false);
-			}
+			t.PromovePeao(x2, y2, e.getComponent(), e.getX(), e.getY());
 		}
 		if(e.getButton()==MouseEvent.BUTTON3)
 		{
-			JPopupMenu popupsave=t.CriaPopupSave();
-			popupsave.show(e.getComponent(),e.getX(), e.getY()); 
-		}
-		
+			t.SalvaJogo(e.getComponent(), e.getX(), e.getY());
+		}		
 	}
 	public void mouseReleased(MouseEvent e)
 	{
 
-	}	 
+	}	
+	 
 }
