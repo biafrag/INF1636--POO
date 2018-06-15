@@ -684,6 +684,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 	public void Recomeca()
 	{
 		this.inicializaTudo();
+		jogador=true;
 		t.setChanged();
 		t.notifyObservers();
 	}

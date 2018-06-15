@@ -77,7 +77,7 @@ public class Tela extends JFrame implements ActionListener {
 		if (e.getSource() == this.Novo){
 			Tabuleiro.getTabuleiro().Recomeca();
 		}
-		if (e.getSource() == this.Carregar){
+		else if (e.getSource() == this.Carregar){
 			try {
 				Tabuleiro.getTabuleiro().Load();
 			} catch (FileNotFoundException er) {
@@ -86,7 +86,7 @@ public class Tela extends JFrame implements ActionListener {
 			}
 			
 		}
-		if (e.getSource() == this.Sair){
+		else if (e.getSource() == this.Sair){
 			System.exit(0);
 		}
 	}
