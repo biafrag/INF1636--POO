@@ -75,7 +75,7 @@ public class Tela extends JFrame implements ActionListener {
 	}
 	public void eventoMenu (ActionEvent e) {
 		if (e.getSource() == this.Novo){
-			
+			Tabuleiro.getTabuleiro().Recomeca();
 		}
 		if (e.getSource() == this.Carregar){
 			try {

@@ -47,6 +47,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 	JPopupMenu popup;
 	private Tabuleiro() 
 	{
+		inicializaTudo();
+	}
+	private void inicializaTudo()
+	{
 		double posX=0;
 		double posY=0;
 		larg=Celula.getLarg();
@@ -90,7 +94,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				c=Cor.Claro;
 			}
 		}
-
+		
 	}
 	public static Tabuleiro getTabuleiro()
 	{
@@ -677,4 +681,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		return false;
 }
+	public void Recomeca()
+	{
+		this.inicializaTudo();
+		t.setChanged();
+		t.notifyObservers();
+	}
 }
