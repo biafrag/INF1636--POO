@@ -43,7 +43,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 	private boolean jogador=true;
 	private boolean peaochange=false;
 	private int xPeao,yPeao;
-	private int iRei,jRei;
+	private int iReiE,jReiE,iReiC,jReiC;
 	JPopupMenu popup;
 	private Tabuleiro() 
 	{
@@ -57,7 +57,11 @@ public class Tabuleiro extends Observable implements ActionListener{
 		alt=Celula.getAlt();
 		Cor c=Cor.Claro;
 		tabuleiro=new Celula[8][8];
-		this.CriaPopup();
+		//this.CriaPopup();
+		iReiE=0;
+		jReiE=3;
+		iReiC=7;
+		jReiE=3;
 		for(int i=0;i<8;i++)
 		{
 			for(int j=0; j<8;j++)
@@ -235,6 +239,19 @@ public class Tabuleiro extends Observable implements ActionListener{
 		{
 			peaochange=true;
 		}	
+		if(p instanceof Rei)
+		{
+			if(p.getCor()==Cor.Escuro)
+			{
+				this.iReiE=i2;
+				this.jReiE=j2;
+			}
+			else
+			{
+				this.iReiC=i2;
+				this.jReiC=j2;
+			}
+		}
 
 	}
 	public void Acende(int x, int y)
@@ -263,9 +280,13 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 //		for(int k=0;k<this._possiblePositions.size();k++)
 //		{
-//			VerifyCheck(k,i,j,_possiblePositions.elementAt(k).getX(),_possiblePositions.elementAt(k).getY());
+//			if(VerifyCheck(k,i,j,_possiblePositions.elementAt(k).getX(),_possiblePositions.elementAt(k).getY(),_possiblePositions)==true)
+//			{
+//				  _possiblePositions.remove(k);
+//				    
+//			}
 //		}
-		
+//		
 	}
 
 	public void CatchPossibleEats(int x, int y)
@@ -285,6 +306,13 @@ public class Tabuleiro extends Observable implements ActionListener{
 				tabuleiro[ _possibleEats.get(n).getX()][ _possibleEats.get(n).getY()].setPossibleEats();
 			}
 		}
+//		for(int k=0;k<this._possibleEats.size();k++)
+//		{
+//			if(VerifyCheck(k,i,j,_possibleEats.elementAt(k).getX(),_possibleEats.elementAt(k).getY(),_possibleEats)==true)
+//			{
+//				_possibleEats.remove(k);
+//			}
+//		}
 	}
 
 	public void ComePeca(int x1, int y1, int x2, int y2)
@@ -653,32 +681,35 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		
 	}
-	public boolean VerifyCheck(int index,int i1,int j1,int i2,int j2) //1 eh a posição q ele tá e 2 é a que ele vai
+	public boolean VerifyCheck(int index,int i1,int j1,int i2,int j2,Vector<Pair> positions) //1 eh a posição q ele tá e 2 é a que ele vai
 	{
-		Peca p;
+		Peca p,peca;
 		Vector<Pair> v;
-		tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
-		tabuleiro[i1][j1].setPeca(null);
+		peca=tabuleiro[i1][j1].getPeca();
+		tabuleiro[i1][j1].setPeca(tabuleiro[i2][j2].getPeca());
+		tabuleiro[i2][j2].setPeca(peca);
 		for(int i=0;i<8;i++)
 		{
-			for(int j=0;j<8;j++)
+    		for(int j=0;j<8;j++)
 			{
-				//Passar pelo tabuleiro todo vendo quais tem peca
+//				//Passar pelo tabuleiro todo vendo quais tem peca
 				p=tabuleiro[i][j].getPeca();
 				if(tabuleiro[i][j].getPeca()!=null)
 				{
-					v=p.PossibleEats(i*alt, j*larg);
+					v=p.PossibleEats((int)larg*i,(int)alt*j);
 					for(int k=0;k<v.size();k++)
 					{
-						if(v.elementAt(k).getX()==iRei && v.elementAt(k).getY()==jRei)
+						Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
+						if((comidoposition.getX()==iReiC && comidoposition.getY()==jReiC) ||(comidoposition.getX()==iReiE && comidoposition.getY()==jReiE))
 						{
-							this._possiblePositions.remove(index);
 							return true;
 						}
 					}
 				}
 			}
 		}
+		tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+		tabuleiro[i1][j1].setPeca(peca);
 		return false;
 }
 	public void Recomeca()
