@@ -14,6 +14,7 @@ public class Principal  {
 		panel.setLocation(0,0);
 		panel.setSize(1000, 800);
         f.add(panel);              
+        
 	}
 	
 }

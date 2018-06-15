@@ -1,48 +1,40 @@
 package Drawing;
 
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import Tabuleiro.Tabuleiro;
 
-public class Tela extends JFrame implements ActionListener {
-	
+public class Interface extends JFrame implements ActionListener {
 	public final int LARG_DEFAULT=1000;
 	public final int ALT_DEFAULT=800;
-	private static Tela tela;
 	private JMenuBar barraMenu; //barra de menu
 	private JMenu Menu; //itens principais da barra de menu
 	private JMenuItem Novo, Carregar, Sair; //subitens dos menu
+	private JPanel painelInicio; //painel que será mostrado na tela de abertura do jogo
+//	private JPanel painelJogo; //painel do jogo
+	private Tela f;
 	
-	private Tela() {
-		Insets i = getInsets();
-		setSize(LARG_DEFAULT,ALT_DEFAULT);
+	public Interface () {
+	///	super ("Chess Game");
+		
+		criaMenu ();
+	//	this.painelJogo.setVisible(false);
+		fazPainelInicial ();
+	}
+/*	
+	private void configuraJFrame () {
+		setSize (LARG_DEFAULT,ALT_DEFAULT);
+	//	setResizable (false);
 		setLocationRelativeTo(null);
+	//	getContentPane().setLayout(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		//setResizable(false);
 		setTitle("Chess Game");
-		//Teste de desenhar alguma coisa na tela
-		//JLabel teste;
-		criaMenu();
-		setVisible(true);
-	
-	}
-	public static Tela getInstanceTela()
-	{
-		if(tela==null)
-		{
-			tela=new Tela();
-		}
-		return tela;
-	}
+		setVisible(true);	
+	}	*/
 	private void criaMenu () {
 		//itens do menu ARQUIVO
 		this.Novo = new JMenuItem ("Novo Jogo");
@@ -70,12 +62,28 @@ public class Tela extends JFrame implements ActionListener {
 		setJMenuBar(barraMenu);
 		this.barraMenu.add(this.Menu);
 	}
+	private void fazPainelInicial () {
+		this.painelInicio = new JPanel ();
+		this.painelInicio.setSize(LARG_DEFAULT,ALT_DEFAULT);
+	//	this.painelInicio.setLocation (280,200);
+		//*/
+	//	f=Tela.getInstanceTela();
+	//	f.setResizable(false);
+	//	f.setVisible(true);
+	//	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//	f.setLayout(null);
+		
+	//	getContentPane().add(this.painelInicio);		
+	}
 	public void actionPerformed(ActionEvent e) {
 		eventoMenu(e);
 	}
 	public void eventoMenu (ActionEvent e) {
 		if (e.getSource() == this.Novo){
-			
+			Draw panel = new Draw();
+			panel.setLocation(0,0);
+			panel.setSize(1000, 800);
+	      //  f.add(panel);            
 		}
 		if (e.getSource() == this.Carregar){
 			try {
@@ -90,4 +98,5 @@ public class Tela extends JFrame implements ActionListener {
 			System.exit(0);
 		}
 	}
+
 }

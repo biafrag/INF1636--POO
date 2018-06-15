@@ -17,7 +17,7 @@ public abstract class Peca  {
 	
 	public void Draw(Graphics2D a,int posX,int posY)
 	{
-		a.drawImage(image,posX,posY,null); //POR ENQUANTO IREI DEIXAR O TYPECAST		
+		a.drawImage(image,posX,posY,null); 		
 	}
 	
 	public Cor getCor() {

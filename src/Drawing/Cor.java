@@ -1,5 +1,5 @@
 package Drawing;
 
 public enum Cor {
-Escuro,Claro;
+	Escuro,Claro;
 }
