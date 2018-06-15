@@ -2,6 +2,7 @@ package Tabuleiro;
 
 import java.awt.Component;
 import java.awt.Graphics2D;
+import java.io.FileNotFoundException;
 import java.util.Observable;
 
 import javax.swing.JPopupMenu;
@@ -83,5 +84,16 @@ public class TabuleiroFacade extends Observable {
 	{
 		return Tabuleiro.getTabuleiro().getCelula(i,j).getPeca().getCor();
 	}
-	
+	public void RecomecaJogo()
+	{
+		t.Recomeca();
+	}
+	public void CarregaJogo() 
+	{
+		try {
+			t.Load();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 }

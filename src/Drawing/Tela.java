@@ -11,7 +11,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-import Tabuleiro.Tabuleiro;
+import Tabuleiro.TabuleiroFacade;
 
 public class Tela extends JFrame implements ActionListener {
 	
@@ -75,16 +75,10 @@ public class Tela extends JFrame implements ActionListener {
 	}
 	public void eventoMenu (ActionEvent e) {
 		if (e.getSource() == this.Novo){
-			Tabuleiro.getTabuleiro().Recomeca();
+			TabuleiroFacade.getTFacade().RecomecaJogo();
 		}
 		else if (e.getSource() == this.Carregar){
-			try {
-				Tabuleiro.getTabuleiro().Load();
-			} catch (FileNotFoundException er) {
-				// TODO Auto-generated catch block
-				er.printStackTrace();
-			}
-			
+			TabuleiroFacade.getTFacade().CarregaJogo();			
 		}
 		else if (e.getSource() == this.Sair){
 			System.exit(0);
