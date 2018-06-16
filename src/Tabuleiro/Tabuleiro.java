@@ -326,7 +326,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		j1=x1/larg;
 		i2=y2/alt;
 		j2=x2/larg;
-		Vector<Pair> eats;
+		//Vector<Pair> eats;
 		i1=Math.floorDiv((y1 - 40),alt);
 		j1=Math.floorDiv(x1,larg);
 		i2=Math.floorDiv((y2 - 40),alt);
@@ -347,20 +347,23 @@ public class Tabuleiro extends Observable implements ActionListener{
 		System.out.println(y1+ " "+i1+" "+j1);
 
 		System.out.println("come: " + jogador);
-		eats=tabuleiro[i1][j1].getEats();
-		for(int k=0;k<eats.size();k++)
+		//eats=tabuleiro[i1][j1].getEats();
+		for(int k=0;k<_possibleEats.size();k++)
 		{
-			if(eats.get(k).getX()==i2 && eats.get(k).getY()==j2)
+			if(_possibleEats.get(k)!=null)
 			{
-				System.out.println("Come "+ y2+ " "+i2+" "+j2);
-				tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
-				tabuleiro[i1][j1].setPeca(null);
-				if (jogador)
-					jogador = false;
-				else
-					jogador = true;
-				System.out.println("come: " + jogador);
-				break;
+				if(_possibleEats.get(k).getX()==i2 && _possibleEats.get(k).getY()==j2)
+				{
+					System.out.println("Come "+ y2+ " "+i2+" "+j2);
+					tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+					tabuleiro[i1][j1].setPeca(null);
+					if (jogador)
+						jogador = false;
+					else
+						jogador = true;
+					System.out.println("come: " + jogador);
+					break;
+				}
 			}
 		}		
 		if ((p0 instanceof Rei && p instanceof Torre) && (p0.getCor()==p.getCor()))
