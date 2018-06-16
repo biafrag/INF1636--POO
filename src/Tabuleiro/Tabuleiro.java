@@ -219,19 +219,22 @@ public class Tabuleiro extends Observable implements ActionListener{
 		System.out.println("Para "+ y2+ " "+i2+" "+j2);
 		System.out.println("joga: " + jogador);		
 
-		positions=tabuleiro[i1][j1].getPositions();
-		for(int i=0;i<positions.size();i++)
+		//positions=tabuleiro[i1][j1].getPositions();
+		for(int i=0;i<_possiblePositions.size();i++)
 		{
-			if(positions.get(i).getX()==i2 && positions.get(i).getY()==j2)
+			if(_possiblePositions.get(i)!=null)
 			{
-				tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
-				tabuleiro[i1][j1].setPeca(null);
-				if (jogador)
-					jogador = false;
-				else
-					jogador = true;
-				System.out.println("joga: " + jogador);
-				break;
+				if(_possiblePositions.get(i).getX()==i2 && _possiblePositions.get(i).getY()==j2)
+				{
+					tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+					tabuleiro[i1][j1].setPeca(null);
+					if (jogador)
+						jogador = false;
+					else
+						jogador = true;
+					System.out.println("joga: " + jogador);
+					break;
+				}
 			}
 		}		
 		Peca p = tabuleiro[i2][j2].getPeca();
