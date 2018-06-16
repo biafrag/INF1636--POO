@@ -267,6 +267,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 		int j=Math.floorDiv(x,larg);
 		System.out.println(i +" "+ j);
 		_possiblePositions=tabuleiro[i][j].catchMoves(x,y);
+		System.out.println("Quantidade de posicoes possiveis antes: "+_possiblePositions.size());
+		VerifyCheck(i,j,_possiblePositions);
+		System.out.println("Quantidade de posicoes possiveis: "+_possiblePositions.size());
 		if( _possiblePositions!=null)
 		{
 			for(int n=0;n< _possiblePositions.size();n++)
@@ -275,18 +278,12 @@ public class Tabuleiro extends Observable implements ActionListener{
 					break;
 				else if (!jogador && tabuleiro[i][j].getPeca().getCor() == Cor.Claro)
 					break;
-				tabuleiro[ _possiblePositions.get(n).getX()][ _possiblePositions.get(n).getY()].setPossibleMove();
+		        if(_possiblePositions.get(n)!=null)
+		        {
+		        	tabuleiro[ _possiblePositions.get(n).getX()][ _possiblePositions.get(n).getY()].setPossibleMove();
+		        }
 			}
 		}
-//		for(int k=0;k<this._possiblePositions.size();k++)
-//		{
-//			if(VerifyCheck(k,i,j,_possiblePositions.elementAt(k).getX(),_possiblePositions.elementAt(k).getY(),_possiblePositions)==true)
-//			{
-//				  _possiblePositions.remove(k);
-//				    
-//			}
-//		}
-//		
 	}
 
 	public void CatchPossibleEats(int x, int y)
@@ -295,6 +292,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		int j=Math.floorDiv(x,larg);
 		System.out.println(i +" "+ j);
 		_possibleEats=tabuleiro[i][j].catchEats(x,y);
+		VerifyCheck(i,j,_possibleEats);
 		if( _possibleEats!=null)
 		{
 			for(int n=0;n< _possibleEats.size();n++)
@@ -303,7 +301,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 					break;
 				else if (!jogador && tabuleiro[i][j].getPeca().getCor() == Cor.Claro)
 					break;
-				tabuleiro[ _possibleEats.get(n).getX()][ _possibleEats.get(n).getY()].setPossibleEats();
+		        if(_possibleEats.get(n)!=null)
+		        {
+		        	tabuleiro[ _possibleEats.get(n).getX()][ _possibleEats.get(n).getY()].setPossibleEats();
+		        }
 			}
 		}
 //		for(int k=0;k<this._possibleEats.size();k++)
@@ -681,36 +682,94 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		
 	}
-	public boolean VerifyCheck(int index,int i1,int j1,int i2,int j2,Vector<Pair> positions) //1 eh a posição q ele tá e 2 é a que ele vai
+	public Vector<Integer> VerifyCheck(int i1,int j1,Vector<Pair> positions) //1 eh a posição q ele tá e 2 é a que ele vai
 	{
+		int ireitemp,jreitemp;
+		int k=0,size,l=0;
+		boolean acabou=false;
+		int i2,j2;
 		Peca p,peca;
 		Vector<Pair> v;
+		Vector<Integer> indices=new Vector<Integer>();
 		peca=tabuleiro[i1][j1].getPeca();
-		tabuleiro[i1][j1].setPeca(tabuleiro[i2][j2].getPeca());
-		tabuleiro[i2][j2].setPeca(peca);
+		size=positions.size();
+		ireitemp=0;
+		jreitemp=0;
+        for(l=0;l<size;l++)
+        {
+        	i2=positions.get(l).getX();
+        	j2=positions.get(l).getY();
+		    tabuleiro[i1][j1].setPeca(tabuleiro[i2][j2].getPeca());
+		    tabuleiro[i2][j2].setPeca(peca);
+		    if(peca instanceof Rei)
+		    {
+		    	if(peca.getCor()==Cor.Escuro)
+		    	{
+		    		ireitemp=iReiE;
+		    		jreitemp=jReiE;
+		    		iReiE=i2;
+		    		jReiE=j2;
+		    	}
+		    	else
+		    	{
+		    		ireitemp=iReiC;
+		    		jreitemp=jReiC;
+		    		iReiC=i2;
+		    		jReiC=j2;
+		    	}
+		    }
 		for(int i=0;i<8;i++)
 		{
     		for(int j=0;j<8;j++)
 			{
 //				//Passar pelo tabuleiro todo vendo quais tem peca
-				p=tabuleiro[i][j].getPeca();
-				if(tabuleiro[i][j].getPeca()!=null)
+			 p=tabuleiro[i][j].getPeca();
+				if(p!=null)
 				{
-					v=p.PossibleEats((int)larg*i,(int)alt*j);
-					for(int k=0;k<v.size();k++)
+				  if(peca.getCor()!=p.getCor())
+				   {
+					  //System.out.println("Antes: "+i+ " "+ j);
+					v=p.PossibleEats((int)larg*j,(int)alt*i);
+					//System.out.println("Peca :"+p.getName()+ " Size: "+v.size());
+					for(k=0;k<v.size();k++)
 					{
 						Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
+						//System.out.println(comidoposition.getX() + " "+ comidoposition.getY());
 						if((comidoposition.getX()==iReiC && comidoposition.getY()==jReiC) ||(comidoposition.getX()==iReiE && comidoposition.getY()==jReiE))
 						{
-							return true;
+							//System.out.println(comidoposition.getX() + " "+ comidoposition.getY());
+							if(indices.contains(l)==false)
+							{
+								indices.add(l);
+							}
 						}
 					}
 				}
 			}
 		}
+		}
 		tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
 		tabuleiro[i1][j1].setPeca(peca);
-		return false;
+		if(peca instanceof Rei)
+	    {
+	    	if(peca.getCor()==Cor.Escuro)
+	    	{
+	    		iReiE=ireitemp;
+	    		jReiE=jreitemp;
+	    	}
+	    	else
+	    	{
+	    		iReiC=ireitemp;
+	    		jReiC=jreitemp;
+	    	}
+	    }
+        }
+        for(int i=0;i<indices.size();i++)
+        {
+        	System.out.println("Tem que remover: "+indices.get(i));
+        	positions.setElementAt(null,indices.get(i));
+        }
+		return indices;
 }
 	public void Recomeca()
 	{
