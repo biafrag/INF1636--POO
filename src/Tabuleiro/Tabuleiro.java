@@ -61,7 +61,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		iReiE=0;
 		jReiE=3;
 		iReiC=7;
-		jReiE=3;
+		jReiC=3;
 		for(int i=0;i<8;i++)
 		{
 			for(int j=0; j<8;j++)
@@ -682,7 +682,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		
 	}
-	public Vector<Integer> VerifyCheck(int i1,int j1,Vector<Pair> positions) //1 eh a posição q ele tá e 2 é a que ele vai
+	public void VerifyCheck(int i1,int j1,Vector<Pair> positions) //1 eh a posição q ele tá e 2 é a que ele vai
 	{
 		int ireitemp,jreitemp;
 		int k=0,size,l=0;
@@ -769,7 +769,6 @@ public class Tabuleiro extends Observable implements ActionListener{
         	System.out.println("Tem que remover: "+indices.get(i));
         	positions.setElementAt(null,indices.get(i));
         }
-		return indices;
 }
 	public void Recomeca()
 	{
