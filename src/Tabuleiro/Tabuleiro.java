@@ -44,6 +44,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 	private boolean peaochange=false;
 	private int xPeao,yPeao;
 	private int iReiE,jReiE,iReiC,jReiC;
+	private boolean reimov = false;
+	private boolean torremov = false;
 	JPopupMenu popup;
 	private Tabuleiro() 
 	{
@@ -241,6 +243,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}	
 		if(p instanceof Rei)
 		{
+			reimov = true;
 			if(p.getCor()==Cor.Escuro)
 			{
 				this.iReiE=i2;
@@ -251,6 +254,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 				this.iReiC=i2;
 				this.jReiC=j2;
 			}
+		}
+		if (p instanceof Torre)
+		{
+			torremov = true;
 		}
 
 	}
@@ -363,10 +370,11 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}		
 		if ((p0 instanceof Rei && p instanceof Torre) && (p0.getCor()==p.getCor()))
 		{
-			if (j1 == 3 && ((i1 == 7 && p0.getCor() == Cor.Claro) || (i1 == 0 && p0.getCor() == Cor.Escuro)))
+			if (reimov == false && torremov == false)
 			{
 				if (j2 == 0 && ((i2 == 7 && p0.getCor() == Cor.Claro) || (i2 == 0 && p0.getCor() == Cor.Escuro)))
 				{
+			
 					//Roque Curto
 					j2++;
 					while (j1>j2) {						
@@ -403,11 +411,12 @@ public class Tabuleiro extends Observable implements ActionListener{
 					tabuleiro[i2][j1].setPeca(p);
 					tabuleiro[i2][7].setPeca(null);
 				}
+				if (jogador)
+					jogador = false;
+				else
+					jogador = true;
 			}
-			if (jogador)
-				jogador = false;
-			else
-				jogador = true;
+			
 		}
 		if(p0 instanceof Peao && ((i2==0 && p0.getCor()==Cor.Claro) || (i2==7 && p0.getCor()==Cor.Escuro)))
 		{
@@ -573,7 +582,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		
 		jog=load.nextInt();
-		System.out.println("jog: "+jog);
 		if(jog==1)
 		{
 			jogador=true;
@@ -638,7 +646,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 			}
 		}
 		load.close();
-		System.out.println("jogador depois do load: " + jogador);
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -652,7 +659,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 			try {
 				Load();
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -661,7 +667,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 			try {
 				SaveFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
