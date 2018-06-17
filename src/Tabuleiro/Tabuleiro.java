@@ -219,7 +219,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		System.out.println("De "+ y1+ " "+i1+" "+j1);
 		System.out.println("Para "+ y2+ " "+i2+" "+j2);
 		System.out.println("joga: " + jogador);		
-		
+		Peca p = tabuleiro[i1][j1].getPeca();
 		for(int i=0;i<_possiblePositions.size();i++)
 		{
 			if(_possiblePositions.get(i)!=null)
@@ -228,6 +228,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 				{
 					tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
 					tabuleiro[i1][j1].setPeca(null);
+					if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
+					{
+						peaochange=true;
+					}	
 					if (jogador)
 						jogador = false;
 					else
@@ -236,7 +240,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 				}
 			}
 		}		
-		Peca p = tabuleiro[i2][j2].getPeca();
 		if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
 		{
 			peaochange=true;
@@ -360,6 +363,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 					System.out.println("Come "+ y2+ " "+i2+" "+j2);
 					tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
 					tabuleiro[i1][j1].setPeca(null);
+					if(p0 instanceof Peao && ((i2==0 && p0.getCor()==Cor.Claro) || (i2==7 && p0.getCor()==Cor.Escuro)))
+					{
+						peaochange=true;
+					}
 					if (jogador)
 						jogador = false;
 					else
@@ -417,10 +424,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 					jogador = true;
 			}
 			
-		}
-		if(p0 instanceof Peao && ((i2==0 && p0.getCor()==Cor.Claro) || (i2==7 && p0.getCor()==Cor.Escuro)))
-		{
-			peaochange=true;
 		}
 	}
 	
