@@ -200,7 +200,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 		j1=x1/larg;
 		i2=y2/alt;
 		j2=x2/larg;
-		Vector<Pair> positions;
 		i1=Math.floorDiv((y1 - 40),alt);
 		j1=Math.floorDiv(x1,larg);
 		i2=Math.floorDiv((y2 - 40),alt);
@@ -218,8 +217,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		System.out.println("De "+ y1+ " "+i1+" "+j1);
 		System.out.println("Para "+ y2+ " "+i2+" "+j2);
 		System.out.println("joga: " + jogador);		
-
-		//positions=tabuleiro[i1][j1].getPositions();
+		
 		for(int i=0;i<_possiblePositions.size();i++)
 		{
 			if(_possiblePositions.get(i)!=null)
@@ -326,7 +324,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 		j1=x1/larg;
 		i2=y2/alt;
 		j2=x2/larg;
-		//Vector<Pair> eats;
 		i1=Math.floorDiv((y1 - 40),alt);
 		j1=Math.floorDiv(x1,larg);
 		i2=Math.floorDiv((y2 - 40),alt);
@@ -347,7 +344,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		System.out.println(y1+ " "+i1+" "+j1);
 
 		System.out.println("come: " + jogador);
-		//eats=tabuleiro[i1][j1].getEats();
+		
 		for(int k=0;k<_possibleEats.size();k++)
 		{
 			if(_possibleEats.get(k)!=null)
@@ -498,6 +495,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 	public void SaveFile() throws IOException
 	{
 		/*Jogador da vez
+		 * Posicao rei claro
+		 * Posicao rei escuro
 		 * [0][0] booleano se tem peça tipo da peça cor da peca
 		 * .
 		 * .
@@ -518,6 +517,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 		{
 		}
 		file.println(jogador);
+		file.println(iReiC + " "+jReiC);
+		file.println(iReiE + " "+jReiE);
 		for(int i=0;i<8;i++)
 		{
 			for(int j=0;j<8;j++)
@@ -570,6 +571,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		
 		aux=load.next();
+		System.out.println("AUx: "+aux);
 		if(aux=="false")
 		{
 			jogador=false;
@@ -578,6 +580,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 		{
 			jogador=true;
 		}
+		iReiC=load.nextInt();
+		jReiC=load.nextInt();
+		iReiE=load.nextInt();
+		jReiE=load.nextInt();
 		Peca p;
 		Cor c;
 		for(int i=0;i<8;i++)
