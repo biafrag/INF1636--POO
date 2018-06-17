@@ -230,7 +230,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 						jogador = false;
 					else
 						jogador = true;
-					System.out.println("joga: " + jogador);
 					break;
 				}
 			}
@@ -358,7 +357,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 						jogador = false;
 					else
 						jogador = true;
-					System.out.println("come: " + jogador);
 					break;
 				}
 			}
@@ -516,7 +514,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 		finally
 		{
 		}
-		file.println(jogador);
+		if (jogador)
+			file.println(1);
+		else
+			file.println(2);
 		file.println(iReiC + " "+jReiC);
 		file.println(iReiE + " "+jReiE);
 		for(int i=0;i<8;i++)
@@ -557,6 +558,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		chooser.showOpenDialog(Tela.getInstanceTela());
 		Scanner load=null;
 		String aux,aux2;
+		int jog;
 		System.out.println(chooser.getSelectedFile().getPath());
 		try 
 		{
@@ -570,16 +572,17 @@ public class Tabuleiro extends Observable implements ActionListener{
 			}
 		}
 		
-		aux=load.next();
-		System.out.println("AUx: "+aux);
-		if(aux=="false")
-		{
-			jogador=false;
-		}
-		else
+		jog=load.nextInt();
+		System.out.println("jog: "+jog);
+		if(jog==1)
 		{
 			jogador=true;
 		}
+		else 
+		{
+			jogador=false;
+		}
+		
 		iReiC=load.nextInt();
 		jReiC=load.nextInt();
 		iReiE=load.nextInt();
@@ -635,6 +638,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			}
 		}
 		load.close();
+		System.out.println("jogador depois do load: " + jogador);
 		this.setChanged();
 		this.notifyObservers();
 	}

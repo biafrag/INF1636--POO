@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
 import Tabuleiro.TabuleiroFacade;
 
@@ -27,10 +26,7 @@ public class Tela extends JFrame implements ActionListener {
 		setSize(LARG_DEFAULT,ALT_DEFAULT);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		//setResizable(false);
 		setTitle("Chess Game");
-		//Teste de desenhar alguma coisa na tela
-		//JLabel teste;
 		criaMenu();
 		setVisible(true);
 	
@@ -47,18 +43,18 @@ public class Tela extends JFrame implements ActionListener {
 		//itens do menu ARQUIVO
 		this.Novo = new JMenuItem ("Novo Jogo");
 		this.Novo.addActionListener(this);
-		this.Novo.setMnemonic('n'); //PESQUISAR
+		this.Novo.setMnemonic('n'); 
 
 		this.Carregar = new JMenuItem ("Carregar Jogo");
 		this.Carregar.addActionListener(this);
-		this.Carregar.setMnemonic('c'); //PESQUISAR
+		this.Carregar.setMnemonic('c'); 
 
 		this.Sair = new JMenuItem ("Sair");
 		this.Sair.addActionListener(this);
 		this.Sair.setMnemonic('s');
 
 		//Item do da barra de Menu
-		this.Menu= new JMenu ("Arquivo");
+		this.Menu= new JMenu ("Menu");
 		this.Menu.setMnemonic('M');
 		this.Menu.addActionListener(this);
 		this.Menu.add(this.Novo);
