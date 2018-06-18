@@ -109,8 +109,6 @@ public class Bispo extends Peca {
 				if(color!=TabuleiroFacade.getTFacade().getPecaCor(i+n, j+n))
 				{
 					eats.add(new Pair(i+n,j+n));
-//					System.out.println(i+ " "+ j+ " "+n+ " "+"Bispo: "+eats.get(0).getX() +" "+eats.get(0).getY()  );
-//					System.out.println("oi1 "+eats.size());
 				}
 				break;
 			}
@@ -123,7 +121,6 @@ public class Bispo extends Peca {
 				if(color!=TabuleiroFacade.getTFacade().getPecaCor(i-n,j-n))
 				{
 					eats.add(new Pair(i-n,j-n));
-//					System.out.println("oi2 "+eats.size());
 				}
 				break;
 			}
@@ -135,7 +132,6 @@ public class Bispo extends Peca {
 				if( color!=TabuleiroFacade.getTFacade().getPecaCor(i-n,j+n))
 				{
 					eats.add(new Pair(i-n,j+n));
-					System.out.println("oi3 "+eats.size());
 				}
 				break;
 			}
@@ -147,12 +143,10 @@ public class Bispo extends Peca {
 				if(color!=TabuleiroFacade.getTFacade().getPecaCor(i+n,j-n))
 				{
 					eats.add(new Pair(i+n,j-n));
-					System.out.println("oi4 "+eats.size());
 				}
 				break;
 			}
 		}
-		System.out.println("Tamanho do Bispo "+eats.size());
 		return eats;
 	}
 	public String getName()

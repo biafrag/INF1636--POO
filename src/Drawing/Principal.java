@@ -12,7 +12,7 @@ public class Principal  {
 		f.setLayout(null);
         Draw panel = new Draw();
 		panel.setLocation(0,0);
-		panel.setSize(1000 , 800);
+		panel.setSize(1000,800);
         f.add(panel);              
         
 	}

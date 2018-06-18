@@ -43,18 +43,25 @@ public class TabuleiroFacade extends Observable {
 	}
 	public void RealizaJogada(int x1, int y1, int x2, int y2)
 	{
+		boolean check=false;
 		if (t.TemPeca(x2, y2) == false)
 		{
-			t.MexePeca(x1,y1,x2,y2);
+			check=t.MexePeca(x1,y1,x2,y2);
 			this.setChanged();
 			notifyObservers();
 		}	
 		else 
 		{
-			t.ComePeca(x1,y1,x2,y2);
+			check=t.ComePeca(x1,y1,x2,y2);
 			this.setChanged();
 			notifyObservers();
-		}								
+		}	
+		if(check==true)
+		{
+			t.CriaJPane(x2,y2);
+		}
+		this.setChanged();
+		notifyObservers();
 	}
 	public void PromovePeao(int x2, int y2, Component component, int x, int y)
 	{

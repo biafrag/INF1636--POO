@@ -48,15 +48,13 @@ public class Mouse implements MouseListener {
 			System.out.println("Posicao Y "+e.getY());
 			if(mousepress==false)
 			{
-				System.out.println("click1");
-				x1=e.getX()+40;
-				y1=e.getY()+40;
+				x1=e.getX();
+				y1=e.getY();
 				t.VerificaMovimentosPossiveis(x1, y1);
 				mousepress=true;
 			}
 			else
 			{
-				System.out.println("click2");
 				x2=e.getX();
 				y2=e.getY();
 				mousepress=false;
