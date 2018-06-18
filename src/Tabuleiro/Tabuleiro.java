@@ -12,6 +12,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JOptionPane;
 
 import Drawing.Cor;
 import Drawing.Tela;
@@ -232,16 +233,20 @@ public class Tabuleiro extends Observable implements ActionListener{
 				{
 					if(_possiblePositions.get(i).getX()==i2 && _possiblePositions.get(i).getY()==j2)
 					{
-						tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+						tabuleiro[i2][j2].setPeca(p);
 						tabuleiro[i1][j1].setPeca(null);
-						if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
+						if(p instanceof Peao && ((i2==0 && c==Cor.Claro) || (i2==7 && c==Cor.Escuro)))
 						{
 							peaochange=true;
 						}	
 						if (jogador)
+						{
 							jogador = false;
-						else
+						}
+						else 
+						{
 							jogador = true;
+						}
 						break;
 					}
 				}
@@ -270,22 +275,35 @@ public class Tabuleiro extends Observable implements ActionListener{
 				if(p.getCor()==Cor.Escuro)
 				{
 					if (i1 == 0 && j1==0)
+					{
 						torremovEl = true;
+					}
 					else if (i1 == 0 && j1 == 7)
+					{
 						torremovEc = true;
+					}
 				}
 				else
 				{
 					if (i1 == 7 && j1==0)
+					{
 						torremovCl = true;
+					}
 					else if (i1 == 7 && j1 == 7)
+					{
 						torremovCc = true;
+					}
 				}				
 			}
 			this.checkmate=verifyCheckMate(c);
 			if(checkmate==true)
 			{
 				System.out.println("CHECK MATEEEEEE OTARIO");
+				JOptionPane.showMessageDialog(null,
+				        "O jogador " + c + " ganhou", 
+				        "Fim do Jogo", 
+				        JOptionPane.INFORMATION_MESSAGE);
+				Recomeca();
 			}
 		}
 
@@ -399,76 +417,99 @@ public class Tabuleiro extends Observable implements ActionListener{
 							peaochange=true;
 						}
 						if (jogador)
+						{
 							jogador = false;
-						else
+						}
+						else 
+						{
 							jogador = true;
+						}
 						break;
 					}
 				}
 			}		
 			if ((p0 instanceof Rei && p instanceof Torre) && (p0.getCor()==p.getCor()))
 			{
-				if ((reimovE == false && torremovEl == false) || (reimovC == false && torremovCl == false))
-				{
-					if (j2 == 0 && ((i2 == 7 && p0.getCor() == Cor.Claro) || (i2 == 0 && p0.getCor() == Cor.Escuro)))
-					{
-						//Roque Longo
-						j2++;
-						while (j1>j2) {						
-							if (tabuleiro[i2][j2].getPeca() != null)
-							{
-								System.out.println("tem peça no meio do roque");
-								return;
-							}
-							j2++;
-						}
-						tabuleiro[i1][j1].setPeca(null);
-						j1 -= 2;
-						tabuleiro[i1][j1].setPeca(p0);
-						j1+=1;
-						tabuleiro[i2][j1].setPeca(p);
-						tabuleiro[i2][0].setPeca(null);		
-						if (jogador)
-							jogador = false;
-						else
-							jogador = true;
-					}
-				}
-				if ((reimovE == false && torremovEc == false) || (reimovC == false && torremovCc == false))
-				{
-					if (j2 == 7 && ((i2 == 7 && p0.getCor() == Cor.Claro) || (i2 == 0 && p0.getCor() == Cor.Escuro)))
-					{
-						//Roque Curto
-						j2--;
-						while (j1<j2) {						
-							if (tabuleiro[i2][j2].getPeca() != null)
-							{
-								System.out.println("tem peça no meio do roque");
-								return;
-							}
-							j2--;
-						}
-						tabuleiro[i1][j1].setPeca(null);
-						j1 += 2;
-						tabuleiro[i1][j1].setPeca(p0);
-						j1-=1;
-						tabuleiro[i2][j1].setPeca(p);
-						tabuleiro[i2][7].setPeca(null);
-						if (jogador)
-							jogador = false;
-						else
-							jogador = true;
-					}
-				}					
+				FazRoque(i1,j1,i2,j2,p0,p);
 			}
 			this.checkmate=verifyCheckMate(c);
 			if(checkmate==true)
 			{
 				System.out.println("CHECK MATEEEEEE OTARIO");
+				JOptionPane.showMessageDialog(null,
+				        "O jogador " + c + "ganhou", 
+				        "Fim do Jogo", 
+				        JOptionPane.INFORMATION_MESSAGE);
+				Recomeca();
 			}
 		}
 	}
-	
+	public void FazRoque(int i1, int j1, int i2, int j2,Peca p0, Peca p)
+	{
+		Vector <Pair> positions;
+		if (j2 == 0 && ((i2 == 7 && p.getCor() == Cor.Claro) || (i2 == 0 && p.getCor() == Cor.Escuro)))
+		{
+			if ((reimovE == false && torremovEl == false) || (reimovC == false && torremovCl == false))
+			{
+				System.out.println("entrou no roque longo");
+				//Roque Longo
+				j2++;
+				while (j1>j2) {						
+					if (tabuleiro[i2][j2].getPeca() != null)
+					{
+						System.out.println("tem peça no meio do roque");
+						return;
+					}
+					j2++;
+				}	
+				tabuleiro[i1][j1].setPeca(null);
+				j1 -= 2;
+				tabuleiro[i1][j1].setPeca(p0);
+				j1+=1;
+				tabuleiro[i2][j1].setPeca(p);
+				tabuleiro[i2][0].setPeca(null);		
+				if (jogador)
+				{
+					jogador = false;
+				}
+				else 
+				{
+					jogador = true;
+				}
+			}
+		}
+		else if (j2 == 7 && ((i2 == 7 && p.getCor() == Cor.Claro) || (i2 == 0 && p.getCor() == Cor.Escuro)))
+		{
+			if ((reimovE == false && torremovEc == false) || (reimovC == false && torremovCc == false))
+			{
+				System.out.println("entrou no roque curto");
+				//Roque Curto
+				j2--;
+				while (j1<j2) {						
+					if (tabuleiro[i2][j2].getPeca() != null)
+					{
+						System.out.println("tem peça no meio do roque");
+						return;
+					}
+					j2--;
+				}
+				tabuleiro[i1][j1].setPeca(null);
+				j1 += 2;
+				tabuleiro[i1][j1].setPeca(p0);
+				j1-=1;
+				tabuleiro[i2][j1].setPeca(p);
+				tabuleiro[i2][7].setPeca(null);
+				if (jogador)
+				{
+					jogador = false;
+				}
+				else 
+				{
+					jogador = true;
+				}
+			}
+		}			
+	}
 	public JPopupMenu  CriaPopupSave()
 	{
 		popup = new JPopupMenu();
@@ -569,9 +610,13 @@ public class Tabuleiro extends Observable implements ActionListener{
 		{
 		}
 		if (jogador)
+		{
 			file.println(1);
+		}
 		else
+		{
 			file.println(2);
+		}
 		file.println(iReiC + " "+jReiC);
 		file.println(iReiE + " "+jReiE);
 		for(int i=0;i<8;i++)
