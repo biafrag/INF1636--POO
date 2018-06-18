@@ -202,9 +202,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 	public void MexePeca(int x1,int y1,int x2,int y2)
 	{
 		int i1,i2,j1,j2;
-		i1=Math.floorDiv((y1 - 40),alt);
+		i1=Math.floorDiv((y1),alt);
 		j1=Math.floorDiv(x1,larg);
-		i2=Math.floorDiv((y2 - 40),alt);
+		i2=Math.floorDiv((y2),alt);
 		j2=Math.floorDiv(x2,larg);
 		Cor c;
 		if(tabuleiro[i1][j1].getPeca()!=null)
@@ -219,9 +219,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 				return;
 			}
 
-			System.out.println("De "+ y1+ " "+i1+" "+j1);
-			System.out.println("Para "+ y2+ " "+i2+" "+j2);
-			System.out.println("joga: " + jogador);		
+//			System.out.println("De "+ y1+ " "+i1+" "+j1);
+//			System.out.println("Para "+ y2+ " "+i2+" "+j2);
+//			System.out.println("joga: " + jogador);		
 			Peca p = tabuleiro[i1][j1].getPeca();
 			for(int i=0;i<_possiblePositions.size();i++)
 			{
@@ -309,19 +309,19 @@ public class Tabuleiro extends Observable implements ActionListener{
 	{
 		int i=Math.floorDiv(y,alt);
 		int j=Math.floorDiv(x,larg);
-		System.out.println(i +" "+ j);
+//		System.out.println(i +" "+ j);
 		tabuleiro[i][j].setSelect();
 	}
 	public void CatchPossibleMoves(int x, int y)
 	{
 		int i=Math.floorDiv(y,alt);
 		int j=Math.floorDiv(x,larg);
-		System.out.println(i +" "+ j);
+//		System.out.println(i +" "+ j);
 		_possiblePositions=tabuleiro[i][j].catchMoves(x,y);
-		System.out.println("Quantidade de posicoes possiveis antes: "+_possiblePositions.size());
-		System.out.println("Verifica posicoes");
+//		System.out.println("Quantidade de posicoes possiveis antes: "+_possiblePositions.size());
+//		System.out.println("Verifica posicoes");
 		VerifyCheck(i,j,_possiblePositions);
-		System.out.println("Quantidade de posicoes possiveis: "+_possiblePositions.size());
+//		System.out.println("Quantidade de posicoes possiveis: "+_possiblePositions.size());
 		if( _possiblePositions!=null)
 		{
 			for(int n=0;n< _possiblePositions.size();n++)
@@ -342,9 +342,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 	{
 		int i=Math.floorDiv(y,alt);
 		int j=Math.floorDiv(x,larg);
-		System.out.println(i +" "+ j);
+//		System.out.println(i +" "+ j);
 		_possibleEats=tabuleiro[i][j].catchEats(x,y);
-		System.out.println("Verifica eats");
+//		System.out.println("Verifica eats");
 		VerifyCheck(i,j,_possibleEats);
 		if( _possibleEats!=null)
 		{
@@ -369,9 +369,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 		j1=x1/larg;
 		i2=y2/alt;
 		j2=x2/larg;
-		i1=Math.floorDiv((y1 - 40),alt);
+		i1=Math.floorDiv((y1),alt);
 		j1=Math.floorDiv(x1,larg);
-		i2=Math.floorDiv((y2 - 40),alt);
+		i2=Math.floorDiv((y2),alt);
 		j2=Math.floorDiv(x2,larg);
 
 		Peca p0 = tabuleiro[i1][j1].getPeca();
@@ -389,9 +389,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 				return;
 			}
 
-			System.out.println(y1+ " "+i1+" "+j1);
+//			System.out.println(y1+ " "+i1+" "+j1);
 
-			System.out.println("come: " + jogador);
+//			System.out.println("come: " + jogador);
 
 			for(int k=0;k<_possibleEats.size();k++)
 			{
@@ -399,7 +399,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				{
 					if(_possibleEats.get(k).getX()==i2 && _possibleEats.get(k).getY()==j2)
 					{
-						System.out.println("Come "+ y2+ " "+i2+" "+j2);
+//						System.out.println("Come "+ y2+ " "+i2+" "+j2);
 						tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
 						tabuleiro[i1][j1].setPeca(null);
 						if(p0 instanceof Peao && ((i2==0 && p0.getCor()==Cor.Claro) || (i2==7 && p0.getCor()==Cor.Escuro)))
@@ -443,13 +443,13 @@ public class Tabuleiro extends Observable implements ActionListener{
 		{
 			if ((reimovE == false && torremovEl == false) || (reimovC == false && torremovCl == false))
 			{
-				System.out.println("entrou no roque longo");
+//				System.out.println("entrou no roque longo");
 				//Roque Longo
 				j2++;
 				while (j1>j2) {						
 					if (tabuleiro[i2][j2].getPeca() != null)
 					{
-						System.out.println("tem peça no meio do roque");
+//						System.out.println("tem peça no meio do roque");
 						return;
 					}
 					j2++;
@@ -457,13 +457,13 @@ public class Tabuleiro extends Observable implements ActionListener{
 				positions=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
 				if (!VerifyCheck(i1,j1,positions))
 				{
-					System.out.println("Rei esta em xeque");
+//					System.out.println("Rei esta em xeque");
 					return;
 				}
 				positions=tabuleiro[i2][j2].catchMoves((int)larg*j2,(int)alt*i2);
 				if (!VerifyCheck(i2,j2,positions))
 				{
-					System.out.println("Rei vai esta em xeque se ocorrer o roque");
+//					System.out.println("Rei vai esta em xeque se ocorrer o roque");
 					return;
 				}
 				tabuleiro[i1][j1].setPeca(null);
@@ -486,13 +486,13 @@ public class Tabuleiro extends Observable implements ActionListener{
 		{
 			if ((reimovE == false && torremovEc == false) || (reimovC == false && torremovCc == false))
 			{
-				System.out.println("entrou no roque curto");
+//				System.out.println("entrou no roque curto");
 				//Roque Curto
 				j2--;
 				while (j1<j2) {						
 					if (tabuleiro[i2][j2].getPeca() != null)
 					{
-						System.out.println("tem peça no meio do roque");
+//						System.out.println("tem peça no meio do roque");
 						return;
 					}
 					j2--;
@@ -565,10 +565,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 		int i,j;
 		i=yPeao/alt;
 		j=xPeao/larg;
-		i=Math.floorDiv((yPeao - 40),alt);
+		i=Math.floorDiv(yPeao,alt);
 		j=Math.floorDiv(xPeao,larg);
 		Cor c=tabuleiro[i][j].getPeca().getCor();
-		System.out.println("AAAAAAA "+s);
+//		System.out.println("AAAAAAA "+s);
 		switch(s)
 		{
 			case "Cavalo":
@@ -662,7 +662,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		Scanner load=null;
 		String aux,aux2;
 		int jog;
-		System.out.println(chooser.getSelectedFile().getPath());
+//		System.out.println(chooser.getSelectedFile().getPath());
 		try 
 		{
 			load=new Scanner(new BufferedReader(new FileReader(chooser.getSelectedFile().getPath())));
@@ -708,7 +708,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				default:
 					c=Cor.Claro;	
 				}
-				System.out.println(aux+" "+aux2);
+//				System.out.println(aux+" "+aux2);
 				switch(aux)
 				{
 				    case "null":
@@ -746,8 +746,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		System.out.println("AAAAAAA "+arg0.getActionCommand());
-		System.out.println("Ta entrando");
+//		System.out.println("AAAAAAA "+arg0.getActionCommand());
+//		System.out.println("Ta entrando");
 		if(arg0.getActionCommand()=="Load")
 		{
 			try {
@@ -821,7 +821,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		size=positions.size();
 		ireitemp=0;
 		jreitemp=0;
-		System.out.println("Size do vetor: " + size);
+//		System.out.println("Size do vetor: " + size);
 		for(l=0;l<size;l++)
 		{
 			i2=positions.get(l).getX();
@@ -857,7 +857,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 						if(peca.getCor()!=p.getCor())
 						{ 
 							v=p.PossibleEats((int)larg*j,(int)alt*i);
-							System.out.println("Peca :"+p.getName()+ " Size: "+v.size());
+//							System.out.println("Peca :"+p.getName()+ " Size: "+v.size());
 							for(k=0;k<v.size();k++)
 							{
 								Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
@@ -921,7 +921,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		{
 			s="AS PECAS CLARAS GANHARAM";
 		}
-		System.out.println("CHECK MATEEEEEE OTARIO");
+//		System.out.println("CHECK MATEEEEEE OTARIO");
 		JOptionPane.showMessageDialog(null,
 		        s, 
 		        "Fim do Jogo", 
@@ -942,14 +942,14 @@ public class Tabuleiro extends Observable implements ActionListener{
 							this.possiblecheckpositions=this.VerifyCheck(i, j,positions);
 							if(this.possiblecheckpositions==true)
 							{
-								System.out.println("POSITIONS");
+//								System.out.println("POSITIONS");
 								return false;
 							}
 							positions=tabuleiro[i][j].catchEats((int)larg*j,(int)alt*i);
 							this.possiblecheckeats=this.VerifyCheck(i, j, positions);
 							if(this.possiblecheckeats==true)
 							{
-								System.out.println("EATS");
+//								System.out.println("EATS");
 								return false;
 							}
 					}
