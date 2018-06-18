@@ -424,7 +424,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				return;
 			}
 			this.checkmate=verifyCheckMate(c);
-			if(checkmate==true || (p instanceof Rei && p0.getCor()!=p.getCor()))
+			if(checkmate==true)
 			{
 				this.empate=VerifyEmpate(i1,j1,c);
 				tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
@@ -443,13 +443,13 @@ public class Tabuleiro extends Observable implements ActionListener{
 		{
 			if ((reimovE == false && torremovEl == false) || (reimovC == false && torremovCl == false))
 			{
-//				System.out.println("entrou no roque longo");
+				System.out.println("entrou no roque longo");
 				//Roque Longo
 				j2++;
 				while (j1>j2) {						
 					if (tabuleiro[i2][j2].getPeca() != null)
 					{
-//						System.out.println("tem peça no meio do roque");
+						System.out.println("tem peça no meio do roque");
 						return;
 					}
 					j2++;
@@ -457,18 +457,20 @@ public class Tabuleiro extends Observable implements ActionListener{
 				positions=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
 				if (!VerifyCheck(i1,j1,positions))
 				{
-//					System.out.println("Rei esta em xeque");
-					return;
-				}
-				positions=tabuleiro[i2][j2].catchMoves((int)larg*j2,(int)alt*i2);
-				if (!VerifyCheck(i2,j2,positions))
-				{
-//					System.out.println("Rei vai esta em xeque se ocorrer o roque");
+					System.out.println("Rei esta em xeque");
 					return;
 				}
 				tabuleiro[i1][j1].setPeca(null);
 				j1 -= 2;
 				tabuleiro[i1][j1].setPeca(p0);
+				positions=tabuleiro[i1][j1].catchMoves((int)larg*j2,(int)alt*i2);
+				if (!VerifyCheck(i1,j1,positions))
+				{
+					tabuleiro[i1][j1].setPeca(null);
+					tabuleiro[i1][j1+2].setPeca(p0);
+					System.out.println("Rei vai esta em xeque se ocorrer o roque");
+					return;
+				}
 				j1+=1;
 				tabuleiro[i2][j1].setPeca(p);
 				tabuleiro[i2][0].setPeca(null);		
@@ -486,7 +488,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		{
 			if ((reimovE == false && torremovEc == false) || (reimovC == false && torremovCc == false))
 			{
-//				System.out.println("entrou no roque curto");
+				System.out.println("entrou no roque curto");
 				//Roque Curto
 				j2--;
 				while (j1<j2) {						
@@ -497,9 +499,23 @@ public class Tabuleiro extends Observable implements ActionListener{
 					}
 					j2--;
 				}
+				positions=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
+				if (!VerifyCheck(i1,j1,positions))
+				{
+					System.out.println("Rei esta em xeque");
+					return;
+				}
 				tabuleiro[i1][j1].setPeca(null);
-				j1 += 2;
+				j1 -= 2;
 				tabuleiro[i1][j1].setPeca(p0);
+				positions=tabuleiro[i1][j1].catchMoves((int)larg*j2,(int)alt*i2);
+				if (!VerifyCheck(i1,j1,positions))
+				{
+					tabuleiro[i1][j1].setPeca(null);
+					tabuleiro[i1][j1+2].setPeca(p0);
+					System.out.println("Rei vai esta em xeque se ocorrer o roque");
+					return;
+				}				
 				j1-=1;
 				tabuleiro[i2][j1].setPeca(p);
 				tabuleiro[i2][7].setPeca(null);
