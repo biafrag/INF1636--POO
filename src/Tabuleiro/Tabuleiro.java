@@ -44,8 +44,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 	private boolean peaochange=false;
 	private int xPeao,yPeao;
 	private int iReiE,jReiE,iReiC,jReiC;
-	private boolean reimov = false;
-	private boolean torremov = false;
+	private boolean reimovE = false,reimovC = false;
+	private boolean torremovEc = false, torremovCc = false,torremovEl = false, torremovCl = false;
 	private boolean possiblecheckpositions=false;
 	private boolean possiblecheckeats=false;
 	private boolean checkmate=false;
@@ -210,70 +210,84 @@ public class Tabuleiro extends Observable implements ActionListener{
 		i2=Math.floorDiv((y2 - 40),alt);
 		j2=Math.floorDiv(x2,larg);
 		Cor c;
-if(tabuleiro[i1][j1].getPeca()!=null)
-{
-	    c=tabuleiro[i1][j1].getPeca().getCor();
-		if(jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Escuro)
+		if(tabuleiro[i1][j1].getPeca()!=null)
 		{
-			return;
-		}
-		else if (!jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Claro)
-		{
-			return;
-		}
-
-		System.out.println("De "+ y1+ " "+i1+" "+j1);
-		System.out.println("Para "+ y2+ " "+i2+" "+j2);
-		System.out.println("joga: " + jogador);		
-		Peca p = tabuleiro[i1][j1].getPeca();
-		for(int i=0;i<_possiblePositions.size();i++)
-		{
-			if(_possiblePositions.get(i)!=null)
+			c=tabuleiro[i1][j1].getPeca().getCor();
+			if(jogador && c == Cor.Escuro)
 			{
-				if(_possiblePositions.get(i).getX()==i2 && _possiblePositions.get(i).getY()==j2)
+				return;
+			}
+			else if (!jogador && c == Cor.Claro)
+			{
+				return;
+			}
+
+			System.out.println("De "+ y1+ " "+i1+" "+j1);
+			System.out.println("Para "+ y2+ " "+i2+" "+j2);
+			System.out.println("joga: " + jogador);		
+			Peca p = tabuleiro[i1][j1].getPeca();
+			for(int i=0;i<_possiblePositions.size();i++)
+			{
+				if(_possiblePositions.get(i)!=null)
 				{
-					tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
-					tabuleiro[i1][j1].setPeca(null);
-					if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
+					if(_possiblePositions.get(i).getX()==i2 && _possiblePositions.get(i).getY()==j2)
 					{
-						peaochange=true;
-					}	
-					if (jogador)
-						jogador = false;
-					else
-						jogador = true;
-					break;
+						tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+						tabuleiro[i1][j1].setPeca(null);
+						if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
+						{
+							peaochange=true;
+						}	
+						if (jogador)
+							jogador = false;
+						else
+							jogador = true;
+						break;
+					}
+				}
+			}		
+			if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
+			{
+				peaochange=true;
+			}	
+			if(p instanceof Rei)
+			{
+				if(p.getCor()==Cor.Escuro)
+				{
+					this.iReiE=i2;
+					this.jReiE=j2;
+					reimovE = true;
+				}
+				else
+				{
+					this.iReiC=i2;
+					this.jReiC=j2;
+					reimovC = true;
 				}
 			}
-		}		
-		if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
-		{
-			peaochange=true;
-		}	
-		if(p instanceof Rei)
-		{
-			reimov = true;
-			if(p.getCor()==Cor.Escuro)
+			if (p instanceof Torre)
 			{
-				this.iReiE=i2;
-				this.jReiE=j2;
+				if(p.getCor()==Cor.Escuro)
+				{
+					if (i1 == 0 && j1==0)
+						torremovEl = true;
+					else if (i1 == 0 && j1 == 7)
+						torremovEc = true;
+				}
+				else
+				{
+					if (i1 == 7 && j1==0)
+						torremovCl = true;
+					else if (i1 == 7 && j1 == 7)
+						torremovCc = true;
+				}				
 			}
-			else
+			this.checkmate=verifyCheckMate(c);
+			if(checkmate==true)
 			{
-				this.iReiC=i2;
-				this.jReiC=j2;
+				System.out.println("CHECK MATEEEEEE OTARIO");
 			}
 		}
-		if (p instanceof Torre)
-		{
-			torremov = true;
-		}
-		this.checkmate=verifyCheckMate(c);
-		if(checkmate==true)
-		{
-			System.out.println("CHECK MATEEEEEE OTARIO");
-		}
-}
 
 	}
 	public void Acende(int x, int y)
@@ -355,99 +369,104 @@ if(tabuleiro[i1][j1].getPeca()!=null)
 		Peca p0 = tabuleiro[i1][j1].getPeca();
 		Peca p = tabuleiro[i2][j2].getPeca();
 		Cor c;
-if(p0!=null)
-{
-	c=p0.getCor();
-		if(jogador && p0.getCor() == Cor.Escuro)
+		if(p0!=null)
 		{
-			return;
-		}
-		else if (!jogador && p0.getCor() == Cor.Claro)
-		{
-			return;
-		}
-
-		System.out.println(y1+ " "+i1+" "+j1);
-
-		System.out.println("come: " + jogador);
-		
-		for(int k=0;k<_possibleEats.size();k++)
-		{
-			if(_possibleEats.get(k)!=null)
+			c=p0.getCor();
+			if(jogador && c == Cor.Escuro)
 			{
-				if(_possibleEats.get(k).getX()==i2 && _possibleEats.get(k).getY()==j2)
+				return;
+			}
+			else if (!jogador && c == Cor.Claro)
+			{
+				return;
+			}
+
+			System.out.println(y1+ " "+i1+" "+j1);
+
+			System.out.println("come: " + jogador);
+
+			for(int k=0;k<_possibleEats.size();k++)
+			{
+				if(_possibleEats.get(k)!=null)
 				{
-					System.out.println("Come "+ y2+ " "+i2+" "+j2);
-					tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
-					tabuleiro[i1][j1].setPeca(null);
-					if(p0 instanceof Peao && ((i2==0 && p0.getCor()==Cor.Claro) || (i2==7 && p0.getCor()==Cor.Escuro)))
+					if(_possibleEats.get(k).getX()==i2 && _possibleEats.get(k).getY()==j2)
 					{
-						peaochange=true;
+						System.out.println("Come "+ y2+ " "+i2+" "+j2);
+						tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+						tabuleiro[i1][j1].setPeca(null);
+						if(p0 instanceof Peao && ((i2==0 && p0.getCor()==Cor.Claro) || (i2==7 && p0.getCor()==Cor.Escuro)))
+						{
+							peaochange=true;
+						}
+						if (jogador)
+							jogador = false;
+						else
+							jogador = true;
+						break;
 					}
-					if (jogador)
-						jogador = false;
-					else
-						jogador = true;
-					break;
 				}
-			}
-		}		
-		if ((p0 instanceof Rei && p instanceof Torre) && (p0.getCor()==p.getCor()))
-		{
-			if (reimov == false && torremov == false)
+			}		
+			if ((p0 instanceof Rei && p instanceof Torre) && (p0.getCor()==p.getCor()))
 			{
-				if (j2 == 0 && ((i2 == 7 && p0.getCor() == Cor.Claro) || (i2 == 0 && p0.getCor() == Cor.Escuro)))
+				if ((reimovE == false && torremovEl == false) || (reimovC == false && torremovCl == false))
 				{
-			
-					//Roque Curto
-					j2++;
-					while (j1>j2) {						
-						if (tabuleiro[i2][j2].getPeca() != null)
-						{
-							System.out.println("tem peça no meio");
-							return;
-						}
+					if (j2 == 0 && ((i2 == 7 && p0.getCor() == Cor.Claro) || (i2 == 0 && p0.getCor() == Cor.Escuro)))
+					{
+						//Roque Longo
 						j2++;
-					}
-					tabuleiro[i1][j1].setPeca(null);
-					j1 -= 2;
-					tabuleiro[i1][j1].setPeca(p0);
-					j1+=1;
-					tabuleiro[i2][j1].setPeca(p);
-					tabuleiro[i2][0].setPeca(null);	
-				}
-				else if (j2 == 7 && ((i2 == 7 && p0.getCor() == Cor.Claro) || (i2 == 0 && p0.getCor() == Cor.Escuro)))
-				{
-					//Roque Longo
-					j2--;
-					while (j1<j2) {						
-						if (tabuleiro[i2][j2].getPeca() != null)
-						{
-							System.out.println("tem peça no meio");
-							return;
+						while (j1>j2) {						
+							if (tabuleiro[i2][j2].getPeca() != null)
+							{
+								System.out.println("tem peça no meio do roque");
+								return;
+							}
+							j2++;
 						}
-						j2--;
+						tabuleiro[i1][j1].setPeca(null);
+						j1 -= 2;
+						tabuleiro[i1][j1].setPeca(p0);
+						j1+=1;
+						tabuleiro[i2][j1].setPeca(p);
+						tabuleiro[i2][0].setPeca(null);		
+						if (jogador)
+							jogador = false;
+						else
+							jogador = true;
 					}
-					tabuleiro[i1][j1].setPeca(null);
-					j1 += 2;
-					tabuleiro[i1][j1].setPeca(p0);
-					j1-=1;
-					tabuleiro[i2][j1].setPeca(p);
-					tabuleiro[i2][7].setPeca(null);
 				}
-				if (jogador)
-					jogador = false;
-				else
-					jogador = true;
+				if ((reimovE == false && torremovEc == false) || (reimovC == false && torremovCc == false))
+				{
+					if (j2 == 7 && ((i2 == 7 && p0.getCor() == Cor.Claro) || (i2 == 0 && p0.getCor() == Cor.Escuro)))
+					{
+						//Roque Curto
+						j2--;
+						while (j1<j2) {						
+							if (tabuleiro[i2][j2].getPeca() != null)
+							{
+								System.out.println("tem peça no meio do roque");
+								return;
+							}
+							j2--;
+						}
+						tabuleiro[i1][j1].setPeca(null);
+						j1 += 2;
+						tabuleiro[i1][j1].setPeca(p0);
+						j1-=1;
+						tabuleiro[i2][j1].setPeca(p);
+						tabuleiro[i2][7].setPeca(null);
+						if (jogador)
+							jogador = false;
+						else
+							jogador = true;
+					}
+				}					
 			}
-			
+			this.checkmate=verifyCheckMate(c);
+			if(checkmate==true)
+			{
+				System.out.println("CHECK MATEEEEEE OTARIO");
+			}
 		}
-		this.checkmate=verifyCheckMate(c);
-		if(checkmate==true)
-		{
-			System.out.println("CHECK MATEEEEEE OTARIO");
-		}
-}
 	}
 	
 	public JPopupMenu  CriaPopupSave()
@@ -754,88 +773,88 @@ if(p0!=null)
 		ireitemp=0;
 		jreitemp=0;
 		System.out.println("Size do vetor: " + size);
-        for(l=0;l<size;l++)
-        {
-        	i2=positions.get(l).getX();
-        	j2=positions.get(l).getY();
-        	peca2=tabuleiro[i2][j2].getPeca();
-		    tabuleiro[i1][j1].setPeca(null);
-			tabuleiro[i2][j2].setPeca(peca);
-		    if(peca instanceof Rei)
-		    {
-		    	if(peca.getCor()==Cor.Escuro)
-		    	{
-		    		ireitemp=iReiE;
-		    		jreitemp=jReiE;
-		    		iReiE=i2;
-		    		jReiE=j2;
-		    	}
-		    	else
-		    	{
-		    		ireitemp=iReiC;
-		    		jreitemp=jReiC;
-		    		iReiC=i2;
-		    		jReiC=j2;
-		    	}
-		    }
-		for(int i=0;i<8;i++)
+		for(l=0;l<size;l++)
 		{
-    		for(int j=0;j<8;j++)
+			i2=positions.get(l).getX();
+			j2=positions.get(l).getY();
+			peca2=tabuleiro[i2][j2].getPeca();
+			tabuleiro[i1][j1].setPeca(null);
+			tabuleiro[i2][j2].setPeca(peca);
+			if(peca instanceof Rei)
 			{
-//				//Passar pelo tabuleiro todo vendo quais tem peca
-			    p=tabuleiro[i][j].getPeca();
-				if(p!=null)
+				if(peca.getCor()==Cor.Escuro)
 				{
-				  if(peca.getCor()!=p.getCor())
-				   { 
-					v=p.PossibleEats((int)larg*j,(int)alt*i);
-					System.out.println("Peca :"+p.getName()+ " Size: "+v.size());
-					for(k=0;k<v.size();k++)
+					ireitemp=iReiE;
+					jreitemp=jReiE;
+					iReiE=i2;
+					jReiE=j2;
+				}
+				else
+				{
+					ireitemp=iReiC;
+					jreitemp=jReiC;
+					iReiC=i2;
+					jReiC=j2;
+				}
+			}
+			for(int i=0;i<8;i++)
+			{
+				for(int j=0;j<8;j++)
+				{
+					//				//Passar pelo tabuleiro todo vendo quais tem peca
+					p=tabuleiro[i][j].getPeca();
+					if(p!=null)
 					{
-						Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
-						//System.out.println(comidoposition.getX() + " "+ comidoposition.getY());
-						if((comidoposition.getX()==iReiC && comidoposition.getY()==jReiC) ||(comidoposition.getX()==iReiE && comidoposition.getY()==jReiE))
-						{
-							//System.out.println(comidoposition.getX() + " "+ comidoposition.getY());
-							if(indices.contains(l)==false)
+						if(peca.getCor()!=p.getCor())
+						{ 
+							v=p.PossibleEats((int)larg*j,(int)alt*i);
+							System.out.println("Peca :"+p.getName()+ " Size: "+v.size());
+							for(k=0;k<v.size();k++)
 							{
-//								System.out.println("tirando o "+positions.get(l).getX()+ " "+positions.get(l).getY());
-//								System.out.println("Quem vai comer "+i+" "+j);
-//								System.out.println("Comido "+comidoposition.getX()+" "+comidoposition.getY());
-								indices.add(l);
+								Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
+								//System.out.println(comidoposition.getX() + " "+ comidoposition.getY());
+								if((comidoposition.getX()==iReiC && comidoposition.getY()==jReiC) ||(comidoposition.getX()==iReiE && comidoposition.getY()==jReiE))
+								{
+									//System.out.println(comidoposition.getX() + " "+ comidoposition.getY());
+									if(indices.contains(l)==false)
+									{
+										//								System.out.println("tirando o "+positions.get(l).getX()+ " "+positions.get(l).getY());
+										//								System.out.println("Quem vai comer "+i+" "+j);
+										//								System.out.println("Comido "+comidoposition.getX()+" "+comidoposition.getY());
+										indices.add(l);
+									}
+								}
 							}
 						}
 					}
 				}
 			}
+			tabuleiro[i2][j2].setPeca(peca2);
+			tabuleiro[i1][j1].setPeca(peca);
+			if(peca instanceof Rei)
+			{
+				if(peca.getCor()==Cor.Escuro)
+				{
+					iReiE=ireitemp;
+					jReiE=jreitemp;
+				}
+				else
+				{
+					iReiC=ireitemp;
+					jReiC=jreitemp;
+				}
+			}
 		}
+		for(int i=0;i<indices.size();i++)
+		{
+			//        	System.out.println("Tem que remover: "+indices.get(i));
+			positions.setElementAt(null,indices.get(i));
 		}
-		tabuleiro[i2][j2].setPeca(peca2);
-		tabuleiro[i1][j1].setPeca(peca);
-		if(peca instanceof Rei)
-	    {
-	    	if(peca.getCor()==Cor.Escuro)
-	    	{
-	    		iReiE=ireitemp;
-	    		jReiE=jreitemp;
-	    	}
-	    	else
-	    	{
-	    		iReiC=ireitemp;
-	    		jReiC=jreitemp;
-	    	}
-	    }
-        }
-        for(int i=0;i<indices.size();i++)
-        {
-//        	System.out.println("Tem que remover: "+indices.get(i));
-        	positions.setElementAt(null,indices.get(i));
-        }
-//        System.out.println(i1 +" "+j1);
-//        System.out.println(tabuleiro[i1][j1].getPeca().getName());
-        gotmoves=verifyPositions(positions);
-        return gotmoves;
-}
+		//        System.out.println(i1 +" "+j1);
+		//        System.out.println(tabuleiro[i1][j1].getPeca().getName());
+		gotmoves=verifyPositions(positions);
+		return gotmoves;
+	}
 	public void Recomeca()
 	{
 		this.inicializaTudo();
