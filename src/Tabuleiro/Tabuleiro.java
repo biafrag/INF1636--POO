@@ -63,7 +63,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 		alt=Celula.getAlt();
 		Cor c=Cor.Claro;
 		tabuleiro=new Celula[8][8];
-		//this.CriaPopup();
 		iReiE=0;
 		jReiE=4;
 		iReiC=7;
@@ -302,11 +301,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				tabuleiro[i1][j1].setPeca(null);
 				t.setChanged();
 				t.notifyObservers();
-				System.out.println("CHECK MATEEEEEE OTARIO");
-				JOptionPane.showMessageDialog(null,
-				        "O jogador " + c + " ganhou", 
-				        "Fim do Jogo", 
-				        JOptionPane.INFORMATION_MESSAGE);
+				CriaJPane(c);
 				Recomeca();
 			}
 		}
@@ -367,13 +362,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 		        }
 			}
 		}
-//		for(int k=0;k<this._possibleEats.size();k++)
-//		{
-//			if(VerifyCheck(k,i,j,_possibleEats.elementAt(k).getX(),_possibleEats.elementAt(k).getY(),_possibleEats)==true)
-//			{
-//				_possibleEats.remove(k);
-//			}
-//		}
 	}
 
 	public void ComePeca(int x1, int y1, int x2, int y2)
@@ -444,11 +432,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				tabuleiro[i1][j1].setPeca(null);
 				t.setChanged();
 				t.notifyObservers();
-				System.out.println("CHECK MATEEEEEE OTARIO");
-				JOptionPane.showMessageDialog(null,
-				        "O jogador " + c + " ganhou", 
-				        "Fim do Jogo", 
-				        JOptionPane.INFORMATION_MESSAGE);
+				CriaJPane(c);
 				Recomeca();
 			}
 		}
@@ -878,15 +862,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 							for(k=0;k<v.size();k++)
 							{
 								Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
-								//System.out.println(comidoposition.getX() + " "+ comidoposition.getY());
 								if((comidoposition.getX()==iReiC && comidoposition.getY()==jReiC) ||(comidoposition.getX()==iReiE && comidoposition.getY()==jReiE))
 								{
-									//System.out.println(comidoposition.getX() + " "+ comidoposition.getY());
 									if(indices.contains(l)==false)
 									{
-										//								System.out.println("tirando o "+positions.get(l).getX()+ " "+positions.get(l).getY());
-										//								System.out.println("Quem vai comer "+i+" "+j);
-										//								System.out.println("Comido "+comidoposition.getX()+" "+comidoposition.getY());
 										indices.add(l);
 									}
 								}
@@ -927,6 +906,23 @@ public class Tabuleiro extends Observable implements ActionListener{
 		jogador=true;
 		t.setChanged();
 		t.notifyObservers();
+	}
+	private void CriaJPane(Cor c)
+	{
+		String s;
+		if(c==Cor.Escuro)
+		{
+			s="ESCURAS";
+		}
+		else
+		{
+			s="CLARAS";
+		}
+		System.out.println("CHECK MATEEEEEE OTARIO");
+		JOptionPane.showMessageDialog(null,
+		        "AS PECAS " + s + " GANHARAM", 
+		        "Fim do Jogo", 
+		        JOptionPane.INFORMATION_MESSAGE);
 	}
 	private boolean verifyCheckMate(Cor c)
 	{
