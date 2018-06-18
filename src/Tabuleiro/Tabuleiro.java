@@ -64,9 +64,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 		tabuleiro=new Celula[8][8];
 		//this.CriaPopup();
 		iReiE=0;
-		jReiE=3;
+		jReiE=4;
 		iReiC=7;
-		jReiC=3;
+		jReiC=4;
 		for(int i=0;i<8;i++)
 		{
 			for(int j=0; j<8;j++)
@@ -148,8 +148,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 		tabuleiro[0][0].setPeca(Te);
 		tabuleiro[0][1].setPeca(Ce);
 		tabuleiro[0][2].setPeca(Be);
-		tabuleiro[0][3].setPeca(Ke);
-		tabuleiro[0][4].setPeca(Qe);
+		tabuleiro[0][3].setPeca(Qe);
+		tabuleiro[0][4].setPeca(Ke);
 		tabuleiro[0][5].setPeca(Be);
 		tabuleiro[0][6].setPeca(Ce);
 		tabuleiro[0][7].setPeca(Te);
@@ -174,8 +174,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 		tabuleiro[7][0].setPeca(Tc);
 		tabuleiro[7][1].setPeca(Cc);
 		tabuleiro[7][2].setPeca(Bc);
-		tabuleiro[7][3].setPeca(Kc);
-		tabuleiro[7][4].setPeca(Qc);
+		tabuleiro[7][3].setPeca(Qc);
+		tabuleiro[7][4].setPeca(Kc);
 		tabuleiro[7][5].setPeca(Bc);
 		tabuleiro[7][6].setPeca(Cc);
 		tabuleiro[7][7].setPeca(Tc);
