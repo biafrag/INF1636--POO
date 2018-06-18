@@ -41,16 +41,15 @@ public class Tabuleiro extends Observable implements ActionListener{
 	private static int larg;
 	private Vector<Pair> _possiblePositions;
 	private Vector<Pair> _possibleEats;
-	private boolean jogador=true;
-	private boolean peaochange=false;
+	private boolean jogador;
+	private boolean peaochange;
 	private int xPeao,yPeao;
 	private int iReiE,jReiE,iReiC,jReiC;
-	private boolean reimovE = false,reimovC = false;
-	private boolean torremovEc = false, torremovCc = false,torremovEl = false, torremovCl = false;
-	private boolean possiblecheckpositions=false;
-	private boolean possiblecheckeats=false;
-	private boolean checkmate=false;
-	private boolean empate=false;
+	private boolean reimovE,reimovC,torremovEc, torremovCc,torremovEl, torremovCl;
+	private boolean possiblecheckpositions;
+	private boolean possiblecheckeats;
+	private boolean checkmate;
+	private boolean empate;
 	JPopupMenu popup;
 	private Tabuleiro() 
 	{
@@ -58,6 +57,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 	}
 	private void inicializaTudo()
 	{
+		jogador=true;
+		peaochange=false;
+		possiblecheckpositions = possiblecheckeats = checkmate = empate = false;
+		reimovE = reimovC = torremovEc = torremovCc = torremovEl = torremovCl = false; 
 		double posX=0;
 		double posY=0;
 		larg=Celula.getLarg();
@@ -563,12 +566,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 	{
 		Peca p;
 		int i,j;
-		i=yPeao/alt;
-		j=xPeao/larg;
 		i=Math.floorDiv(yPeao,alt);
 		j=Math.floorDiv(xPeao,larg);
 		Cor c=tabuleiro[i][j].getPeca().getCor();
-//		System.out.println("AAAAAAA "+s);
 		switch(s)
 		{
 			case "Cavalo":
@@ -902,7 +902,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 	public void Recomeca()
 	{
 		this.inicializaTudo();
-		jogador=true;
 		t.setChanged();
 		t.notifyObservers();
 	}
