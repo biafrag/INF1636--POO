@@ -298,6 +298,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 			this.checkmate=verifyCheckMate(c);
 			if(checkmate==true)
 			{
+				tabuleiro[i2][j2].setPeca(p);
+				tabuleiro[i1][j1].setPeca(null);
+				t.setChanged();
+				t.notifyObservers();
 				System.out.println("CHECK MATEEEEEE OTARIO");
 				JOptionPane.showMessageDialog(null,
 				        "O jogador " + c + " ganhou", 
@@ -431,13 +435,18 @@ public class Tabuleiro extends Observable implements ActionListener{
 			if ((p0 instanceof Rei && p instanceof Torre) && (p0.getCor()==p.getCor()))
 			{
 				FazRoque(i1,j1,i2,j2,p0,p);
+				return;
 			}
 			this.checkmate=verifyCheckMate(c);
-			if(checkmate==true)
+			if(checkmate==true || (p instanceof Rei && p0.getCor()!=p.getCor()))
 			{
+				tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+				tabuleiro[i1][j1].setPeca(null);
+				t.setChanged();
+				t.notifyObservers();
 				System.out.println("CHECK MATEEEEEE OTARIO");
 				JOptionPane.showMessageDialog(null,
-				        "O jogador " + c + "ganhou", 
+				        "O jogador " + c + " ganhou", 
 				        "Fim do Jogo", 
 				        JOptionPane.INFORMATION_MESSAGE);
 				Recomeca();
@@ -462,6 +471,18 @@ public class Tabuleiro extends Observable implements ActionListener{
 					}
 					j2++;
 				}	
+				positions=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
+				if (!VerifyCheck(i1,j1,positions))
+				{
+					System.out.println("Rei esta em xeque");
+					return;
+				}
+				positions=tabuleiro[i2][j2].catchMoves((int)larg*j2,(int)alt*i2);
+				if (!VerifyCheck(i2,j2,positions))
+				{
+					System.out.println("Rei vai esta em xeque se ocorrer o roque");
+					return;
+				}
 				tabuleiro[i1][j1].setPeca(null);
 				j1 -= 2;
 				tabuleiro[i1][j1].setPeca(p0);
