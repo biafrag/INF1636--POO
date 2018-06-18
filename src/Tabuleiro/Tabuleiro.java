@@ -46,6 +46,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 	private int iReiE,jReiE,iReiC,jReiC;
 	private boolean reimov = false;
 	private boolean torremov = false;
+	private boolean possiblecheckpositions=false;
+	private boolean possiblecheckeats=false;
+	private boolean checkmate=false;
 	JPopupMenu popup;
 	private Tabuleiro() 
 	{
@@ -206,7 +209,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 		j1=Math.floorDiv(x1,larg);
 		i2=Math.floorDiv((y2 - 40),alt);
 		j2=Math.floorDiv(x2,larg);
-
+		Cor c;
+if(tabuleiro[i1][j1].getPeca()!=null)
+{
+	    c=tabuleiro[i1][j1].getPeca().getCor();
 		if(jogador && tabuleiro[i1][j1].getPeca().getCor() == Cor.Escuro)
 		{
 			return;
@@ -262,6 +268,12 @@ public class Tabuleiro extends Observable implements ActionListener{
 		{
 			torremov = true;
 		}
+		this.checkmate=verifyCheckMate(c);
+		if(checkmate==true)
+		{
+			System.out.println("CHECK MATEEEEEE OTARIO");
+		}
+}
 
 	}
 	public void Acende(int x, int y)
@@ -342,7 +354,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 
 		Peca p0 = tabuleiro[i1][j1].getPeca();
 		Peca p = tabuleiro[i2][j2].getPeca();
-
+		Cor c;
+if(p0!=null)
+{
+	c=p0.getCor();
 		if(jogador && p0.getCor() == Cor.Escuro)
 		{
 			return;
@@ -427,6 +442,12 @@ public class Tabuleiro extends Observable implements ActionListener{
 			}
 			
 		}
+		this.checkmate=verifyCheckMate(c);
+		if(checkmate==true)
+		{
+			System.out.println("CHECK MATEEEEEE OTARIO");
+		}
+}
 	}
 	
 	public JPopupMenu  CriaPopupSave()
@@ -708,10 +729,22 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		
 	}
-	public void VerifyCheck(int i1,int j1,Vector<Pair> positions) //1 eh a posição q ele tá e 2 é a que ele vai
+	private boolean verifyPositions(Vector<Pair> positions)
+	{
+		for(int i=0;i<positions.size();i++)
+		{
+			if(positions.get(i)!=null)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	public boolean VerifyCheck(int i1,int j1,Vector<Pair> positions) //1 eh a posição q ele tá e 2 é a que ele vai
 	{
 		int ireitemp,jreitemp;
 		int k=0,size,l=0;
+		boolean gotmoves=false;
 		int i2,j2;
 		Peca p,peca,peca2;
 		Vector<Pair> v;
@@ -754,8 +787,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				if(p!=null)
 				{
 				  if(peca.getCor()!=p.getCor())
-				   {
-					  //System.out.println("Antes: "+i+ " "+ j);
+				   { 
 					v=p.PossibleEats((int)larg*j,(int)alt*i);
 					System.out.println("Peca :"+p.getName()+ " Size: "+v.size());
 					for(k=0;k<v.size();k++)
@@ -767,9 +799,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 							//System.out.println(comidoposition.getX() + " "+ comidoposition.getY());
 							if(indices.contains(l)==false)
 							{
-								System.out.println("tirando o "+positions.get(l).getX()+ " "+positions.get(l).getY());
-								System.out.println("Quem vai comer "+i+" "+j);
-								System.out.println("Comido "+comidoposition.getX()+" "+comidoposition.getY());
+//								System.out.println("tirando o "+positions.get(l).getX()+ " "+positions.get(l).getY());
+//								System.out.println("Quem vai comer "+i+" "+j);
+//								System.out.println("Comido "+comidoposition.getX()+" "+comidoposition.getY());
 								indices.add(l);
 							}
 						}
@@ -796,9 +828,13 @@ public class Tabuleiro extends Observable implements ActionListener{
         }
         for(int i=0;i<indices.size();i++)
         {
-        	System.out.println("Tem que remover: "+indices.get(i));
+//        	System.out.println("Tem que remover: "+indices.get(i));
         	positions.setElementAt(null,indices.get(i));
         }
+//        System.out.println(i1 +" "+j1);
+//        System.out.println(tabuleiro[i1][j1].getPeca().getName());
+        gotmoves=verifyPositions(positions);
+        return gotmoves;
 }
 	public void Recomeca()
 	{
@@ -806,5 +842,36 @@ public class Tabuleiro extends Observable implements ActionListener{
 		jogador=true;
 		t.setChanged();
 		t.notifyObservers();
+	}
+	private boolean verifyCheckMate(Cor c)
+	{
+		Vector <Pair> positions;
+		for(int i=0;i<8;i++)
+		{
+			for(int j=0;j<8;j++)
+			{
+					if(tabuleiro[i][j].getPeca()!=null)
+					{
+						if(tabuleiro[i][j].getPeca().getCor()!=c)
+						{
+							positions=tabuleiro[i][j].catchMoves((int)larg*j,(int)alt*i);
+							this.possiblecheckpositions=this.VerifyCheck(i, j,positions);
+							if(this.possiblecheckpositions==true)
+							{
+								System.out.println("POSITIONS");
+								return false;
+							}
+							positions=tabuleiro[i][j].catchEats((int)larg*j,(int)alt*i);
+							this.possiblecheckeats=this.VerifyCheck(i, j, positions);
+							if(this.possiblecheckeats==true)
+							{
+								System.out.println("EATS");
+								return false;
+							}
+					}
+				}
+			}
+		}
+		return true;
 	}
 }
