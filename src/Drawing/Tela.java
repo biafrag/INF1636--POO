@@ -23,7 +23,7 @@ public class Tela extends JFrame implements ActionListener {
 	
 	private Tela() {
 		Insets i = getInsets();
-		setSize(LARG_DEFAULT,ALT_DEFAULT);
+		setSize(LARG_DEFAULT+i.left+i.right,ALT_DEFAULT+i.bottom+i.top);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Chess Game");

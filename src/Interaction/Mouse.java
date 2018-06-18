@@ -57,8 +57,8 @@ public class Mouse implements MouseListener {
 			else
 			{
 				System.out.println("click2");
-				x2=e.getX()+40;
-				y2=e.getY()+40;
+				x2=e.getX();
+				y2=e.getY();
 				mousepress=false;
 				t.RealizaJogada(x1, y1, x2, y2);
 			}

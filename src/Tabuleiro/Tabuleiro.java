@@ -50,6 +50,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 	private boolean possiblecheckpositions=false;
 	private boolean possiblecheckeats=false;
 	private boolean checkmate=false;
+	private boolean empate=false;
 	JPopupMenu popup;
 	private Tabuleiro() 
 	{
@@ -201,10 +202,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 	public void MexePeca(int x1,int y1,int x2,int y2)
 	{
 		int i1,i2,j1,j2;
-		i1=y1/alt;
-		j1=x1/larg;
-		i2=y2/alt;
-		j2=x2/larg;
 		i1=Math.floorDiv((y1 - 40),alt);
 		j1=Math.floorDiv(x1,larg);
 		i2=Math.floorDiv((y2 - 40),alt);
@@ -297,6 +294,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			this.checkmate=verifyCheckMate(c);
 			if(checkmate==true)
 			{
+				this.empate=VerifyEmpate(i1,j1,c);
 				tabuleiro[i2][j2].setPeca(p);
 				tabuleiro[i1][j1].setPeca(null);
 				t.setChanged();
@@ -428,6 +426,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			this.checkmate=verifyCheckMate(c);
 			if(checkmate==true || (p instanceof Rei && p0.getCor()!=p.getCor()))
 			{
+				this.empate=VerifyEmpate(i1,j1,c);
 				tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
 				tabuleiro[i1][j1].setPeca(null);
 				t.setChanged();
@@ -910,17 +909,21 @@ public class Tabuleiro extends Observable implements ActionListener{
 	private void CriaJPane(Cor c)
 	{
 		String s;
+		if(this.empate==true)
+		{
+			s="EMPATE";
+		}
 		if(c==Cor.Escuro)
 		{
-			s="ESCURAS";
+			s="AS PECAS ESCURAS GANHARAM";
 		}
 		else
 		{
-			s="CLARAS";
+			s="AS PECAS CLARAS GANHARAM";
 		}
 		System.out.println("CHECK MATEEEEEE OTARIO");
 		JOptionPane.showMessageDialog(null,
-		        "AS PECAS " + s + " GANHARAM", 
+		        s, 
 		        "Fim do Jogo", 
 		        JOptionPane.INFORMATION_MESSAGE);
 	}
@@ -954,5 +957,42 @@ public class Tabuleiro extends Observable implements ActionListener{
 			}
 		}
 		return true;
+	}
+	
+	public boolean VerifyEmpate(int i1,int j1,Cor c)
+	{
+//		for(int i=0;i<8;i++)
+//		{
+//			for(int j=0;j<8;j++)
+//			{
+//				Peca p=tabuleiro[i][j].getPeca();
+//				if(p!=null)
+//				{
+//					if(p.getCor()==c)
+//					{
+//						Vector<Pair> v=p.PossibleEats(larg*j,alt*i);
+//						for(int k=0;k<v.size();k++)
+//						{
+//							if(c==Cor.Escuro)
+//							{
+//								if(v.get(k).getX()==iReiC && v.get(k).getY()==iReiC)
+//								{
+//									return false;
+//								}
+//							}
+//							else
+//							{					
+//								if(v.get(k).getX()==iReiE && v.get(k).getY()==iReiE)
+//								{
+//									return false;
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//			
+//		}
+		return false;
 	}
 }
