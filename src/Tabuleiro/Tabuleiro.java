@@ -500,7 +500,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				while (j1<j2) {						
 					if (tabuleiro[i2][j2].getPeca() != null)
 					{
-//						System.out.println("tem peça no meio do roque");
+						System.out.println("tem peça no meio do roque");
 						return;
 					}
 					j2--;
@@ -512,13 +512,13 @@ public class Tabuleiro extends Observable implements ActionListener{
 					return;
 				}
 				tabuleiro[i1][j1].setPeca(null);
-				j1 -= 2;
+				j1 += 2;
 				tabuleiro[i1][j1].setPeca(p0);
 				positions=tabuleiro[i1][j1].catchMoves((int)larg*j2,(int)alt*i2);
 				if (!VerifyCheck(i1,j1,positions))
 				{
 					tabuleiro[i1][j1].setPeca(null);
-					tabuleiro[i1][j1+2].setPeca(p0);
+					tabuleiro[i1][j1-2].setPeca(p0);
 					System.out.println("Rei vai esta em xeque se ocorrer o roque");
 					return;
 				}				
