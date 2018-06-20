@@ -4,17 +4,21 @@ import java.awt.Component;
 import java.awt.Graphics2D;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JPopupMenu;
 
 import Drawing.Cor;
-//import Interaction.Mouse;
 import Tabuleiro.Tabuleiro;
 
 public class TabuleiroFacade extends Observable {
 	private static TabuleiroFacade tfa;
 	private static Tabuleiro t; 
+	private List<Observer> observers = new ArrayList<Observer>(); 
+	
 	private TabuleiroFacade() {
 		t = Tabuleiro.getTabuleiro();
 	}
@@ -38,8 +42,7 @@ public class TabuleiroFacade extends Observable {
 			t.Acende(x, y);	
 			t.CatchPossibleMoves(x, y);
 			t.CatchPossibleEats(x, y);
-			this.setChanged();	
-			notifyObservers();
+			this.notifyObservers(t);
 		}
 	}
 	public void RealizaJogada(int x1, int y1, int x2, int y2)
@@ -54,16 +57,14 @@ public class TabuleiroFacade extends Observable {
 		else 
 		{
 			check=t.ComePeca(x1,y1,x2,y2);
-			this.setChanged();
-			notifyObservers();
+			this.notifyObservers(t);
 		}	
 		if(check==true)
 		{
 			t.CriaJPane(x2,y2);
 			t.Recomeca();
 		}
-		this.setChanged();
-		notifyObservers();
+		this.notifyObservers(t);
 	}
 	public void PromovePeao(int x2, int y2, Component component, int x, int y)
 	{
@@ -109,4 +110,17 @@ public class TabuleiroFacade extends Observable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void registerObserver(Observer observer) 
+	{
+		if(!observers.contains(observer)) 
+			observers.add(observer);
+	}	
+	public void notifyObservers(Object listobj) 
+	{
+		for (Observer obj : observers)
+		{
+			obj.update(this, listobj);
+		}
+   }	
 }

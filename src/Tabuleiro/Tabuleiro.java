@@ -996,7 +996,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			}
 			else
 			{
-				s="XEQUE MATE !!!\\nAS PECAS CLARAS GANHARAM";
+				s="XEQUE MATE !!!\nAS PECAS CLARAS GANHARAM";
 			}
 		}
 //		System.out.println("CHECK MATEEEEEE OTARIO");
