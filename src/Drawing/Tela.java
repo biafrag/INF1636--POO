@@ -27,7 +27,7 @@ public class Tela extends JFrame implements ActionListener {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Chess Game");
 		criaMenu();
-		setSize(LARG_DEFAULT,ALT_DEFAULT + 20);
+		setSize(LARG_DEFAULT + 15,ALT_DEFAULT + 20);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	
