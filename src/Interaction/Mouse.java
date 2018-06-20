@@ -44,8 +44,6 @@ public class Mouse implements MouseListener {
 		}
 		if(e.getButton()==MouseEvent.BUTTON1)
 		{
-			System.out.println("Posicao X "+e.getX());
-			System.out.println("Posicao Y "+e.getY());
 			if(mousepress==false)
 			{
 				x1=e.getX();

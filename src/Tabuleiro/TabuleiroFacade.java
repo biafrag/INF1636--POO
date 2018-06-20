@@ -59,6 +59,7 @@ public class TabuleiroFacade extends Observable {
 		if(check==true)
 		{
 			t.CriaJPane(x2,y2);
+			t.Recomeca();
 		}
 		this.setChanged();
 		notifyObservers();

@@ -298,6 +298,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			if(checkmate==true)
 			{
 				this.empate=VerifyEmpate(i1,j1,c);
+				System.out.println("Empate: "+ " "+empate);
 //				tabuleiro[i2][j2].setPeca(p);
 //				tabuleiro[i1][j1].setPeca(null);
 //				t.setChanged();
@@ -403,7 +404,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				{
 					if(_possibleEats.get(k).getX()==i2 && _possibleEats.get(k).getY()==j2)
 					{
- 					    System.out.println("Come "+ y2+ " "+i2+" "+j2);
+// 					    System.out.println("Come "+ y2+ " "+i2+" "+j2);
 						tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
 						tabuleiro[i1][j1].setPeca(null);
 						if(p0 instanceof Peao && ((i2==0 && p0.getCor()==Cor.Claro) || (i2==7 && p0.getCor()==Cor.Escuro)))
@@ -463,7 +464,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				positions=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
 				if (!VerifyCheck(i1,j1,positions))
 				{
-					System.out.println("Rei esta em xeque");
+					//System.out.println("Rei esta em xeque");
 					return;
 				}
 				tabuleiro[i1][j1].setPeca(null);
@@ -733,8 +734,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 		chooser.showOpenDialog(Tela.getInstanceTela());
 		Scanner load=null;
 		String aux,aux2;
-		int jog;
-//		System.out.println(chooser.getSelectedFile().getPath());
 		try 
 		{
 			load=new Scanner(new BufferedReader(new FileReader(chooser.getSelectedFile().getPath())));
@@ -987,15 +986,18 @@ public class Tabuleiro extends Observable implements ActionListener{
 		String s;
 		if(this.empate==true)
 		{
-			s="EMPATE";
-		}
-		if(tabuleiro[i][j].getPeca().getCor()==Cor.Escuro)
-		{
-			s="AS PECAS ESCURAS GANHARAM";
+			s="  EMPATE  ";
 		}
 		else
 		{
-			s="AS PECAS CLARAS GANHARAM";
+			if(tabuleiro[i][j].getPeca().getCor()==Cor.Escuro)
+			{
+				s="XEQUE MATE !!!\nAS PECAS ESCURAS GANHARAM";
+			}
+			else
+			{
+				s="XEQUE MATE !!!\\nAS PECAS CLARAS GANHARAM";
+			}
 		}
 //		System.out.println("CHECK MATEEEEEE OTARIO");
 		JOptionPane.showMessageDialog(null,
@@ -1046,29 +1048,19 @@ public class Tabuleiro extends Observable implements ActionListener{
 				{
 					if(p.getCor()==c)
 					{
-						Vector<Pair> v=p.PossibleEats(larg*j,alt*i);
+						Vector<Pair> v=p.PossibleEats((int)larg*j,(int)alt*i);
 						for(int k=0;k<v.size();k++)
 						{
-							if(c==Cor.Escuro)
-							{
-								if(v.get(k).getX()==iReiC && v.get(k).getY()==iReiC)
+								if((v.get(k).getX()==iReiC && v.get(k).getY()==jReiC) || (v.get(k).getX()==iReiE && v.get(k).getY()==jReiE))
 								{
 									return false;
 								}
-							}
-							else
-							{					
-								if(v.get(k).getX()==iReiE && v.get(k).getY()==iReiE)
-								{
-									return false;
-								}
-							}
 						}
 					}
 				}
 			}
 			
 		}
-		return false;
+		return true;
 	}
 }
