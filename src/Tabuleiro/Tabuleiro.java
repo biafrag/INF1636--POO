@@ -608,9 +608,47 @@ public class Tabuleiro extends Observable implements ActionListener{
 		tabuleiro[i][j].setPeca(null);
 		tabuleiro[i][j].setPeca(p);
 	}
+	private void checkbooleanSaveOneterm(PrintWriter file,boolean x)
+	{
+		if (x)
+		{
+			file.println(1);
+		}
+		else
+		{
+			file.println(2);
+		}
+	}
+	private void checkbooleanSaveTwoterms(PrintWriter file,boolean x,boolean y)
+	{
+		int aux;
+		if (x)
+		{
+			aux=1;
+		}
+		else
+		{
+			aux=2;
+		}
+		if(y)
+		{
+			file.println(aux + " " +1);
+		}
+		else
+		{
+			file.println(aux + " " +2);
+		}
+	}
 	public void SaveFile() throws IOException
 	{
 		/*Jogador da vez
+		 * possible check positions
+		 * possible checkeats
+		 * checkmate
+		 * empate
+		 * reimovE reimovC
+		 * torremovEc torremov Cc
+		 * torremovEl torremov Cl
 		 * Posicao rei claro
 		 * Posicao rei escuro
 		 * [0][0] booleano se tem peça tipo da peça cor da peca
@@ -632,14 +670,15 @@ public class Tabuleiro extends Observable implements ActionListener{
 		finally
 		{
 		}
-		if (jogador)
-		{
-			file.println(1);
-		}
-		else
-		{
-			file.println(2);
-		}
+		checkbooleanSaveOneterm(file,jogador);
+		checkbooleanSaveOneterm(file,possiblecheckpositions);
+		checkbooleanSaveOneterm(file,possiblecheckeats);
+		checkbooleanSaveOneterm(file,checkmate);
+		checkbooleanSaveOneterm(file,empate);
+		checkbooleanSaveTwoterms(file,reimovE,reimovC);
+		checkbooleanSaveTwoterms(file,torremovEc, torremovCc);
+		checkbooleanSaveTwoterms(file,torremovEl, torremovCl);
+		
 		file.println(iReiC + " "+jReiC);
 		file.println(iReiE + " "+jReiE);
 		for(int i=0;i<8;i++)
@@ -671,6 +710,20 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		file.close();
 	}
+	private void checkbooleanLoadOneterm(Scanner file , boolean n)
+	{
+		int x;
+		x = file.nextInt();
+		if(x==1)
+		{
+			n=true;
+		}
+		else 
+		{
+			n=false;
+		}
+	}
+	
 	public void Load() throws FileNotFoundException 
 	{
 		JFileChooser chooser = new JFileChooser();
@@ -694,15 +747,17 @@ public class Tabuleiro extends Observable implements ActionListener{
 			}
 		}
 		
-		jog=load.nextInt();
-		if(jog==1)
-		{
-			jogador=true;
-		}
-		else 
-		{
-			jogador=false;
-		}
+		checkbooleanLoadOneterm(load , jogador);
+		checkbooleanLoadOneterm(load , possiblecheckpositions);
+		checkbooleanLoadOneterm(load , possiblecheckeats);
+		checkbooleanLoadOneterm(load , checkmate);
+		checkbooleanLoadOneterm(load , empate);
+		checkbooleanLoadOneterm(load , this.reimovE);
+		checkbooleanLoadOneterm(load , this.reimovC);
+		checkbooleanLoadOneterm(load , this.torremovEc);
+		checkbooleanLoadOneterm(load , this.torremovCc);
+		checkbooleanLoadOneterm(load , this.torremovEl);
+		checkbooleanLoadOneterm(load , this.torremovCl);
 		
 		iReiC=load.nextInt();
 		jReiC=load.nextInt();
