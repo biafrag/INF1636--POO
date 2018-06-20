@@ -3,6 +3,7 @@ package Tabuleiro;
 import java.awt.Component;
 import java.awt.Graphics2D;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Observable;
 
 import javax.swing.JPopupMenu;
@@ -79,6 +80,10 @@ public class TabuleiroFacade extends Observable {
 	{
 		JPopupMenu popupsave=t.CriaPopupSave();
 		popupsave.show(component,x,y); 
+	}
+	public void Save() throws IOException
+	{
+		t.SaveFile();
 	}
 	public void Draw(Graphics2D g2d) {
 		t.Draw(g2d);

@@ -4,6 +4,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -19,7 +20,7 @@ public class Tela extends JFrame implements ActionListener {
 	private static Tela tela;
 	private JMenuBar barraMenu; //barra de menu
 	private JMenu Menu; //itens principais da barra de menu
-	private JMenuItem Novo, Carregar, Sair; //subitens dos menu
+	private JMenuItem Novo, Carregar, Sair,Salvar; //subitens dos menu
 	
 	private Tela() {
 		Insets i = getInsets();
@@ -48,6 +49,10 @@ public class Tela extends JFrame implements ActionListener {
 		this.Carregar = new JMenuItem ("Carregar Jogo");
 		this.Carregar.addActionListener(this);
 		this.Carregar.setMnemonic('c'); 
+		
+		this.Salvar = new JMenuItem ("Salvar Jogo");
+		this.Salvar.addActionListener(this);
+		this.Salvar.setMnemonic('s'); 
 
 		this.Sair = new JMenuItem ("Sair");
 		this.Sair.addActionListener(this);
@@ -59,6 +64,7 @@ public class Tela extends JFrame implements ActionListener {
 		this.Menu.addActionListener(this);
 		this.Menu.add(this.Novo);
 		this.Menu.add(this.Carregar);
+		this.Menu.add(this.Salvar);
 		this.Menu.add(this.Sair);
 
 		//Barra de Menu
@@ -67,14 +73,22 @@ public class Tela extends JFrame implements ActionListener {
 		this.barraMenu.add(this.Menu);
 	}
 	public void actionPerformed(ActionEvent e) {
-		eventoMenu(e);
+		try {
+			eventoMenu(e);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
-	public void eventoMenu (ActionEvent e) {
+	public void eventoMenu (ActionEvent e) throws IOException {
 		if (e.getSource() == this.Novo){
 			TabuleiroFacade.getTFacade().RecomecaJogo();
 		}
 		else if (e.getSource() == this.Carregar){
 			TabuleiroFacade.getTFacade().CarregaJogo();			
+		}
+		else if (e.getSource() == this.Salvar){
+			TabuleiroFacade.getTFacade().Save();			
 		}
 		else if (e.getSource() == this.Sair){
 			System.exit(0);
