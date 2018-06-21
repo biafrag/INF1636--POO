@@ -475,18 +475,18 @@ public class Tabuleiro extends Observable implements ActionListener{
 				}
 				j2=0;
 				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
-				eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
+			//	eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
 				if (!VerifyCheck(i1,j1,moves)) //|| !VerifyCheck(i1,j1,eats))
 				{
 					System.out.println("Rei esta em xeque 1");
 					return;
 				}			
-				System.out.println(VerifyCheck(i1,j1,eats));
+				/*System.out.println(VerifyCheck(i1,j1,eats));
 				if (!VerifyCheck(i1,j1,eats))
 				{
 					System.out.println("Rei esta em xeque 2");
 					return;
-				}	
+				}*/	
 				tabuleiro[i1][j1].setPeca(null);
 				j1 -= 2;
 				tabuleiro[i1][j1].setPeca(p0);
@@ -541,7 +541,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				tabuleiro[i1][j1].setPeca(p0);
 				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
 			//	eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
-				if (!VerifyRoque(i1,j1,i2,j2,i2,j1-1,moves))//|| !VerifyRoque(i1,j1,i2,j2,i2,j1-1,eats))
+				if (!VerifyRoque(i1,j1,i2,j2,i2,j1-1,moves)) //|| !VerifyRoque(i1,j1,i2,j2,i2,j1-1,eats))
 				{
 					tabuleiro[i1][j1].setPeca(null);
 					tabuleiro[i1][j1-2].setPeca(p0);
@@ -736,7 +736,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		file.close();
 	}
-	private boolean checkbooleanLoadOneterm(Scanner file)// , boolean n)
+	private boolean checkbooleanLoadOneterm(Scanner file)
 	{
 		int x;
 		x = file.nextInt();
@@ -768,8 +768,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			}
 		}
 		
-		jogador = checkbooleanLoadOneterm(load);// , jogador);
-		System.out.println("joga " + jogador);
+		jogador = checkbooleanLoadOneterm(load);
 		possiblecheckpositions = checkbooleanLoadOneterm(load);
 		possiblecheckeats = checkbooleanLoadOneterm(load);
 		checkmate = checkbooleanLoadOneterm(load);
@@ -1158,8 +1157,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			}
 			tabuleiro[iR2][jR2].setPeca(pecaR2);
 			tabuleiro[iR][jR].setPeca(pecaR);
-			tabuleiro[iT2][jT2].setPeca(null);
-			tabuleiro[iT][jT].setPeca(pecaT);
+			
 			if(pecaR instanceof Rei)
 			{
 				if(pecaR.getCor()==Cor.Escuro)
@@ -1182,6 +1180,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 		//        System.out.println(i1 +" "+j1);
 		//        System.out.println(tabuleiro[i1][j1].getPeca().getName());
 		gotmoves=verifyPositions(positions);
+		tabuleiro[iT2][jT2].setPeca(null);
+		tabuleiro[iT][jT].setPeca(pecaT);
 		return gotmoves;
 	}	
 }
