@@ -1,4 +1,4 @@
-package Pecas;
+package Tabuleiro.Pecas;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 import Drawing.Cor;
 import Tabuleiro.Pair;
-import Tabuleiro.TabuleiroFacade;
+import Tabuleiro.Tabuleiro;
 
 public class Peao extends Peca {
 	public Peao(Cor cor)
@@ -50,30 +50,30 @@ public class Peao extends Peca {
 		//JPopupMenu popup = Tabuleiro.CriaPopup(x,y);
 		if(this.color == Cor.Escuro )
 		{
-			if(TabuleiroFacade.getTFacade().TemPecaIndice(i+1,j)==false)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1,j)==false)
 			{
 				positions.add(new Pair(i+1,j));
 			}			
 		}
 		else
 		{
-			if(TabuleiroFacade.getTFacade().TemPecaIndice(i-1,j)==false)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1,j)==false)
 			{
 				positions.add(new Pair(i-1,j));
 			}
 		}
 		
-		if(this.getCor()==Cor.Claro && i==6 && TabuleiroFacade.getTFacade().TemPecaIndice(i-1, j)==false)
+		if(this.getCor()==Cor.Claro && i==6 && Tabuleiro.getTabuleiro().TemPecaIndice(i-1, j)==false)
 		{
-			if(TabuleiroFacade.getTFacade().TemPecaIndice(i-2,j)==false)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-2,j)==false)
 			{
 				positions.add(new Pair(i-2,j));
 			}
 
 		}
-		else if (this.getCor()==Cor.Escuro && i==1 && TabuleiroFacade.getTFacade().TemPecaIndice(i+1, j)==false)
+		else if (this.getCor()==Cor.Escuro && i==1 && Tabuleiro.getTabuleiro().TemPecaIndice(i+1, j)==false)
 		{
-			if(TabuleiroFacade.getTFacade().TemPecaIndice(i+2,j)==false)
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+2,j)==false)
 			{
 				positions.add(new Pair(i+2,j));
 				
@@ -94,25 +94,25 @@ public class Peao extends Peca {
 			{
 				if(j==0)
 				{
-					if(TabuleiroFacade.getTFacade().TemPecaIndice(i+1, j+1) && TabuleiroFacade.getTFacade().getPecaCor(i+1, j+1)==Cor.Claro)
+					if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1, j+1) && Tabuleiro.getTabuleiro().getPecaCor(i+1, j+1)==Cor.Claro)
 					{
 						eats.add(new Pair(i+1,j+1));
 					}
 				}
 				else if(j==7)
 				{
-					if(TabuleiroFacade.getTFacade().TemPecaIndice(i+1, j-1) && TabuleiroFacade.getTFacade().getPecaCor(i+1, j-1)==Cor.Claro)
+					if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1, j-1) && Tabuleiro.getTabuleiro().getPecaCor(i+1, j-1)==Cor.Claro)
 					{
 						eats.add(new Pair(i+1,j-1));	
 					}
 				}
 				else
 				{
-					if(TabuleiroFacade.getTFacade().TemPecaIndice(i+1, j+1) && TabuleiroFacade.getTFacade().getPecaCor(i+1, j+1)==Cor.Claro)
+					if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1, j+1) && Tabuleiro.getTabuleiro().getPecaCor(i+1, j+1)==Cor.Claro)
 					{
 						eats.add(new Pair(i+1,j+1));
 					}
-					if(TabuleiroFacade.getTFacade().TemPecaIndice(i+1, j-1) && TabuleiroFacade.getTFacade().getPecaCor(i+1, j-1)==Cor.Claro)
+					if(Tabuleiro.getTabuleiro().TemPecaIndice(i+1, j-1) && Tabuleiro.getTabuleiro().getPecaCor(i+1, j-1)==Cor.Claro)
 					{
 						eats.add(new Pair(i+1,j-1));	
 					}
@@ -126,7 +126,7 @@ public class Peao extends Peca {
 			{
 				if(j==0)
 				{
-					if(TabuleiroFacade.getTFacade().TemPecaIndice(i-1, j+1) && TabuleiroFacade.getTFacade().getPecaCor(i-1, j+1)==Cor.Escuro)
+					if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1, j+1) && Tabuleiro.getTabuleiro().getPecaCor(i-1, j+1)==Cor.Escuro)
 					{
 						eats.add(new Pair(i-1,j+1));	
 					}
@@ -134,18 +134,18 @@ public class Peao extends Peca {
 				}
 				else if(j==7)
 				{
-					if(TabuleiroFacade.getTFacade().TemPecaIndice(i-1, j-1) && TabuleiroFacade.getTFacade().getPecaCor(i-1, j-1)==Cor.Escuro)
+					if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1, j-1) && Tabuleiro.getTabuleiro().getPecaCor(i-1, j-1)==Cor.Escuro)
 					{
 						eats.add(new Pair(i-1,j-1));	
 					}
 				}
 				else
 				{
-					if(TabuleiroFacade.getTFacade().TemPecaIndice(i-1, j+1) && TabuleiroFacade.getTFacade().getPecaCor(i-1, j+1)==Cor.Escuro)
+					if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1, j+1) && Tabuleiro.getTabuleiro().getPecaCor(i-1, j+1)==Cor.Escuro)
 					{
 						eats.add(new Pair(i-1,j+1));
 					}
-					if(TabuleiroFacade.getTFacade().TemPecaIndice(i-1, j-1) && TabuleiroFacade.getTFacade().getPecaCor(i-1, j-1)==Cor.Escuro)
+					if(Tabuleiro.getTabuleiro().TemPecaIndice(i-1, j-1) && Tabuleiro.getTabuleiro().getPecaCor(i-1, j-1)==Cor.Escuro)
 					{
 						eats.add(new Pair(i-1,j-1));	
 					}

@@ -16,13 +16,13 @@ import javax.swing.JOptionPane;
 
 import Drawing.Cor;
 import Drawing.Tela;
-import Pecas.Bispo;
-import Pecas.Cavalo;
-import Pecas.Peao;
-import Pecas.Peca;
-import Pecas.Rainha;
-import Pecas.Rei;
-import Pecas.Torre;
+import Tabuleiro.Pecas.Bispo;
+import Tabuleiro.Pecas.Cavalo;
+import Tabuleiro.Pecas.Peao;
+import Tabuleiro.Pecas.Peca;
+import Tabuleiro.Pecas.Rainha;
+import Tabuleiro.Pecas.Rei;
+import Tabuleiro.Pecas.Torre;
 
 public class Tabuleiro extends Observable implements ActionListener{
 
@@ -1076,5 +1076,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 			
 		}
 		return true;
+	}
+	public  Cor getPecaCor(int i,int j)
+	{
+		return getCelula(i,j).getPeca().getCor();
 	}
 }

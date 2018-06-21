@@ -1,4 +1,4 @@
-package Pecas;
+package Tabuleiro.Pecas;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 import Drawing.Cor;
 import Tabuleiro.Pair;
-import Tabuleiro.TabuleiroFacade;
+import Tabuleiro.Tabuleiro;
 
 public class Rainha extends Peca {
 	public Rainha(Cor cor)
@@ -52,7 +52,7 @@ public class Rainha extends Peca {
 		{
 			for(int n=j+1;n<8;n++) //vê movimentos possiveis na mesma linha pra direita
 			{
-				if(TabuleiroFacade.getTFacade().TemPecaIndice(i,n)==false)
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i,n)==false)
 				{
 				    positions.add(new Pair(i,n));
 				}
@@ -64,7 +64,7 @@ public class Rainha extends Peca {
 			}
 			for(int n=1;i+n<8 && j+n<8;n++) //pega diagonal pra baixo e pra direita
 			{
-				if(TabuleiroFacade.getTFacade().TemPecaIndice(i+n,j+n)) 
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j+n)) 
 				{
 					break;
 				}
@@ -76,7 +76,7 @@ public class Rainha extends Peca {
 			}
 			for(int n=1;i-n>=0 && j+n<8;n++) //pega diagonal pra cima pra direita
 			{
-				if(TabuleiroFacade.getTFacade().TemPecaIndice(i-n,j+n))
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j+n))
 				{
 					break;
 				}
@@ -90,7 +90,7 @@ public class Rainha extends Peca {
 		{
 			for(int n=j-1;n>=0;n--)
 			{
-				if(TabuleiroFacade.getTFacade().TemPecaIndice(i,n)==false) //vê movimentos possiveis na mesma linha pra esquerda
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i,n)==false) //vê movimentos possiveis na mesma linha pra esquerda
 				{
 				    positions.add(new Pair(i,n));
 				}
@@ -101,7 +101,7 @@ public class Rainha extends Peca {
 			}
 			for(int n=1;i-n>=0 && j-n>=0;n++) // pega diagonal pra cima pra esquerda
 			{
-				if(TabuleiroFacade.getTFacade().TemPecaIndice(i-n,j-n))
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j-n))
 				{
 					break;
 				}
@@ -112,7 +112,7 @@ public class Rainha extends Peca {
 			}		
 			for(int n=1;i+n<8 && j-n>=0;n++) //pega diagonal pra baixo e pra esquerda
 			{
-				if(TabuleiroFacade.getTFacade().TemPecaIndice(i+n,j-n))
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j-n))
 				{
 					break;
 				}
@@ -126,7 +126,7 @@ public class Rainha extends Peca {
 		{
 			for(int n=i+1;n<8;n++) //vê movimentos possiveis na mesma coluna pra baixo
 			{
-				if(TabuleiroFacade.getTFacade().TemPecaIndice(n,j)==false)
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(n,j)==false)
 				{
 				   positions.add(new Pair(n,j));
 				}
@@ -140,7 +140,7 @@ public class Rainha extends Peca {
 		{
 			for(int n=i-1;n>=0;n--) //vê movimentos possiveis na mesma coluna pra cima
 			{
-				if(TabuleiroFacade.getTFacade().TemPecaIndice(n,j)==false)
+				if(Tabuleiro.getTabuleiro().TemPecaIndice(n,j)==false)
 				{
 				   positions.add(new Pair(n,j));
 				}
@@ -162,9 +162,9 @@ public class Rainha extends Peca {
 		//Verifica na diagonal
 		for(int n=1;i+n<8 && j+n<8;n++)
 		{
-			if(TabuleiroFacade.getTFacade().TemPecaIndice(i+n,j+n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j+n))
 			{
-				if(color!=TabuleiroFacade.getTFacade().getPecaCor(i+n,j+n))
+				if(color!=Tabuleiro.getTabuleiro().getPecaCor(i+n,j+n))
 				{
 					eats.add(new Pair(i+n,j+n));
 				}
@@ -174,9 +174,9 @@ public class Rainha extends Peca {
 		}
 		for(int n=1;i-n>=0 && j-n>=0;n++)
 		{
-			if(TabuleiroFacade.getTFacade().TemPecaIndice(i-n,j-n) )
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j-n) )
 			{
-				if(color!=TabuleiroFacade.getTFacade().getPecaCor(i-n,j-n))
+				if(color!=Tabuleiro.getTabuleiro().getPecaCor(i-n,j-n))
 				{
 					eats.add(new Pair(i-n,j-n));	
 				}
@@ -185,9 +185,9 @@ public class Rainha extends Peca {
 		}
 		for(int n=1;i-n>=0 && j+n<8;n++)
 		{
-			if(TabuleiroFacade.getTFacade().TemPecaIndice(i-n,j+n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i-n,j+n))
 			{
-				if( color!=TabuleiroFacade.getTFacade().getPecaCor(i-n,j+n))
+				if( color!=Tabuleiro.getTabuleiro().getPecaCor(i-n,j+n))
 				{
 					eats.add(new Pair(i-n,j+n));
 				}
@@ -196,9 +196,9 @@ public class Rainha extends Peca {
 		}
 		for(int n=1;i+n<8 && j-n>=0;n++)
 		{
-			if(TabuleiroFacade.getTFacade().TemPecaIndice(i+n,j-n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i+n,j-n))
 			{
-				if(color!=TabuleiroFacade.getTFacade().getPecaCor(i+n,j-n))
+				if(color!=Tabuleiro.getTabuleiro().getPecaCor(i+n,j-n))
 				{
 					eats.add(new Pair(i+n,j-n));
 				}
@@ -208,9 +208,9 @@ public class Rainha extends Peca {
 		//verifica direita/esquerda na mesma linha e cima/baixo na mesma coluna
 		for(int n=j+1;n<8;n++)
 		{
-			if(TabuleiroFacade.getTFacade().TemPecaIndice(i,n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i,n))
 			{
-				if(TabuleiroFacade.getTFacade().getPecaCor(i, n)!=color)
+				if(Tabuleiro.getTabuleiro().getPecaCor(i, n)!=color)
 				{
 					eats.add(new Pair(i,n));	
 				}
@@ -219,9 +219,9 @@ public class Rainha extends Peca {
 		}
 		for(int n=j-1;n>=0;n--)
 		{
-			if(TabuleiroFacade.getTFacade().TemPecaIndice(i,n))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(i,n))
 			{
-				if(TabuleiroFacade.getTFacade().getPecaCor(i, n)!=color)
+				if(Tabuleiro.getTabuleiro().getPecaCor(i, n)!=color)
 				{
 					eats.add(new Pair(i,n));
 				}
@@ -230,9 +230,9 @@ public class Rainha extends Peca {
 		}
 		for(int n=i+1;n<8;n++)
 		{
-			if(TabuleiroFacade.getTFacade().TemPecaIndice(n,j))
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(n,j))
 			{
-			   if(TabuleiroFacade.getTFacade().getPecaCor(n, j)!=color)
+			   if(Tabuleiro.getTabuleiro().getPecaCor(n, j)!=color)
 			   {
 				   eats.add(new Pair(n,j));
 			   }
@@ -241,9 +241,9 @@ public class Rainha extends Peca {
 		}
 		for(int n=i-1;n>=0;n--)
 		{
-			if(TabuleiroFacade.getTFacade().TemPecaIndice(n,j) )
+			if(Tabuleiro.getTabuleiro().TemPecaIndice(n,j) )
 			{
-				if(TabuleiroFacade.getTFacade().getPecaCor(n, j)!=color)
+				if(Tabuleiro.getTabuleiro().getPecaCor(n, j)!=color)
 				{
 					 eats.add(new Pair(n,j));
 				}

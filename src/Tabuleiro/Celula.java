@@ -6,7 +6,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.Vector;
 
 import Drawing.Cor;
-import Pecas.Peca;
+import Tabuleiro.Pecas.Peca;
 public class Celula {
 
 	private Cor cor;

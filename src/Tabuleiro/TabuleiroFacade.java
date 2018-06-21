@@ -79,15 +79,6 @@ public class TabuleiroFacade {
 	public void Draw(Graphics2D g2d) {
 		t.Draw(g2d);
 	}
-	
-	public boolean TemPecaIndice(int i, int j)
-	{
-		return t.TemPecaIndice(i, j);
-	}
-	public Cor getPecaCor(int i,int j)
-	{
-		return t.getCelula(i,j).getPeca().getCor();
-	}
 	public void RecomecaJogo()
 	{
 		t.Recomeca();
