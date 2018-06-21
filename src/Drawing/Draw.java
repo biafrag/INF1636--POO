@@ -25,7 +25,7 @@ public class Draw extends JPanel implements Observer{
 		if(firsttime==false)
 		{
 			t = Tabuleiro.getTabuleiro();
-			t.registerObserver(this);
+			t.addObserver(this);
 			firsttime=true;
 		}
 		super.paintComponent(g);

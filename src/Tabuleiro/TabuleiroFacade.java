@@ -86,7 +86,7 @@ public class TabuleiroFacade {
 	}
 	public Cor getPecaCor(int i,int j)
 	{
-		return Tabuleiro.getTabuleiro().getCelula(i,j).getPeca().getCor();
+		return t.getCelula(i,j).getPeca().getCor();
 	}
 	public void RecomecaJogo()
 	{

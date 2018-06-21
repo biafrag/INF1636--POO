@@ -41,7 +41,7 @@ public class Tela extends JFrame implements ActionListener {
 		return tela;
 	}
 	private void criaMenu () {
-		//itens do menu ARQUIVO
+		//itens do menu MENU
 		this.Novo = new JMenuItem ("Novo Jogo");
 		this.Novo.addActionListener(this);
 		this.Novo.setMnemonic('n'); 

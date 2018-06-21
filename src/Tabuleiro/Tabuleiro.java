@@ -44,7 +44,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 	private static int larg;
 	private Vector<Pair> _possiblePositions;
 	private Vector<Pair> _possibleEats;
-	private List<Observer> observers = new ArrayList<Observer>();
 	private boolean jogador;
 	private boolean peaochange;
 	private int xPeao,yPeao;
@@ -1082,11 +1081,5 @@ public class Tabuleiro extends Observable implements ActionListener{
 		//verifica se vai estar em xeque depois que mudar 
 		
 		return true;
-	}
-	public void registerObserver(Observer observer) 
-	{
-		if(!observers.contains(observer)) 
-			observers.add(observer);
-	}		
-	
+	}	
 }
