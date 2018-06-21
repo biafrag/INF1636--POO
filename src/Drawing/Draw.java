@@ -18,7 +18,6 @@ public class Draw extends JPanel implements Observer{
 	{
 		firsttime=false;
 		Mouse m=Mouse.getMouse();
-		m.registerObserver(this);
 		this.addMouseListener(m);
 	}
 	public void paintComponent(Graphics g) 

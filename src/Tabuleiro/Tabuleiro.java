@@ -1,6 +1,9 @@
 package Tabuleiro;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
+import java.util.Observer;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +19,6 @@ import javax.swing.JOptionPane;
 
 import Drawing.Cor;
 import Drawing.Tela;
-import Interaction.Mouse;
 import Pecas.Bispo;
 import Pecas.Cavalo;
 import Pecas.Peao;
@@ -42,6 +44,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 	private static int larg;
 	private Vector<Pair> _possiblePositions;
 	private Vector<Pair> _possibleEats;
+	private List<Observer> observers = new ArrayList<Observer>();
 	private boolean jogador;
 	private boolean peaochange;
 	private int xPeao,yPeao;
@@ -1080,4 +1083,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 		
 		return true;
 	}
+	public void registerObserver(Observer observer) 
+	{
+		if(!observers.contains(observer)) 
+			observers.add(observer);
+	}		
+	
 }
