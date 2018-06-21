@@ -456,7 +456,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 	}
 	public void FazRoque(int i1, int j1, int i2, int j2,Peca p0, Peca p)
 	{
-		Vector <Pair> moves,eats;
+		Vector <Pair> moves;
+		Vector <Pair> eats;
 		if (j2 == 0 && ((i2 == 7 && p.getCor() == Cor.Claro) || (i2 == 0 && p.getCor() == Cor.Escuro)))
 		{
 			if ((reimovE == false && torremovEl == false) || (reimovC == false && torremovCl == false))
@@ -479,12 +480,13 @@ public class Tabuleiro extends Observable implements ActionListener{
 				{
 					System.out.println("Rei esta em xeque 1");
 					return;
-				}				
-			//	if (!VerifyCheck(i1,j1,eats))
-			//	{
-			//		System.out.println("Rei esta em xeque 2");
-			//		return;
-			//	}	
+				}			
+				System.out.println(VerifyCheck(i1,j1,eats));
+				if (!VerifyCheck(i1,j1,eats))
+				{
+					System.out.println("Rei esta em xeque 2");
+					return;
+				}	
 				tabuleiro[i1][j1].setPeca(null);
 				j1 -= 2;
 				tabuleiro[i1][j1].setPeca(p0);
@@ -734,18 +736,15 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		file.close();
 	}
-	private void checkbooleanLoadOneterm(Scanner file , boolean n)
+	private boolean checkbooleanLoadOneterm(Scanner file)// , boolean n)
 	{
 		int x;
 		x = file.nextInt();
 		if(x==1)
 		{
-			n=true;
+			return true;
 		}
-		else 
-		{
-			n=false;
-		}
+		return false;
 	}
 	
 	public void Load() throws FileNotFoundException 
@@ -769,17 +768,18 @@ public class Tabuleiro extends Observable implements ActionListener{
 			}
 		}
 		
-		checkbooleanLoadOneterm(load , jogador);
-		checkbooleanLoadOneterm(load , possiblecheckpositions);
-		checkbooleanLoadOneterm(load , possiblecheckeats);
-		checkbooleanLoadOneterm(load , checkmate);
-		checkbooleanLoadOneterm(load , empate);
-		checkbooleanLoadOneterm(load , this.reimovE);
-		checkbooleanLoadOneterm(load , this.reimovC);
-		checkbooleanLoadOneterm(load , this.torremovEc);
-		checkbooleanLoadOneterm(load , this.torremovCc);
-		checkbooleanLoadOneterm(load , this.torremovEl);
-		checkbooleanLoadOneterm(load , this.torremovCl);
+		jogador = checkbooleanLoadOneterm(load);// , jogador);
+		System.out.println("joga " + jogador);
+		possiblecheckpositions = checkbooleanLoadOneterm(load);
+		possiblecheckeats = checkbooleanLoadOneterm(load);
+		checkmate = checkbooleanLoadOneterm(load);
+		empate = checkbooleanLoadOneterm(load);
+		this.reimovE = checkbooleanLoadOneterm(load);
+		this.reimovC = checkbooleanLoadOneterm(load);
+		this.torremovEc = checkbooleanLoadOneterm(load);
+		this.torremovCc = checkbooleanLoadOneterm(load);
+		this.torremovEl = checkbooleanLoadOneterm(load);
+		this.torremovCl = checkbooleanLoadOneterm(load);
 		
 		iReiC=load.nextInt();
 		jReiC=load.nextInt();
