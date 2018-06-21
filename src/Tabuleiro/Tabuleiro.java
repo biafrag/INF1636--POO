@@ -1,7 +1,6 @@
 package Tabuleiro;
 
 import java.util.Observable;
-import java.util.Observer;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
