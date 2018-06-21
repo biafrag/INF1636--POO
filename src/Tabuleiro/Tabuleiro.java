@@ -482,18 +482,21 @@ public class Tabuleiro extends Observable implements ActionListener{
 				tabuleiro[i1][j1].setPeca(null);
 				j1 -= 2;
 				tabuleiro[i1][j1].setPeca(p0);
+				tabuleiro[i2][j1+1].setPeca(p);
+				tabuleiro[i2][j2].setPeca(null);
 				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
 				eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
-				if (!VerifyRoque(i1,j1,i2,j2,i2,j1+1,moves) || (eats.size() > 0 && !VerifyRoque(i1,j1,i2,j2,i2,j1+1,eats)))
+			/*	if (!VerifyRoque(i1,j1,i2,j2,i2,j1+1,moves) || (eats.size() > 0 && !VerifyRoque(i1,j1,i2,j2,i2,j1+1,eats)))
+			*/  if (!VerifyCheck(i1,j1,moves) || (eats.size() > 0 && !VerifyCheck(i1,j1,eats)))
 				{
 					tabuleiro[i1][j1].setPeca(null);
 					tabuleiro[i1][j1+2].setPeca(p0);
+					tabuleiro[i2][j1+1].setPeca(null);
+					tabuleiro[i2][j2].setPeca(p);
 					System.out.println("Rei vai esta em xeque se ocorrer o roque");
 					return;
 				}				
-				j1+=1;
-				tabuleiro[i2][j1].setPeca(p);
-				tabuleiro[i2][j2].setPeca(null);		
+						
 				if (jogador)
 				{
 					jogador = false;
@@ -530,18 +533,21 @@ public class Tabuleiro extends Observable implements ActionListener{
 				tabuleiro[i1][j1].setPeca(null);
 				j1 += 2;
 				tabuleiro[i1][j1].setPeca(p0);
+				tabuleiro[i2][j1-1].setPeca(p);
+				tabuleiro[i2][j2].setPeca(null);
 				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
 				eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
-				if (!VerifyRoque(i1,j1,i2,j2,i2,j1-1,moves) || (eats.size() > 0 && !VerifyRoque(i1,j1,i2,j2,i2,j1-1,eats)))
+				/*if (!VerifyRoque(i1,j1,i2,j2,i2,j1-1,moves) || (eats.size() > 0 && !VerifyRoque(i1,j1,i2,j2,i2,j1-1,eats)))
+				*/
+				if (!VerifyCheck(i1,j1,moves) || (eats.size() > 0 && !VerifyCheck(i1,j1,eats)))
 				{
 					tabuleiro[i1][j1].setPeca(null);
 					tabuleiro[i1][j1-2].setPeca(p0);
+					tabuleiro[i2][j1-1].setPeca(null);
+					tabuleiro[i2][j2].setPeca(p);
 					System.out.println("Rei vai esta em xeque se ocorrer o roque");
 					return;
-				}
-				j1-=1;
-				tabuleiro[i2][j1].setPeca(p);
-				tabuleiro[i2][7].setPeca(null);
+				}				
 				if (jogador)
 				{
 					jogador = false;
@@ -1087,19 +1093,23 @@ public class Tabuleiro extends Observable implements ActionListener{
 		Peca p,pecaR,pecaT,pecaR2;
 		Vector<Pair> v;
 		Vector<Integer> indices=new Vector<Integer>();
-		pecaR=tabuleiro[iR][jR].getPeca();
-		sizeR=positions.size();
+		/*Vector <Pair> positions;*/
+		pecaR=tabuleiro[iR][jR].getPeca();		
 		pecaT=tabuleiro[iT][jT].getPeca();
 		ireitemp=0;
 		jreitemp=0;
 	/*	itortemp=0;
 		jtortemp=0;*/		
-		tabuleiro[iT][jT].setPeca(null);
+	/*	tabuleiro[iT][jT].setPeca(null);
 		tabuleiro[iT2][jT2].setPeca(pecaT);
+		positions = tabuleiro[iR][jR].catchMoves((int)larg*jR,(int)alt*iR);
+	*/	sizeR=positions.size();
+		System.out.println("Size do vetor: " + sizeR);
 		for(l=0;l<sizeR;l++)
 		{
 			iR2=positions.get(l).getX();
 			jR2=positions.get(l).getY();
+			System.out.println("iR2: " + iR2 + " jR2: " +jR2);
 			pecaR2=tabuleiro[iR2][jR2].getPeca();			
 			tabuleiro[iR][jR].setPeca(null);
 			tabuleiro[iR2][jR2].setPeca(pecaR);
@@ -1132,7 +1142,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 						if(pecaR.getCor()!=p.getCor())
 						{ 
 							v=p.PossibleEats((int)larg*j,(int)alt*i);
-//							System.out.println("Peca :"+p.getName()+ " Size: "+v.size());
+							System.out.println("Peca :"+p.getName()+ " Size: "+v.size());
 							for(k=0;k<v.size();k++)
 							{
 								Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
@@ -1144,6 +1154,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 									}
 								}
 							}
+							System.out.println("Indice: " + indices.size());
 						}
 					}
 				}
@@ -1167,14 +1178,12 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		for(int i=0;i<indices.size();i++)
 		{
-			//        	System.out.println("Tem que remover: "+indices.get(i));
+			        	System.out.println("Tem que remover: "+indices.get(i));
 			positions.setElementAt(null,indices.get(i));
 		}
-		//        System.out.println(i1 +" "+j1);
-		//        System.out.println(tabuleiro[i1][j1].getPeca().getName());
 		gotmoves=verifyPositions(positions);
-		tabuleiro[iT2][jT2].setPeca(null);
-		tabuleiro[iT][jT].setPeca(pecaT);
+	/*	tabuleiro[iT2][jT2].setPeca(null);
+		tabuleiro[iT][jT].setPeca(pecaT);*/
 		return gotmoves;
 	}	
 }
