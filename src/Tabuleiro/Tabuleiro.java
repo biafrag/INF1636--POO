@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 
 import Drawing.Cor;
 import Drawing.Tela;
+import Interaction.Mouse;
 import Pecas.Bispo;
 import Pecas.Cavalo;
 import Pecas.Peao;
@@ -301,13 +302,15 @@ public class Tabuleiro extends Observable implements ActionListener{
 				System.out.println("Empate: "+ " "+empate);
 //				tabuleiro[i2][j2].setPeca(p);
 //				tabuleiro[i1][j1].setPeca(null);
-//				t.setChanged();
-//				t.notifyObservers();
+				this.setChanged();
+				notifyObservers();
 //				CriaJPane(c);
 //				Recomeca();
 				return true;
 			}
 		}
+		this.setChanged();
+		notifyObservers();
         return false;
 	}
 	public void Acende(int x, int y)
@@ -316,6 +319,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 		int j=Math.floorDiv(x,larg);
 //		System.out.println(i +" "+ j);
 		tabuleiro[i][j].setSelect();
+		this.setChanged();
+		notifyObservers();
 	}
 	public void CatchPossibleMoves(int x, int y)
 	{
@@ -426,6 +431,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 			if ((p0 instanceof Rei && p instanceof Torre) && (p0.getCor()==p.getCor()))
 			{
 				FazRoque(i1,j1,i2,j2,p0,p);
+				this.setChanged();
+				notifyObservers();
 				return false;
 			}
 			this.checkmate=verifyCheckMate(c);
@@ -434,13 +441,15 @@ public class Tabuleiro extends Observable implements ActionListener{
 				this.empate=VerifyEmpate(i1,j1,c);
 //				tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
 //				tabuleiro[i1][j1].setPeca(null);
-//				t.setChanged();
-//				t.notifyObservers();
+				this.setChanged();
+				notifyObservers();
 //				CriaJPane(c);
 //				Recomeca();
 				return true;
 			}
 		}
+		this.setChanged();
+		notifyObservers();
 		return false;
 	}
 	public void FazRoque(int i1, int j1, int i2, int j2,Peca p0, Peca p)
@@ -464,7 +473,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				positions=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
 				if (!VerifyCheck(i1,j1,positions))
 				{
-					//System.out.println("Rei esta em xeque");
+					System.out.println("Rei esta em xeque");
 					return;
 				}
 				tabuleiro[i1][j1].setPeca(null);
@@ -1061,6 +1070,14 @@ public class Tabuleiro extends Observable implements ActionListener{
 			}
 			
 		}
+		return true;
+	}
+	public boolean VerifyRoque(int i1, int j1, int i2, int j2, Vector <Pair> positions1, Vector <Pair> positions2) //1 pos inicial, 2 pos depois do roque
+	{
+		//verifica se está em xeque na posicao 1
+		
+		//verifica se vai estar em xeque depois que mudar 
+		
 		return true;
 	}
 }
