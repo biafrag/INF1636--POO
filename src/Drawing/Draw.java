@@ -6,12 +6,11 @@ import java.util.Observer;
 import java.util.Observable;
 
 import Tabuleiro.Tabuleiro;
-//import Tabuleiro.TabuleiroFacade;
+import Tabuleiro.TabuleiroFacade;
 import Interaction.Mouse;
 
 public class Draw extends JPanel implements Observer{
-//	private TabuleiroFacade tfa;
-	private Tabuleiro t;
+	private TabuleiroFacade tfa;
 	private boolean firsttime;
 	
 	public Draw()
@@ -24,13 +23,13 @@ public class Draw extends JPanel implements Observer{
 	{
 		if(firsttime==false)
 		{
-			t = Tabuleiro.getTabuleiro();
-			t.addObserver(this);
+			tfa=TabuleiroFacade.getTFacade();
+			tfa.registra(this);
 			firsttime=true;
 		}
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
-		t.Draw(g2d);
+		tfa.Draw(g2d);
 	}
 
 	@Override
