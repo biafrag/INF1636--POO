@@ -5,7 +5,6 @@ import java.awt.*;
 import java.util.Observer;
 import java.util.Observable;
 
-import Tabuleiro.Tabuleiro;
 import Tabuleiro.TabuleiroFacade;
 import Interaction.Mouse;
 

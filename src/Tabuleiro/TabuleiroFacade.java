@@ -104,9 +104,4 @@ public class TabuleiroFacade {
 	{
 		t.addObserver(d);
 	}
-	public void DrawTabuleiro(Graphics2D g)
-	{
-		t.Draw(g);
-	}
-
 }

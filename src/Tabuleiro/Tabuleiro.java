@@ -456,7 +456,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 	}
 	public void FazRoque(int i1, int j1, int i2, int j2,Peca p0, Peca p)
 	{
-		Vector <Pair> positions;
+		Vector <Pair> moves,eats;
 		if (j2 == 0 && ((i2 == 7 && p.getCor() == Cor.Claro) || (i2 == 0 && p.getCor() == Cor.Escuro)))
 		{
 			if ((reimovE == false && torremovEl == false) || (reimovC == false && torremovCl == false))
@@ -471,27 +471,36 @@ public class Tabuleiro extends Observable implements ActionListener{
 						return;
 					}
 					j2++;
-				}	
-				positions=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
-				if (!VerifyCheck(i1,j1,positions))
-				{
-					System.out.println("Rei esta em xeque");
-					return;
 				}
+				j2=0;
+				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
+				eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
+				if (!VerifyCheck(i1,j1,moves)) //|| !VerifyCheck(i1,j1,eats))
+				{
+					System.out.println("Rei esta em xeque 1");
+					return;
+				}				
+			//	if (!VerifyCheck(i1,j1,eats))
+			//	{
+			//		System.out.println("Rei esta em xeque 2");
+			//		return;
+			//	}	
 				tabuleiro[i1][j1].setPeca(null);
 				j1 -= 2;
 				tabuleiro[i1][j1].setPeca(p0);
-				positions=tabuleiro[i1][j1].catchMoves((int)larg*j2,(int)alt*i2);
-				if (!VerifyCheck(i1,j1,positions))
+				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
+			//	eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
+				if (!VerifyRoque(i1,j1,i2,j2,i2,j1+1,moves))// || !VerifyRoque(i1,j1,i2,j2,i2,j1+1,eats))
 				{
 					tabuleiro[i1][j1].setPeca(null);
 					tabuleiro[i1][j1+2].setPeca(p0);
 					System.out.println("Rei vai esta em xeque se ocorrer o roque");
 					return;
 				}
+				
 				j1+=1;
 				tabuleiro[i2][j1].setPeca(p);
-				tabuleiro[i2][0].setPeca(null);		
+				tabuleiro[i2][j2].setPeca(null);		
 				if (jogador)
 				{
 					jogador = false;
@@ -517,8 +526,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 					}
 					j2--;
 				}
-				positions=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
-				if (!VerifyCheck(i1,j1,positions))
+				j2=7;
+				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
+			//	eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
+				if (!VerifyCheck(i1,j1,moves))// || !VerifyCheck(i1,j1,eats))
 				{
 					System.out.println("Rei esta em xeque");
 					return;
@@ -526,14 +537,15 @@ public class Tabuleiro extends Observable implements ActionListener{
 				tabuleiro[i1][j1].setPeca(null);
 				j1 += 2;
 				tabuleiro[i1][j1].setPeca(p0);
-				positions=tabuleiro[i1][j1].catchMoves((int)larg*j2,(int)alt*i2);
-				if (!VerifyCheck(i1,j1,positions))
+				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
+			//	eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
+				if (!VerifyRoque(i1,j1,i2,j2,i2,j1-1,moves))//|| !VerifyRoque(i1,j1,i2,j2,i2,j1-1,eats))
 				{
 					tabuleiro[i1][j1].setPeca(null);
 					tabuleiro[i1][j1-2].setPeca(p0);
 					System.out.println("Rei vai esta em xeque se ocorrer o roque");
 					return;
-				}				
+				}
 				j1-=1;
 				tabuleiro[i2][j1].setPeca(p);
 				tabuleiro[i2][7].setPeca(null);
@@ -1074,12 +1086,102 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		return true;
 	}
-	public boolean VerifyRoque(int i1, int j1, int i2, int j2, Vector <Pair> positions1, Vector <Pair> positions2) //1 pos inicial, 2 pos depois do roque
+	public boolean VerifyRoque(int iR, int jR, int iT, int jT,int iT2,int jT2, Vector <Pair> positions) 
 	{
-		//verifica se está em xeque na posicao 1
-		
-		//verifica se vai estar em xeque depois que mudar 
-		
-		return true;
+		int ireitemp,jreitemp; // itortemp, jtortemp;
+		int k=0,sizeR,l=0;
+		boolean gotmoves=false;
+		int iR2,jR2;
+		Peca p,pecaR,pecaT,pecaR2;
+		Vector<Pair> v;
+		Vector<Integer> indices=new Vector<Integer>();
+		pecaR=tabuleiro[iR][jR].getPeca();
+		sizeR=positions.size();
+		pecaT=tabuleiro[iT][jT].getPeca();
+		ireitemp=0;
+		jreitemp=0;
+	/*	itortemp=0;
+		jtortemp=0;*/		
+		tabuleiro[iT][jT].setPeca(null);
+		tabuleiro[iT2][jT2].setPeca(pecaT);
+		for(l=0;l<sizeR;l++)
+		{
+			iR2=positions.get(l).getX();
+			jR2=positions.get(l).getY();
+			pecaR2=tabuleiro[iR2][jR2].getPeca();			
+			tabuleiro[iR][jR].setPeca(null);
+			tabuleiro[iR2][jR2].setPeca(pecaR);
+			
+			if(pecaR instanceof Rei)
+			{
+				if(pecaR.getCor()==Cor.Escuro)
+				{
+					ireitemp=iReiE;
+					jreitemp=jReiE;
+					iReiE=iR2;
+					jReiE=jR2;
+				}
+				else
+				{
+					ireitemp=iReiC;
+					jreitemp=jReiC;
+					iReiC=iR2;
+					jReiC=jR2;
+				}
+			}
+			for(int i=0;i<8;i++)
+			{
+				for(int j=0;j<8;j++)
+				{
+					//Passar pelo tabuleiro todo vendo quais tem peca
+					p=tabuleiro[i][j].getPeca();
+					if(p!=null)
+					{
+						if(pecaR.getCor()!=p.getCor())
+						{ 
+							v=p.PossibleEats((int)larg*j,(int)alt*i);
+//							System.out.println("Peca :"+p.getName()+ " Size: "+v.size());
+							for(k=0;k<v.size();k++)
+							{
+								Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
+								if((comidoposition.getX()==iReiC && comidoposition.getY()==jReiC) ||(comidoposition.getX()==iReiE && comidoposition.getY()==jReiE))
+								{
+									if(indices.contains(l)==false)
+									{
+										indices.add(l);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			tabuleiro[iR2][jR2].setPeca(pecaR2);
+			tabuleiro[iR][jR].setPeca(pecaR);
+			tabuleiro[iT2][jT2].setPeca(null);
+			tabuleiro[iT][jT].setPeca(pecaT);
+			if(pecaR instanceof Rei)
+			{
+				if(pecaR.getCor()==Cor.Escuro)
+				{
+					iReiE=ireitemp;
+					jReiE=jreitemp;
+				}
+				else
+				{
+					iReiC=ireitemp;
+					jReiC=jreitemp;
+				}
+			}
+		}
+		for(int i=0;i<indices.size();i++)
+		{
+			//        	System.out.println("Tem que remover: "+indices.get(i));
+			positions.setElementAt(null,indices.get(i));
+		}
+		//        System.out.println(i1 +" "+j1);
+		//        System.out.println(tabuleiro[i1][j1].getPeca().getName());
+		gotmoves=verifyPositions(positions);
+		return gotmoves;
 	}	
 }
