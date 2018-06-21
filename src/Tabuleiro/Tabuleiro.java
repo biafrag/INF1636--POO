@@ -1,7 +1,5 @@
 package Tabuleiro;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.awt.Graphics2D;
@@ -475,31 +473,24 @@ public class Tabuleiro extends Observable implements ActionListener{
 				}
 				j2=0;
 				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
-			//	eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
-				if (!VerifyCheck(i1,j1,moves)) //|| !VerifyCheck(i1,j1,eats))
+				eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
+				if (!VerifyCheck(i1,j1,moves) || (eats.size() > 0 && !VerifyCheck(i1,j1,eats)))
 				{
-					System.out.println("Rei esta em xeque 1");
+					System.out.println("Rei esta em xeque");
 					return;
-				}			
-				/*System.out.println(VerifyCheck(i1,j1,eats));
-				if (!VerifyCheck(i1,j1,eats))
-				{
-					System.out.println("Rei esta em xeque 2");
-					return;
-				}*/	
+				}	
 				tabuleiro[i1][j1].setPeca(null);
 				j1 -= 2;
 				tabuleiro[i1][j1].setPeca(p0);
 				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
-			//	eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
-				if (!VerifyRoque(i1,j1,i2,j2,i2,j1+1,moves))// || !VerifyRoque(i1,j1,i2,j2,i2,j1+1,eats))
+				eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
+				if (!VerifyRoque(i1,j1,i2,j2,i2,j1+1,moves) || (eats.size() > 0 && !VerifyRoque(i1,j1,i2,j2,i2,j1+1,eats)))
 				{
 					tabuleiro[i1][j1].setPeca(null);
 					tabuleiro[i1][j1+2].setPeca(p0);
 					System.out.println("Rei vai esta em xeque se ocorrer o roque");
 					return;
-				}
-				
+				}				
 				j1+=1;
 				tabuleiro[i2][j1].setPeca(p);
 				tabuleiro[i2][j2].setPeca(null);		
@@ -530,8 +521,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 				}
 				j2=7;
 				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
-			//	eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
-				if (!VerifyCheck(i1,j1,moves))// || !VerifyCheck(i1,j1,eats))
+				eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
+				if (!VerifyCheck(i1,j1,moves) || (eats.size() > 0 && !VerifyCheck(i1,j1,eats)))
 				{
 					System.out.println("Rei esta em xeque");
 					return;
@@ -540,8 +531,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 				j1 += 2;
 				tabuleiro[i1][j1].setPeca(p0);
 				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
-			//	eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
-				if (!VerifyRoque(i1,j1,i2,j2,i2,j1-1,moves)) //|| !VerifyRoque(i1,j1,i2,j2,i2,j1-1,eats))
+				eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
+				if (!VerifyRoque(i1,j1,i2,j2,i2,j1-1,moves) || (eats.size() > 0 && !VerifyRoque(i1,j1,i2,j2,i2,j1-1,eats)))
 				{
 					tabuleiro[i1][j1].setPeca(null);
 					tabuleiro[i1][j1-2].setPeca(p0);
@@ -916,11 +907,13 @@ public class Tabuleiro extends Observable implements ActionListener{
 		size=positions.size();
 		ireitemp=0;
 		jreitemp=0;
-//		System.out.println("Size do vetor: " + size);
+	//	System.out.println("Size do vetor: " + size);
 		for(l=0;l<size;l++)
 		{
+			
 			i2=positions.get(l).getX();
 			j2=positions.get(l).getY();
+	//		System.out.println("i2: " + i2 + " j2: " +j2);
 			peca2=tabuleiro[i2][j2].getPeca();
 			tabuleiro[i1][j1].setPeca(null);
 			tabuleiro[i2][j2].setPeca(peca);
@@ -945,14 +938,14 @@ public class Tabuleiro extends Observable implements ActionListener{
 			{
 				for(int j=0;j<8;j++)
 				{
-					//				//Passar pelo tabuleiro todo vendo quais tem peca
+					//Passar pelo tabuleiro todo vendo quais tem peca
 					p=tabuleiro[i][j].getPeca();
 					if(p!=null)
 					{
 						if(peca.getCor()!=p.getCor())
 						{ 
 							v=p.PossibleEats((int)larg*j,(int)alt*i);
-//							System.out.println("Peca :"+p.getName()+ " Size: "+v.size());
+				//			System.out.println("Peca :"+p.getName()+ " Size: "+v.size());
 							for(k=0;k<v.size();k++)
 							{
 								Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
@@ -989,8 +982,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 			//        	System.out.println("Tem que remover: "+indices.get(i));
 			positions.setElementAt(null,indices.get(i));
 		}
-		//        System.out.println(i1 +" "+j1);
-		//        System.out.println(tabuleiro[i1][j1].getPeca().getName());
+		  //      System.out.println(i1 +" "+j1);
+		  //     System.out.println(tabuleiro[i1][j1].getPeca().getName());
 		gotmoves=verifyPositions(positions);
 		return gotmoves;
 	}
