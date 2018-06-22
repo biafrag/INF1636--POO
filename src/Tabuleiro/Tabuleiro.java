@@ -453,8 +453,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 	}
 	public void FazRoque(int i1, int j1, int i2, int j2,Peca p0, Peca p)
 	{
-		Vector <Pair> moves;
-		Vector <Pair> eats;
 		if (j2 == 0 && ((i2 == 7 && p.getCor() == Cor.Claro) || (i2 == 0 && p.getCor() == Cor.Escuro)))
 		{
 			if ((reimovE == false && torremovEl == false) || (reimovC == false && torremovCl == false))
@@ -469,10 +467,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 					}
 					j2++;
 				}
-				j2=0;
-				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
-				eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
-				if (!VerifyCheck(i1,j1,moves) || (eats.size() > 0 && !VerifyCheck(i1,j1,eats)))
+				j2=0;				
+				if (VerifyCheckRoque(i1,j1))
 				{
 					System.out.println("Rei esta em xeque");
 					return;
@@ -482,9 +478,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				tabuleiro[i1][j1].setPeca(p0);
 				tabuleiro[i2][j1+1].setPeca(p);
 				tabuleiro[i2][j2].setPeca(null);
-				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
-				eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
-			    if (!VerifyCheck(i1,j1,moves) || (eats.size() > 0 && !VerifyCheck(i1,j1,eats)))
+				if (VerifyCheckRoque(i1,j1))
 				{
 					tabuleiro[i1][j1].setPeca(null);
 					tabuleiro[i1][j1+2].setPeca(p0);
@@ -518,21 +512,17 @@ public class Tabuleiro extends Observable implements ActionListener{
 					j2--;
 				}
 				j2=7;
-				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
-				eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
-				if (!VerifyCheck(i1,j1,moves) || (eats.size() > 0 && !VerifyCheck(i1,j1,eats)))
+				if (VerifyCheckRoque(i1,j1))
 				{
 					System.out.println("Rei esta em xeque");
 					return;
-				}
+				}	
 				tabuleiro[i1][j1].setPeca(null);
 				j1 += 2;
 				tabuleiro[i1][j1].setPeca(p0);
 				tabuleiro[i2][j1-1].setPeca(p);
 				tabuleiro[i2][j2].setPeca(null);
-				moves=tabuleiro[i1][j1].catchMoves((int)larg*j1,(int)alt*i1);
-				eats=tabuleiro[i1][j1].catchEats((int)larg*j1,(int)alt*i1);
-				if (!VerifyCheck(i1,j1,moves) || (eats.size() > 0 && !VerifyCheck(i1,j1,eats)))
+			    if (VerifyCheckRoque(i1,j1))
 				{
 					tabuleiro[i1][j1].setPeca(null);
 					tabuleiro[i1][j1-2].setPeca(p0);
@@ -906,13 +896,11 @@ public class Tabuleiro extends Observable implements ActionListener{
 		size=positions.size();
 		ireitemp=0;
 		jreitemp=0;
-	//	System.out.println("Size do vetor: " + size);
 		for(l=0;l<size;l++)
 		{
 			
 			i2=positions.get(l).getX();
 			j2=positions.get(l).getY();
-	//		System.out.println("i2: " + i2 + " j2: " +j2);
 			peca2=tabuleiro[i2][j2].getPeca();
 			tabuleiro[i1][j1].setPeca(null);
 			tabuleiro[i2][j2].setPeca(peca);
@@ -944,12 +932,11 @@ public class Tabuleiro extends Observable implements ActionListener{
 						if(peca.getCor()!=p.getCor())
 						{ 
 							v=p.PossibleEats((int)larg*j,(int)alt*i);
-				//			System.out.println("Peca :"+p.getName()+ " Size: "+v.size());
 							for(k=0;k<v.size();k++)
 							{
 								Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
 								if((comidoposition.getX()==iReiC && comidoposition.getY()==jReiC) ||(comidoposition.getX()==iReiE && comidoposition.getY()==jReiE))
-								{
+								{									
 									if(indices.contains(l)==false)
 									{
 										indices.add(l);
@@ -978,11 +965,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		for(int i=0;i<indices.size();i++)
 		{
-			//        	System.out.println("Tem que remover: "+indices.get(i));
 			positions.setElementAt(null,indices.get(i));
 		}
-		  //      System.out.println(i1 +" "+j1);
-		  //     System.out.println(tabuleiro[i1][j1].getPeca().getName());
 		gotmoves=verifyPositions(positions);
 		return gotmoves;
 	}
@@ -1080,5 +1064,35 @@ public class Tabuleiro extends Observable implements ActionListener{
 	public  Cor getPecaCor(int i,int j)
 	{
 		return getCelula(i,j).getPeca().getCor();
+	}
+	public boolean VerifyCheckRoque(int i1,int j1) //1 eh a posição q ele tá e 2 é a que ele vai
+	{
+		Peca p,peca;
+		Vector<Pair> v;
+		peca=tabuleiro[i1][j1].getPeca();
+		for(int i=0;i<8;i++)
+		{
+			for(int j=0;j<8;j++)
+			{
+				//Passar pelo tabuleiro todo vendo quais tem peca
+				p=tabuleiro[i][j].getPeca();
+				if(p!=null)
+				{
+					if(peca.getCor()!=p.getCor())
+					{ 
+						v=p.PossibleEats((int)larg*j,(int)alt*i);
+						for(int k=0;k<v.size();k++)
+						{
+							Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
+							if((comidoposition.getX()==i1 && comidoposition.getY()==j1))
+							{	
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 }
