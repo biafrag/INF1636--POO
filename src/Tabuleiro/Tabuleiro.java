@@ -13,7 +13,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JOptionPane;
 
-import Drawing.Tela;
 import Tabuleiro.Pecas.Bispo;
 import Tabuleiro.Pecas.Cavalo;
 import Tabuleiro.Pecas.Peao;
@@ -23,6 +22,7 @@ import Tabuleiro.Pecas.Rei;
 import Tabuleiro.Pecas.Torre;
 import Tools.Cor;
 import Tools.Pair;
+import Visual.Tela;
 
 /* Essa classe implementa um tabuleiro de xadrez.
  *  É um Singleton e um Observable que será observado pelo JPanel */

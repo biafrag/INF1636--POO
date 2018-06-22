@@ -91,7 +91,7 @@ public class TabuleiroFacade {
 			e.printStackTrace();
 		}
 	}	
-	public void registra(Drawing.Draw d)
+	public void registra(Visual.Draw d)
 	{
 		t.addObserver(d);
 	}
