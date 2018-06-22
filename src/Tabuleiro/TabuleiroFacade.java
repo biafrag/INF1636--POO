@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import javax.swing.JPopupMenu;
 
-import Drawing.Cor;
 import Tabuleiro.Tabuleiro;
+import Tools.Cor;
 
 public class TabuleiroFacade {
 	private static TabuleiroFacade tfa;

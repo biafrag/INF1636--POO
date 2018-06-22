@@ -3,9 +3,9 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.Vector;
 
-import Drawing.Cor;
 import Tabuleiro.Celula;
-import Tabuleiro.Pair;
+import Tools.Cor;
+import Tools.Pair;
 
 public abstract class Peca  {		
 	static String path = "src/Imagens/";
