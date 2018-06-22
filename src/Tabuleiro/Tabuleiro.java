@@ -447,15 +447,17 @@ public class Tabuleiro extends Observable implements ActionListener{
 		notifyObservers();
 		return false;
 	}
-	//Faz Roque se rei não tá em xeque e se não deixar rei em xeque
+	//Faz Roque se as condicoes do roque forem satisfeitas
 	public void FazRoque(int i1, int j1, int i2, int j2,Peca p0, Peca p)
 	{
+		//primeiro verifica condicao: primeira jogada do rei e da torre
 		if (j2 == 0 && ((i2 == 7 && p.getCor() == Cor.Claro) || (i2 == 0 && p.getCor() == Cor.Escuro)))
 		{
 			if ((reimovE == false && torremovEl == false) || (reimovC == false && torremovCl == false))
 			{
 				//Roque Longo
 				j2++;
+				//segunda condicao: verifica se tem peca entre o rei e a torre
 				while (j1>j2) {						
 					if (tabuleiro[i2][j2].getPeca() != null)
 					{
@@ -464,26 +466,31 @@ public class Tabuleiro extends Observable implements ActionListener{
 					}
 					j2++;
 				}
-				j2=0;				
+				j2=0;	
+				//terceira condicao: verifica se o rei esta em cheque
 				if (VerifyCheckRoque(i1,j1))
 				{
 					System.out.println("Rei esta em xeque");
 					return;
 				}	
+				//faz o movimento do roque
 				tabuleiro[i1][j1].setPeca(null);
 				j1 -= 2;
 				tabuleiro[i1][j1].setPeca(p0);
 				tabuleiro[i2][j1+1].setPeca(p);
 				tabuleiro[i2][j2].setPeca(null);
+				//ultima condicao: verifica se o rei vai esta em xeque
 				if (VerifyCheckRoque(i1,j1))
 				{
+					//desfaz o movimento do roque
 					tabuleiro[i1][j1].setPeca(null);
 					tabuleiro[i1][j1+2].setPeca(p0);
 					tabuleiro[i2][j1+1].setPeca(null);
 					tabuleiro[i2][j2].setPeca(p);
 					System.out.println("Rei vai esta em xeque se ocorrer o roque");
 					return;
-				}									
+				}		
+				//atualiza vez do jogador
 				if (jogador)
 				{
 					jogador = false;
@@ -500,6 +507,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			{
 				//Roque Curto
 				j2--;
+				//segunda condicao: verifica se tem peca entre o rei e a torre
 				while (j1<j2) {						
 					if (tabuleiro[i2][j2].getPeca() != null)
 					{
@@ -509,25 +517,30 @@ public class Tabuleiro extends Observable implements ActionListener{
 					j2--;
 				}
 				j2=7;
+				//terceira condicao: verifica se o rei esta em cheque
 				if (VerifyCheckRoque(i1,j1))
 				{
 					System.out.println("Rei esta em xeque");
 					return;
 				}	
+				//faz o movimento do roque
 				tabuleiro[i1][j1].setPeca(null);
 				j1 += 2;
 				tabuleiro[i1][j1].setPeca(p0);
 				tabuleiro[i2][j1-1].setPeca(p);
 				tabuleiro[i2][j2].setPeca(null);
-			    if (VerifyCheckRoque(i1,j1))
+				//ultima condicao: verifica se o rei vai esta em xeque
+				if (VerifyCheckRoque(i1,j1))
 				{
+					//desfaz o movimento do roque
 					tabuleiro[i1][j1].setPeca(null);
 					tabuleiro[i1][j1-2].setPeca(p0);
 					tabuleiro[i2][j1-1].setPeca(null);
 					tabuleiro[i2][j2].setPeca(p);
 					System.out.println("Rei vai esta em xeque se ocorrer o roque");
 					return;
-				}				
+				}			
+				//atualiza vez do jogador
 				if (jogador)
 				{
 					jogador = false;
@@ -902,10 +915,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		size=positions.size();
 		ireitemp=0;
 		jreitemp=0;
-<<<<<<< HEAD
-=======
 		//percorre vetor de posições
->>>>>>> f51fe4cd17201d7a61178bebc082e417f2ee461a
 		for(l=0;l<size;l++)
 		{
 			i2=positions.get(l).getX();
@@ -933,8 +943,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 					iReiC=i2;
 					jReiC=j2;
 				}
-			}
-			
+			}			
 			//Passa pelo tabuleiro todo vendo quais tem peca
 			for(int i=0;i<8;i++)
 			{
@@ -946,10 +955,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 						if(peca.getCor()!=p.getCor())
 						{ 
 							v=p.PossibleEats((int)larg*j,(int)alt*i);
-<<<<<<< HEAD
-=======
 							//Passa pelo vetor de possível eats de cada peça
->>>>>>> f51fe4cd17201d7a61178bebc082e417f2ee461a
 							for(k=0;k<v.size();k++)
 							{
 								Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
@@ -987,10 +993,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		{
 			positions.setElementAt(null,indices.get(i));
 		}
-<<<<<<< HEAD
-=======
 		//Vê se tem alguma posição que a peça pode ir
->>>>>>> f51fe4cd17201d7a61178bebc082e417f2ee461a
 		gotmoves=verifyPositions(positions);
 		return gotmoves;
 	}
@@ -1090,7 +1093,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 	{
 		return getCelula(i,j).getPeca().getCor();
 	}
-	public boolean VerifyCheckRoque(int i1,int j1) //1 eh a posição q ele tá e 2 é a que ele vai
+	public boolean VerifyCheckRoque(int i1,int j1) 
 	{
 		Peca p,peca;
 		Vector<Pair> v;
@@ -1109,6 +1112,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 						for(int k=0;k<v.size();k++)
 						{
 							Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
+							//verifica se uma das pecas podem comer o rei, se sim estar em xeque
 							if((comidoposition.getX()==i1 && comidoposition.getY()==j1))
 							{	
 								return true;
