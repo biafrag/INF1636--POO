@@ -6,9 +6,9 @@ import java.util.Vector;
 
 import javax.imageio.ImageIO;
 
-import Drawing.Cor;
-import Tabuleiro.Pair;
 import Tabuleiro.Tabuleiro;
+import Tools.Cor;
+import Tools.Pair;
 
 public class Torre extends Peca {
 	

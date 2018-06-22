@@ -1,5 +1,4 @@
 package Tabuleiro;
-
 import java.util.Observable;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -14,8 +13,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JOptionPane;
 
-import Drawing.Cor;
-import Drawing.Tela;
 import Tabuleiro.Pecas.Bispo;
 import Tabuleiro.Pecas.Cavalo;
 import Tabuleiro.Pecas.Peao;
@@ -23,6 +20,12 @@ import Tabuleiro.Pecas.Peca;
 import Tabuleiro.Pecas.Rainha;
 import Tabuleiro.Pecas.Rei;
 import Tabuleiro.Pecas.Torre;
+import Tools.Cor;
+import Tools.Pair;
+import Visual.Tela;
+
+/* Essa classe implementa um tabuleiro de xadrez.
+ *  É um Singleton e um Observable que será observado pelo JPanel */
 
 public class Tabuleiro extends Observable implements ActionListener{
 
@@ -51,6 +54,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 	private boolean checkmate;
 	private boolean empate;
 	JPopupMenu popup;
+	
 	private Tabuleiro() 
 	{
 		inicializaTudo();
@@ -117,6 +121,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		return t;
 	}
+	
+	//Recebe um Graphics2D do JPanel e se desenha
 	public void Draw(Graphics2D g)
 	{
 		for(int i=0;i<8;i++)
@@ -131,6 +137,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 	{
 		return tabuleiro[i][j];
 	}
+	
+	//Inicializa Criando as pecas e as colocando nos luagres iniciais
 	private void  setPeca()
 	{
 		//c é claro e e é escuro
@@ -202,17 +210,24 @@ public class Tabuleiro extends Observable implements ActionListener{
 			return false;
 		return true;	
 	}	
+	
+	/*Função que movimenta peca se for possível
+	 * Retorna false - Se movimento não for possível
+	 * Retorna true - Se movimento for possível
+	 */
+	
 	public boolean MexePeca(int x1,int y1,int x2,int y2)
 	{
 		int i1,i2,j1,j2;
-		i1=Math.floorDiv((y1),alt);
+		i1=Math.floorDiv(y1,alt);
 		j1=Math.floorDiv(x1,larg);
-		i2=Math.floorDiv((y2),alt);
+		i2=Math.floorDiv(y2,alt);
 		j2=Math.floorDiv(x2,larg);
 		Cor c;
 		if(tabuleiro[i1][j1].getPeca()!=null)
 		{
 			c=tabuleiro[i1][j1].getPeca().getCor();
+			//Verificação se o jogador é o jogador da vez
 			if(jogador && c == Cor.Escuro)
 			{
 				return false;
@@ -221,10 +236,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 			{
 				return false;
 			}
-
-//			System.out.println("De "+ y1+ " "+i1+" "+j1);
-//			System.out.println("Para "+ y2+ " "+i2+" "+j2);
-//			System.out.println("joga: " + jogador);		
+			
+			//Checa se a posição que o usuário quer mover é uma posição válida
 			Peca p = tabuleiro[i1][j1].getPeca();
 			for(int i=0;i<_possiblePositions.size();i++)
 			{
@@ -232,12 +245,15 @@ public class Tabuleiro extends Observable implements ActionListener{
 				{
 					if(_possiblePositions.get(i).getX()==i2 && _possiblePositions.get(i).getY()==j2)
 					{
+						//Posição que o usuário quer é válida então move
 						tabuleiro[i2][j2].setPeca(p);
-						tabuleiro[i1][j1].setPeca(null);
+						tabuleiro[i1][j1].setPeca(null);	
+						//Se peao chegar na outra ponta é promoção de peão e atualiza o booleano
 						if(p instanceof Peao && ((i2==0 && c==Cor.Claro) || (i2==7 && c==Cor.Escuro)))
 						{
 							peaochange=true;
 						}	
+						//Ouve movimento e agora é a vez do próximo jogador
 						if (jogador)
 						{
 							jogador = false;
@@ -250,10 +266,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 					}
 				}
 			}		
-			if(p instanceof Peao && ((i2==0 && p.getCor()==Cor.Claro) || (i2==7 && p.getCor()==Cor.Escuro)))
-			{
-				peaochange=true;
-			}	
+			
+			//Se peça movida for o Rei atualiza a posição dele e booleano de primeiro movimento
 			if(p instanceof Rei)
 			{
 				if(p.getCor()==Cor.Escuro)
@@ -269,6 +283,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 					reimovC = true;
 				}
 			}
+			//Se peca for booleano atualiza booleano de primeiro movimento
 			if (p instanceof Torre)
 			{
 				if(p.getCor()==Cor.Escuro)
@@ -294,17 +309,15 @@ public class Tabuleiro extends Observable implements ActionListener{
 					}
 				}				
 			}
+			//A cada movimento verifica se nenhuma peca tem movimento 
 			this.checkmate=verifyCheckMate(c);
+			//Se nenhuma peca tem movimento pode ser xeque mate ou empate
+			//Verifica qual é e aparece JPane com mensagem adequada
 			if(checkmate==true)
 			{
 				this.empate=VerifyEmpate(i1,j1,c);
-				System.out.println("Empate: "+ " "+empate);
-//				tabuleiro[i2][j2].setPeca(p);
-//				tabuleiro[i1][j1].setPeca(null);
 				this.setChanged();
 				notifyObservers();
-//				CriaJPane(c);
-//				Recomeca();
 				return true;
 			}
 		}
@@ -312,25 +325,23 @@ public class Tabuleiro extends Observable implements ActionListener{
 		notifyObservers();
         return false;
 	}
+	//Ilumina peça que foi selecionada
 	public void Acende(int x, int y)
 	{
 		int i=Math.floorDiv(y,alt);
 		int j=Math.floorDiv(x,larg);
-//		System.out.println(i +" "+ j);
 		tabuleiro[i][j].setSelect();
 		this.setChanged();
 		notifyObservers();
 	}
+	//Pega os possíveis movimentos da peça selecionada e preenche o vetor de possiveis movimentos
 	public void CatchPossibleMoves(int x, int y)
 	{
 		int i=Math.floorDiv(y,alt);
 		int j=Math.floorDiv(x,larg);
-//		System.out.println(i +" "+ j);
 		_possiblePositions=tabuleiro[i][j].catchMoves(x,y);
-//		System.out.println("Quantidade de posicoes possiveis antes: "+_possiblePositions.size());
-//		System.out.println("Verifica posicoes");
 		VerifyCheck(i,j,_possiblePositions);
-//		System.out.println("Quantidade de posicoes possiveis: "+_possiblePositions.size());
+		//Se movimento for possível ilumina a célula do movimento possível
 		if( _possiblePositions!=null)
 		{
 			for(int n=0;n< _possiblePositions.size();n++)
@@ -346,14 +357,12 @@ public class Tabuleiro extends Observable implements ActionListener{
 			}
 		}
 	}
-
+	//Agora pega possiveis posições em que a peça selecionada pode comer
 	public void CatchPossibleEats(int x, int y)
 	{
 		int i=Math.floorDiv(y,alt);
 		int j=Math.floorDiv(x,larg);
-//		System.out.println(i +" "+ j);
 		_possibleEats=tabuleiro[i][j].catchEats(x,y);
-//		System.out.println("Verifica eats");
 		VerifyCheck(i,j,_possibleEats);
 		if( _possibleEats!=null)
 		{
@@ -370,14 +379,10 @@ public class Tabuleiro extends Observable implements ActionListener{
 			}
 		}
 	}
-
+	//Come peça se for possível comer
 	public boolean ComePeca(int x1, int y1, int x2, int y2)
 	{
 		int i1,i2,j1,j2;
-		i1=y1/alt;
-		j1=x1/larg;
-		i2=y2/alt;
-		j2=x2/larg;
 		i1=Math.floorDiv((y1),alt);
 		j1=Math.floorDiv(x1,larg);
 		i2=Math.floorDiv((y2),alt);
@@ -397,18 +402,13 @@ public class Tabuleiro extends Observable implements ActionListener{
 			{
 				return false;
 			}
-//
-////			System.out.println(y1+ " "+i1+" "+j1);
-//
-////			System.out.println("come: " + jogador);
-//
+
 			for(int k=0;k<_possibleEats.size();k++)
 			{
 				if(_possibleEats.get(k)!=null)
 				{
 					if(_possibleEats.get(k).getX()==i2 && _possibleEats.get(k).getY()==j2)
 					{
-// 					    System.out.println("Come "+ y2+ " "+i2+" "+j2);
 						tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
 						tabuleiro[i1][j1].setPeca(null);
 						if(p0 instanceof Peao && ((i2==0 && p0.getCor()==Cor.Claro) || (i2==7 && p0.getCor()==Cor.Escuro)))
@@ -438,12 +438,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 			if(checkmate==true)
 			{
 				this.empate=VerifyEmpate(i1,j1,c);
-//				tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
-//				tabuleiro[i1][j1].setPeca(null);
 				this.setChanged();
 				notifyObservers();
-//				CriaJPane(c);
-//				Recomeca();
 				return true;
 			}
 		}
@@ -451,6 +447,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		notifyObservers();
 		return false;
 	}
+	//Faz Roque se rei não tá em xeque e se não deixar rei em xeque
 	public void FazRoque(int i1, int j1, int i2, int j2,Peca p0, Peca p)
 	{
 		if (j2 == 0 && ((i2 == 7 && p.getCor() == Cor.Claro) || (i2 == 0 && p.getCor() == Cor.Escuro)))
@@ -614,6 +611,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		tabuleiro[i][j].setPeca(null);
 		tabuleiro[i][j].setPeca(p);
 	}
+	//Funções que servem de auxílio para salvar arquivo
 	private void checkbooleanSaveOneterm(PrintWriter file,boolean x)
 	{
 		if (x)
@@ -645,6 +643,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			file.println(aux + " " +2);
 		}
 	}
+	//Função que salva arquivo -> Não colocar .txt pois ele já insere
 	public void SaveFile() throws IOException
 	{
 		/*Jogador da vez
@@ -657,7 +656,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		 * torremovEl torremov Cl
 		 * Posicao rei claro
 		 * Posicao rei escuro
-		 * [0][0] booleano se tem peça tipo da peça cor da peca
+		 * tipo da peça cor da peca
 		 * .
 		 * .
 		 * .
@@ -716,6 +715,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		file.close();
 	}
+	//Auxilio na leitura do arquivo
 	private boolean checkbooleanLoadOneterm(Scanner file)
 	{
 		int x;
@@ -726,7 +726,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		return false;
 	}
-	
+	//Carrega jogo
 	public void Load() throws FileNotFoundException 
 	{
 		JFileChooser chooser = new JFileChooser();
@@ -783,7 +783,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				default:
 					c=Cor.Claro;	
 				}
-//				System.out.println(aux+" "+aux2);
+				
 				switch(aux)
 				{
 				    case "null":
@@ -818,11 +818,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 		this.setChanged();
 		this.notifyObservers();
 	}
-	@Override
+	//Tabuleiro agindo como action listener por causa dos 2 popups (De load/save e Peao)
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-//		System.out.println("AAAAAAA "+arg0.getActionCommand());
-//		System.out.println("Ta entrando");
+		
 		if(arg0.getActionCommand()=="Load")
 		{
 			try {
@@ -872,6 +870,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		
 	}
+	//Verifica se um vetor de posicoes tem tudo null ou não pois se tiver a peca n tem movimentos
 	private boolean verifyPositions(Vector<Pair> positions)
 	{
 		for(int i=0;i<positions.size();i++)
@@ -883,6 +882,13 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		return false;
 	}
+	
+	/*Função que verifica se as posições do vetor enviado deixam o rei em xeque.
+	 * Funcionamento: Percorre todo o vetor de posições mudando temporariamente
+	 * a peça da posição i1 j1 pra essas posições.
+	 * Para cada posição alterada percorre o tabuleiro vendo se alguma pode comer o rei.
+	 * Retorna -> Se a peça analisada tem movimentos possiveis ou não
+	 * */
 	public boolean VerifyCheck(int i1,int j1,Vector<Pair> positions) //1 eh a posição q ele tá e 2 é a que ele vai
 	{
 		int ireitemp,jreitemp;
@@ -896,14 +902,21 @@ public class Tabuleiro extends Observable implements ActionListener{
 		size=positions.size();
 		ireitemp=0;
 		jreitemp=0;
+<<<<<<< HEAD
+=======
+		//percorre vetor de posições
+>>>>>>> f51fe4cd17201d7a61178bebc082e417f2ee461a
 		for(l=0;l<size;l++)
 		{
-			
 			i2=positions.get(l).getX();
 			j2=positions.get(l).getY();
 			peca2=tabuleiro[i2][j2].getPeca();
+			
+			//muda temporariamente a peça de posição
 			tabuleiro[i1][j1].setPeca(null);
 			tabuleiro[i2][j2].setPeca(peca);
+			
+			//Se peça for rei tem que mudar posição de análise do rei no xeque também
 			if(peca instanceof Rei)
 			{
 				if(peca.getCor()==Cor.Escuro)
@@ -921,20 +934,27 @@ public class Tabuleiro extends Observable implements ActionListener{
 					jReiC=j2;
 				}
 			}
+			
+			//Passa pelo tabuleiro todo vendo quais tem peca
 			for(int i=0;i<8;i++)
 			{
 				for(int j=0;j<8;j++)
 				{
-					//Passar pelo tabuleiro todo vendo quais tem peca
 					p=tabuleiro[i][j].getPeca();
 					if(p!=null)
 					{
 						if(peca.getCor()!=p.getCor())
 						{ 
 							v=p.PossibleEats((int)larg*j,(int)alt*i);
+<<<<<<< HEAD
+=======
+							//Passa pelo vetor de possível eats de cada peça
+>>>>>>> f51fe4cd17201d7a61178bebc082e417f2ee461a
 							for(k=0;k<v.size();k++)
 							{
 								Pair comidoposition=new Pair(v.elementAt(k).getX(),v.elementAt(k).getY());
+								
+								//Se a peça tiver possibilidades de comer o rei tirar essa posição dos possíveis movimentos
 								if((comidoposition.getX()==iReiC && comidoposition.getY()==jReiC) ||(comidoposition.getX()==iReiE && comidoposition.getY()==jReiE))
 								{									
 									if(indices.contains(l)==false)
@@ -967,15 +987,21 @@ public class Tabuleiro extends Observable implements ActionListener{
 		{
 			positions.setElementAt(null,indices.get(i));
 		}
+<<<<<<< HEAD
+=======
+		//Vê se tem alguma posição que a peça pode ir
+>>>>>>> f51fe4cd17201d7a61178bebc082e417f2ee461a
 		gotmoves=verifyPositions(positions);
 		return gotmoves;
 	}
+	//Recomeça o jogo
 	public void Recomeca()
 	{
 		this.inicializaTudo();
 		t.setChanged();
 		t.notifyObservers();
 	}
+	//Cria aviso de Xeque Mate ou Empate
 	protected void CriaJPane(int x,int y)
 	{
 		int i,j;
@@ -997,12 +1023,13 @@ public class Tabuleiro extends Observable implements ActionListener{
 				s="XEQUE MATE !!!\nAS PECAS CLARAS GANHARAM";
 			}
 		}
-//		System.out.println("CHECK MATEEEEEE OTARIO");
 		JOptionPane.showMessageDialog(null,
 		        s, 
 		        "Fim do Jogo", 
 		        JOptionPane.INFORMATION_MESSAGE);
 	}
+	
+	//Verifica Xeque Mate passando por todas as peças vendo se alguma delas tem movimento ou não
 	private boolean verifyCheckMate(Cor c)
 	{
 		Vector <Pair> positions;
@@ -1018,14 +1045,12 @@ public class Tabuleiro extends Observable implements ActionListener{
 							this.possiblecheckpositions=this.VerifyCheck(i, j,positions);
 							if(this.possiblecheckpositions==true)
 							{
-//								System.out.println("POSITIONS");
 								return false;
 							}
 							positions=tabuleiro[i][j].catchEats((int)larg*j,(int)alt*i);
 							this.possiblecheckeats=this.VerifyCheck(i, j, positions);
 							if(this.possiblecheckeats==true)
 							{
-//								System.out.println("EATS");
 								return false;
 							}
 					}
@@ -1034,7 +1059,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		return true;
 	}
-	
+	//Já foi verificado que não tem movimento para nenhuma peça, agora ver se não tem 
 	public boolean VerifyEmpate(int i1,int j1,Cor c)
 	{
 		for(int i=0;i<8;i++)
