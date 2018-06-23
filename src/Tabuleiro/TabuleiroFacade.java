@@ -28,7 +28,6 @@ public class TabuleiroFacade {
 	{
 		if (t.TemPeca(x, y) == false) 
 		{
-			System.out.println("nao tem peca no 1 click");
 			return;
 		}
 		else
