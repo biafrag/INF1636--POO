@@ -224,10 +224,11 @@ public class Tabuleiro extends Observable implements ActionListener{
 		i2=Math.floorDiv(y2,alt);
 		j2=Math.floorDiv(x2,larg);
 		Cor c;
-		if(tabuleiro[i1][j1].getPeca()!=null)
+		Peca p = tabuleiro[i1][j1].getPeca();
+		if(p!=null)
 		{
-			c=tabuleiro[i1][j1].getPeca().getCor();
-			//Verificação se o jogador é o jogador da vez
+			c=p.getCor();
+			//Verificação se o jogador eh o jogador da vez
 			if(jogador && c == Cor.Escuro)
 			{
 				return false;
@@ -235,10 +236,8 @@ public class Tabuleiro extends Observable implements ActionListener{
 			else if (!jogador && c == Cor.Claro)
 			{
 				return false;
-			}
-			
-			//Checa se a posição que o usuário quer mover é uma posição válida
-			Peca p = tabuleiro[i1][j1].getPeca();
+			}			
+			//Checa se a posição que o usuário quer mover é uma posição válida			
 			for(int i=0;i<_possiblePositions.size();i++)
 			{
 				if(_possiblePositions.get(i)!=null)
@@ -270,7 +269,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			//Se peça movida for o Rei atualiza a posição dele e booleano de primeiro movimento
 			if(p instanceof Rei)
 			{
-				if(p.getCor()==Cor.Escuro)
+				if(c==Cor.Escuro)
 				{
 					this.iReiE=i2;
 					this.jReiE=j2;
@@ -286,7 +285,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			//Se peca for booleano atualiza booleano de primeiro movimento
 			if (p instanceof Torre)
 			{
-				if(p.getCor()==Cor.Escuro)
+				if(c==Cor.Escuro)
 				{
 					if (i1 == 0 && j1==0)
 					{
@@ -409,9 +408,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 				{
 					if(_possibleEats.get(k).getX()==i2 && _possibleEats.get(k).getY()==j2)
 					{
-						tabuleiro[i2][j2].setPeca(tabuleiro[i1][j1].getPeca());
+						tabuleiro[i2][j2].setPeca(p0);
 						tabuleiro[i1][j1].setPeca(null);
-						if(p0 instanceof Peao && ((i2==0 && p0.getCor()==Cor.Claro) || (i2==7 && p0.getCor()==Cor.Escuro)))
+						if(p0 instanceof Peao && ((i2==0 && c==Cor.Claro) || (i2==7 && c==Cor.Escuro)))
 						{
 							peaochange=true;
 						}
@@ -427,7 +426,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 					}
 				}
 			}
-			if ((p0 instanceof Rei && p instanceof Torre) && (p0.getCor()==p.getCor()))
+			if ((p0 instanceof Rei && p instanceof Torre) && (c==p.getCor()))
 			{
 				FazRoque(i1,j1,i2,j2,p0,p);
 				this.setChanged();
@@ -874,10 +873,11 @@ public class Tabuleiro extends Observable implements ActionListener{
 		int i,j;
 		i=yPeao/alt;
 		j=xPeao/larg;
+		Peca p0 = tabuleiro[i][j].getPeca();
 		Peca p;
-		if(tabuleiro[i][j].getPeca() instanceof Peao)
+		if(p0 instanceof Peao)
 		{
-			p=new Rainha(tabuleiro[i][j].getPeca().getCor());
+			p=new Rainha(p0.getCor());
 			tabuleiro[i][j].setPeca(null);
 			tabuleiro[i][j].setPeca(p);
 		}
