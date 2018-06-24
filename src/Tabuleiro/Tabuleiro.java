@@ -909,9 +909,11 @@ public class Tabuleiro extends Observable implements ActionListener{
 		boolean gotmoves=false;
 		int i2,j2;
 		Peca p,peca,peca2;
+		Cor c;
 		Vector<Pair> v;
 		Vector<Integer> indices=new Vector<Integer>();
 		peca=tabuleiro[i1][j1].getPeca();
+		c = peca.getCor();
 		size=positions.size();
 		ireitemp=0;
 		jreitemp=0;
@@ -929,7 +931,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			//Se peça for rei tem que mudar posição de análise do rei no xeque também
 			if(peca instanceof Rei)
 			{
-				if(peca.getCor()==Cor.Escuro)
+				if(c==Cor.Escuro)
 				{
 					ireitemp=iReiE;
 					jreitemp=jReiE;
@@ -952,7 +954,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 					p=tabuleiro[i][j].getPeca();
 					if(p!=null)
 					{
-						if(peca.getCor()!=p.getCor())
+						if(c!=p.getCor())
 						{ 
 							v=p.PossibleEats((int)larg*j,(int)alt*i);
 							//Passa pelo vetor de possível eats de cada peça
@@ -977,7 +979,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 			tabuleiro[i1][j1].setPeca(peca);
 			if(peca instanceof Rei)
 			{
-				if(peca.getCor()==Cor.Escuro)
+				if(c==Cor.Escuro)
 				{
 					iReiE=ireitemp;
 					jReiE=jreitemp;
