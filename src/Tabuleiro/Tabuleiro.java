@@ -449,8 +449,9 @@ public class Tabuleiro extends Observable implements ActionListener{
 	//Faz Roque se as condicoes do roque forem satisfeitas
 	public void FazRoque(int i1, int j1, int i2, int j2,Peca p0, Peca p)
 	{
+		Cor c = p.getCor();
 		//primeiro verifica condicao: primeira jogada do rei e da torre
-		if (j2 == 0 && ((i2 == 7 && p.getCor() == Cor.Claro) || (i2 == 0 && p.getCor() == Cor.Escuro)))
+		if (j2 == 0 && ((i2 == 7 && c == Cor.Claro) || (i2 == 0 && c == Cor.Escuro)))
 		{
 			if ((reimovE == false && torremovEl == false) || (reimovC == false && torremovCl == false))
 			{
@@ -460,7 +461,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 				while (j1>j2) {						
 					if (tabuleiro[i2][j2].getPeca() != null)
 					{
-						System.out.println("tem peça no meio do roque");
 						return;
 					}
 					j2++;
@@ -469,7 +469,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 				//terceira condicao: verifica se o rei esta em cheque
 				if (VerifyCheckRoque(i1,j1))
 				{
-					System.out.println("Rei esta em xeque");
 					return;
 				}	
 				//faz o movimento do roque
@@ -486,7 +485,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 					tabuleiro[i1][j1+2].setPeca(p0);
 					tabuleiro[i2][j1+1].setPeca(null);
 					tabuleiro[i2][j2].setPeca(p);
-					System.out.println("Rei vai esta em xeque se ocorrer o roque");
 					return;
 				}		
 				//atualiza vez do jogador
@@ -500,7 +498,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 				}
 			}
 		}
-		else if (j2 == 7 && ((i2 == 7 && p.getCor() == Cor.Claro) || (i2 == 0 && p.getCor() == Cor.Escuro)))
+		else if (j2 == 7 && ((i2 == 7 && c == Cor.Claro) || (i2 == 0 && c == Cor.Escuro)))
 		{
 			if ((reimovE == false && torremovEc == false) || (reimovC == false && torremovCc == false))
 			{
@@ -510,7 +508,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 				while (j1<j2) {						
 					if (tabuleiro[i2][j2].getPeca() != null)
 					{
-						System.out.println("tem peça no meio do roque");
 						return;
 					}
 					j2--;
@@ -519,7 +516,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 				//terceira condicao: verifica se o rei esta em cheque
 				if (VerifyCheckRoque(i1,j1))
 				{
-					System.out.println("Rei esta em xeque");
 					return;
 				}	
 				//faz o movimento do roque
@@ -536,7 +532,6 @@ public class Tabuleiro extends Observable implements ActionListener{
 					tabuleiro[i1][j1-2].setPeca(p0);
 					tabuleiro[i2][j1-1].setPeca(null);
 					tabuleiro[i2][j2].setPeca(p);
-					System.out.println("Rei vai esta em xeque se ocorrer o roque");
 					return;
 				}			
 				//atualiza vez do jogador
