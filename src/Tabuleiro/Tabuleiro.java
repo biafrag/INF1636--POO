@@ -453,7 +453,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		//primeiro verifica condicao: primeira jogada do rei e da torre
 		if (j2 == 0 && ((i2 == 7 && c == Cor.Claro) || (i2 == 0 && c == Cor.Escuro)))
 		{
-			if ((reimovE == false && torremovEl == false) || (reimovC == false && torremovCl == false))
+			if ((c == Cor.Escuro && reimovE == false && torremovEl == false) || (c == Cor.Claro && reimovC == false && torremovCl == false))
 			{
 				//Roque Longo
 				j2++;
@@ -500,7 +500,7 @@ public class Tabuleiro extends Observable implements ActionListener{
 		}
 		else if (j2 == 7 && ((i2 == 7 && c == Cor.Claro) || (i2 == 0 && c == Cor.Escuro)))
 		{
-			if ((reimovE == false && torremovEc == false) || (reimovC == false && torremovCc == false))
+			if ((c == Cor.Escuro && reimovE == false && torremovEc == false) || (c == Cor.Claro && reimovC == false && torremovCc == false))
 			{
 				//Roque Curto
 				j2--;
